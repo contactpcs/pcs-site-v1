@@ -77,8 +77,8 @@ const ExpertiseSection = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-8 about-heading">About</h2>
           <div className="flex items-center justify-center gap-10 md:gap-16">
             {stats.map((stat, i) => (
-              <div key={i} className="about-stat stat-badge text-center px-8 py-4 rounded-xl border border-blue-100 bg-white shadow-sm cursor-default">
-                <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-1">
+              <div key={i} className="about-stat stat-badge text-center px-8 py-4 rounded-xl border border-[#0f72ba]/30 bg-white shadow-sm cursor-default">
+                <div className="text-3xl md:text-4xl font-bold text-[#0f72ba] mb-1">
                   {stat.number}
                 </div>
                 <p className="text-sm md:text-base text-muted-foreground font-medium">

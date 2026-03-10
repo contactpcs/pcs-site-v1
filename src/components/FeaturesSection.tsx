@@ -219,7 +219,7 @@ const FeaturesSection = () => {
                 key={i}
                 onClick={() => setCurrentServiceIndex(i)}
                 className={`w-2 h-2 rounded-full transition-all ${
-                  i === currentServiceIndex ? "bg-blue-600 w-6" : "bg-blue-300"
+                  i === currentServiceIndex ? "bg-[#0f72ba] w-6" : "bg-[#0f72ba]/40"
                 }`}
                 aria-label={`Go to service ${i + 1}`}
               />
@@ -304,7 +304,7 @@ const FeaturesSection = () => {
                 key={i}
                 onClick={() => setCurrentIndex(i)}
                 className={`w-2 h-2 rounded-full transition-all ${
-                  i === currentIndex ? "bg-blue-600 w-6" : "bg-blue-300"
+                  i === currentIndex ? "bg-[#0f72ba] w-6" : "bg-[#0f72ba]/40"
                 }`}
                 aria-label={`Go to card ${i + 1}`}
               />

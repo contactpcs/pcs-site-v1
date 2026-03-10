@@ -1,4 +1,4 @@
-import heroVideo from "@/assets/hero.mp4";
+import HeroCanvas from "./HeroCanvas";
 
 const HeroSection = () => {
   return (
@@ -39,22 +39,15 @@ const HeroSection = () => {
         }
         .stat-item:hover {
           transform: translateY(-4px);
-          color: #2563eb;
+          color: #0f72ba;
         }
       `}</style>
 
-      {/* Background video */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0"
-        src={heroVideo}
-      />
+      {/* Three.js animated background */}
+      <HeroCanvas />
 
-      {/* Dark gradient overlay */}
-      <div className="absolute inset-0 z-10 bg-gradient-to-b from-blue-950/70 via-blue-900/60 to-blue-950/80" />
+      {/* Dark overlay so text stays legible over the wave animation */}
+      <div className="absolute inset-0 z-10 bg-gradient-to-b from-[#061320]/50 via-[#081627]/35 to-[#061320]/60" />
 
       {/* Centered content */}
       <div className="relative z-20 flex-1 flex items-center justify-center pt-20">
@@ -64,18 +57,18 @@ const HeroSection = () => {
             India's Trusted IT Partner
           </div>
 
-          <h1 className="hero-title text-[clamp(2rem,5.5vw,4.5rem)] font-light tracking-tight leading-[1.08] mb-5 text-white px-2">
+          <h1 className="hero-title text-[clamp(2rem,5.5vw,4.5rem)] font-light tracking-tight leading-[1.08] mb-5 text-white px-2" style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8), 0 0 40px rgba(0,0,0,0.5)' }}>
             Scalable{" "}
-            <span className="italic bg-clip-text text-transparent bg-gradient-to-r from-blue-300 via-sky-200 to-indigo-300">
+            <span className="italic bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 via-blue-100 to-white">
               IT Solutions
             </span>
             <br />
-            <span className="italic bg-clip-text text-transparent bg-gradient-to-r from-blue-300 via-sky-200 to-indigo-300">
+            <span className="italic bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 via-blue-100 to-white">
               Delivered.
             </span>
           </h1>
 
-          <p className="hero-description text-base text-white/70 max-w-lg mx-auto mb-10 leading-relaxed">
+          <p className="hero-description text-base text-white/90 max-w-lg mx-auto mb-10 leading-relaxed" style={{ textShadow: '0 1px 10px rgba(0,0,0,0.9)' }}>
             From IT support to cloud infrastructure — we build technology that grows with your business.
           </p>
         </div>

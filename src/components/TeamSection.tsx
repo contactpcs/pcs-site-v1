@@ -21,7 +21,7 @@ const TeamSection = () => {
           transform: scale(1.04);
         }
         .dc-quote-line {
-          border-left: 3px solid #2563eb;
+          border-left: 3px solid #0f72ba;
           padding-left: 1rem;
           transition: border-color 0.3s ease;
         }
@@ -65,11 +65,11 @@ const TeamSection = () => {
         {/* RIGHT — Bio column */}
         <div className="dc-bio-wrap flex-1 bg-white flex flex-col justify-center px-8 py-10 md:px-12 md:py-14 lg:px-16 space-y-6">
           <div>
-            <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-600 border border-blue-100 mb-4">
+            <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#081627]/10 text-[#0f72ba] border border-[#0f72ba] mb-4">
               Leadership
             </span>
             <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Deepak Chandani</h3>
-            <p className="text-blue-600 font-semibold text-base">Chief Executive Officer &amp; Founder, PCS</p>
+            <p className="text-[#0f72ba] font-semibold text-base">Chief Executive Officer & Founder, PCS</p>
           </div>
 
           <div className="dc-quote-line">
@@ -92,7 +92,7 @@ const TeamSection = () => {
 
           <div className="flex flex-wrap gap-3 pt-2">
             {["Strategic Leadership","Product Engineering","Cloud Architecture","AI & Innovation","US–India Operations"].map((tag) => (
-              <span key={tag} className="px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-100">
+              <span key={tag} className="px-3 py-1 rounded-full text-xs font-medium bg-[#081627]/10 text-[#0f72ba] border border-[#0f72ba]">
                 {tag}
               </span>
             ))}

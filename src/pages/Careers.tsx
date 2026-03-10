@@ -18,7 +18,7 @@ const Careers = () => {
       <Navbar />
 
       {/* Hero */}
-      <section className="pt-32 pb-16 px-4 bg-gradient-to-br from-blue-50 via-white to-blue-50">
+      <section className="pt-32 pb-16 px-4 bg-gradient-to-br from-[#081627]/5 via-white to-[#081627]/5">
         <div className="container mx-auto max-w-3xl text-center">
           <Link to="/" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground mb-8 transition-colors">
             <ArrowLeft className="h-3.5 w-3.5" /> Back to Home
@@ -59,7 +59,7 @@ const Careers = () => {
           </div>
 
           {/* No role match */}
-          <div className="rounded-2xl bg-gradient-to-br from-blue-800 to-blue-900 text-white p-8 text-center">
+          <div className="rounded-2xl bg-gradient-to-br from-[#081627] to-[#051020] text-white p-8 text-center">
             <h3 className="text-lg font-semibold mb-2">Don't see a role that fits?</h3>
             <p className="text-sm text-white/70 mb-6 max-w-sm mx-auto">
               Send us your resume and we'll reach out when the right opportunity comes up.

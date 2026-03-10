@@ -5,7 +5,7 @@ const FooterSection = () => {
   return (
     <footer>
       {/* CTA Banner */}
-      <div className="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 py-20 px-4 text-center">
+      <div className="bg-gradient-to-br from-[#081627] via-[#0a1f2e] to-[#081627] py-20 px-4 text-center">
         <div className="container mx-auto max-w-3xl">
           <h2 className="text-3xl md:text-5xl font-semibold text-primary-foreground mb-4 leading-tight">
             Scalable IT Solutions <br />Delivered.
@@ -18,7 +18,7 @@ const FooterSection = () => {
       </div>
 
       {/* Marquee */}
-      <div className="bg-blue-950 py-3 overflow-hidden">
+      <div className="bg-[#081627] py-3 overflow-hidden">
         <div className="flex animate-marquee whitespace-nowrap">
           {[...Array(10)].map((_, i) => (
             <span key={i} className="text-white/80 text-2xl font-bold mx-8">
@@ -29,7 +29,7 @@ const FooterSection = () => {
       </div>
 
       {/* Footer links */}
-      <div className="bg-blue-950 text-white/60 py-12 px-4">
+      <div className="bg-[#081627] text-white/60 py-12 px-4">
         <style>{`
           .footer-link {
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -43,7 +43,7 @@ const FooterSection = () => {
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(90deg, #2563eb, #1d4ed8);
+            background: linear-gradient(90deg, #0f72ba, #084ba8);
             transition: width 0.3s ease;
           }
           .footer-link:hover::after {
