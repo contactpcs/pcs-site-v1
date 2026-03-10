@@ -78,7 +78,9 @@ const Navbar = () => {
         }
       `}</style>
       <div className="container mx-auto flex items-center justify-between h-20 px-4">
-        <img src={logo} alt="PCS IT Solutions" className="h-14 transition-transform hover:scale-105 duration-300" />
+        <Link to="/" aria-label="Home" className="inline-block">
+          <img src={logo} alt="PCS IT Solutions" className="h-14 transition-transform hover:scale-105 duration-300" />
+        </Link>
 
         <div className="hidden md:flex items-center gap-7">
           <a href="/" className={`${linkClass} nav-link`}>Home</a>
