@@ -95,6 +95,7 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-3">
           <Button
             size="sm"
+            onClick={() => scrollTo("contact")}
             className={`text-[13px] rounded-full px-5 font-semibold nav-button relative z-10 ${
               scrolled
                 ? "bg-primary text-white hover:bg-primary/90"
@@ -126,7 +127,7 @@ const Navbar = () => {
             </button>
           ))}
           <Link to="/careers" className="block text-sm text-foreground/70 hover:text-foreground transition-colors duration-200">Careers</Link>
-          <Button size="sm" className="w-full rounded-full mt-2">Book a Consultation</Button>
+          <Button size="sm" className="w-full rounded-full mt-2" onClick={() => scrollTo("contact")}>Book a Consultation</Button>
         </div>
       )}
     </nav>
