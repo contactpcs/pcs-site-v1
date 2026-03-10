@@ -1,4 +1,5 @@
 import dcImg from "@/assets/DC.png";
+import linkedinIcon from "@/assets/linkedin.png";
 
 const TeamSection = () => {
   return (
@@ -68,7 +69,17 @@ const TeamSection = () => {
             <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#081627]/10 text-[#0f72ba] border border-[#0f72ba] mb-4">
               Leadership
             </span>
-            <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Deepak Chandani</h3>
+            <div className="flex items-center gap-3 mb-2">
+              <h3 className="text-2xl md:text-3xl font-bold text-foreground">Deepak Chandani</h3>
+              <a
+                href="https://www.linkedin.com/in/deepakchandani"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center hover:opacity-75 transition-opacity"
+              >
+                <img src={linkedinIcon} alt="LinkedIn" className="h-6 w-6 md:h-7 md:w-7" />
+              </a>
+            </div>
             <p className="text-[#0f72ba] font-semibold text-base">Chief Executive Officer & Founder, PCS</p>
           </div>
 

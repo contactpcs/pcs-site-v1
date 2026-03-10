@@ -78,7 +78,7 @@ const HeroSection = () => {
       <div className="hero-stats relative z-20 w-full">
         <div className="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center border-t border-white/10 py-8">
           {[
-            { value: "100+", label: "Clients Served" },
+            { value: "20+", label: "Clients Served" },
             { value: "500+", label: "Projects Delivered" },
             { value: "10+", label: "Years of Experience" },
             { value: "50+", label: "Expert Professionals" },

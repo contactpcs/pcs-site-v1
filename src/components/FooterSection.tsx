@@ -20,9 +20,9 @@ const FooterSection = () => {
       {/* Marquee */}
       <div className="bg-[#081627] py-3 overflow-hidden">
         <div className="flex animate-marquee whitespace-nowrap">
-          {[...Array(10)].map((_, i) => (
-            <span key={i} className="text-white/80 text-2xl font-bold mx-8">
-              Perfect & Complete Solutions —
+          {[...Array(8)].map((_, i) => (
+            <span key={i} className="text-white/80 text-2xl font-bold mx-16">
+              Web Development &nbsp;&nbsp;•&nbsp;&nbsp; Mobile Apps &nbsp;&nbsp;•&nbsp;&nbsp; AI & Machine Learning &nbsp;&nbsp;•&nbsp;&nbsp; Cloud Infrastructure &nbsp;&nbsp;•&nbsp;&nbsp; Data Migration &nbsp;&nbsp;•&nbsp;&nbsp; Custom Software Development &nbsp;&nbsp;•&nbsp;&nbsp; Enterprise Solutions &nbsp;&nbsp;•&nbsp;&nbsp; UI/UX Design
             </span>
           ))}
         </div>

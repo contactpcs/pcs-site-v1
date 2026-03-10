@@ -8,16 +8,11 @@ const capabilities = [
 import aboutImg from "@/assets/about.jpg";
 
 const ExpertiseSection = () => {
-  const stats = [
-    { number: "5+", label: "Start-ups" },
-    { number: "15+", label: "Happy Clients" },
-  ];
-
   const sections = [
     {
       title: "Who We Are",
       content:
-        "PCS is a bay area software development company, established in Feb 2015, a profitable US entity with a subsidiary in India.\n\nCreating Value We help businesses create value across the entire product lifecycle engineering cutting-edge solutions and helping mature products evolve as relevant to digitally savvy consumers\n\nConnecting Dots Through out the ecosystem by bringing together makers and markets to create amazing products.\n\nEngineering Talent We help our clients scale their product and engineering functions rapidly leveraging talent in United States and India.",
+        "PCS is a bay area software development company, established in Feb 2015, a profitable US entity with a subsidiary in India.\n\nCreating Value We help businesses create value across the entire product lifecycle engineering cutting-edge solutions and helping mature products evolve as relevant to digitally savvy consumers\n\nConnecting Dots Through out the ecosystem by bringing together makers and markets to create amazing products.\n\nEngineering Talent We help our clients scale their product and engineering functions rapidly leveraging talent in United States and India. We serve 20+ clients globally with expert engineering teams.",
     },
   ];
 
@@ -75,18 +70,6 @@ const ExpertiseSection = () => {
       <div className="container mx-auto max-w-7xl px-4 about-section-animate">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-8 about-heading">About</h2>
-          <div className="flex items-center justify-center gap-10 md:gap-16">
-            {stats.map((stat, i) => (
-              <div key={i} className="about-stat stat-badge text-center px-8 py-4 rounded-xl border border-[#0f72ba]/30 bg-white shadow-sm cursor-default">
-                <div className="text-3xl md:text-4xl font-bold text-[#0f72ba] mb-1">
-                  {stat.number}
-                </div>
-                <p className="text-sm md:text-base text-muted-foreground font-medium">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
       {/* Two-column layout — zoom-safe, mobile-first */}
