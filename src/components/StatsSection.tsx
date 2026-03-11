@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 const BASE = "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/";
 
 const technologies = [
@@ -46,6 +48,20 @@ const technologies = [
 ];
 
 const StatsSection = () => {
+  const [showAll, setShowAll] = useState(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const VISIBLE_COUNT_MOBILE = 15; // 5 rows × 3 columns
+
+  const visibleTech = isMobile && !showAll ? technologies.slice(0, VISIBLE_COUNT_MOBILE) : technologies;
+
   return (
     <section className="py-20 px-4 bg-background">
       <div className="container mx-auto">
@@ -58,7 +74,7 @@ const StatsSection = () => {
 
         {/* Bordered grid — border-l + border-t on container, border-r + border-b on each cell */}
         <div className="border-l border-t border-border grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-          {technologies.map((tech) => (
+          {visibleTech.map((tech) => (
             <div
               key={tech.name}
               className="border-r border-b border-border flex items-center gap-3 px-4 py-4 group hover:bg-blue-50/60 transition-colors cursor-default"
@@ -80,6 +96,18 @@ const StatsSection = () => {
           ))}
         </div>
 
+        {/* Mobile-only show more */}
+          {isMobile && technologies.length > VISIBLE_COUNT_MOBILE && (
+            <div className="flex justify-center mt-4 md:hidden">
+              <button
+                onClick={() => setShowAll((s) => !s)}
+                className="text-[#0f72ba] text-sm font-medium"
+                aria-expanded={showAll}
+              >
+                {showAll ? "Show less" : "Show more"}
+              </button>
+            </div>
+          )}
       </div>
     </section>
   );
