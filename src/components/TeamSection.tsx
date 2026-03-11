@@ -56,7 +56,7 @@ const TEAM: TeamMember[] = [
     name: "Mohan Rao Appikatla",
     title: "Developer",
     role: "Full-Stack Engineer",
-    img: "https://media.licdn.com/dms/image/v2/D5603AQG3dqVU3V3iEQ/profile-displayphoto-scale_400_400/B56Zzc8FDhI0Ak-/0/1773233264550?e=1775088000&v=beta&t=hQmfN_EsIxk3TsH54rUqr2kYFh5qWzdSxwgmbLvPZMI",
+    img: "https://media.licdn.com/dms/image/v2/D5603AQEH4TuxKEM3jQ/profile-displayphoto-scale_400_400/B56ZzdVxF_HIAg-/0/1773239998806?e=1775088000&v=beta&t=eby_CP33sF_ma74OhtfodI8yIxCe53lwHVWv-j5smyc",
     linkedin: "https://www.linkedin.com/in/mohan-rao-appikatla-198375269/",
     bio: [
       "Mohan Rao is a seasoned full-stack engineer with expertise in building scalable APIs and cloud infrastructure. With a strong foundation in server-side architecture and system design, he has contributed to multiple high-performance projects across fintech and enterprise domains. Mohan excels at designing robust backend systems that power mission-critical applications.",
