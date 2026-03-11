@@ -86,7 +86,7 @@ const TEAM: TeamMember[] = [
     name: "Sneha Sanjana Avidi",
     title: "Developer",
     role: "Full-Stack Developer",
-    img: null,
+    img: "https://media.licdn.com/dms/image/v2/D5603AQH1S2bEwzG-IA/profile-displayphoto-crop_800_800/B56ZzdQzSFHwAI-/0/1773238697039?e=1775088000&v=beta&t=AMyoGMpuCs6CDsG9V9nULMO0BBO98GYfSoq1Xazapj4",
     linkedin: "https://www.linkedin.com/in/sneha-sanjana-avidi-b1462426a/",
     bio: [
       "Sneha is a versatile full-stack developer with comprehensive skills spanning frontend frameworks, backend systems, and database optimization. Her ability to seamlessly work across the stack makes her invaluable in building cohesive, end-to-end solutions. Sneha brings a problem-solving mindset and a collaborative approach to every project she undertakes.",
