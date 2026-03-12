@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import responsiveDesignImg from "@/assets/Responsive Design.jpg";
 import reactWebImg from "@/assets/React Web Development.jpg";
 import androidAppsImg from "@/assets/Android Apps Development.jpg";
@@ -39,6 +40,19 @@ const designServices = [
 ];
 
 const DesignDevelopmentSection = () => {
+  const [showAll, setShowAll] = useState(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const VISIBLE_COUNT_MOBILE = 2;
+  const visibleServices = isMobile && !showAll ? designServices.slice(0, VISIBLE_COUNT_MOBILE) : designServices;
+
   return (
     <section className="py-20 px-4 bg-secondary/30">
       <style>{`
@@ -72,7 +86,7 @@ const DesignDevelopmentSection = () => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {designServices.map((service, i) => (
+          {visibleServices.map((service, i) => (
             <div
               key={i}
               className="rounded-xl overflow-hidden border border-border bg-card hover:shadow-elevated design-card flex flex-col"
@@ -97,6 +111,19 @@ const DesignDevelopmentSection = () => {
             </div>
           ))}
         </div>
+
+        {/* Mobile-only show more button */}
+        {isMobile && designServices.length > VISIBLE_COUNT_MOBILE && (
+          <div className="flex justify-center mt-6">
+            <button
+              onClick={() => setShowAll((s) => !s)}
+              className="text-[#0f72ba] text-sm font-medium"
+              aria-expanded={showAll}
+            >
+              {showAll ? "Show less" : "Show more"}
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

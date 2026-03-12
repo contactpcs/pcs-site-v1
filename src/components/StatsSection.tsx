@@ -31,20 +31,27 @@ const technologies = [
   { name: "JUPYTER",      src: `${BASE}jupyter/jupyter-original.svg` },
   { name: "TENSORFLOW",   src: `${BASE}tensorflow/tensorflow-original.svg` },
   { name: "D3.JS",        src: `${BASE}d3js/d3js-original.svg` },
-  // Row 5 — Databases & Typed JS
+  // Row 5 — AI & ML
+  { name: "PYTORCH",      src: `${BASE}pytorch/pytorch-original.svg` },
+  { name: "PANDAS",       src: `${BASE}pandas/pandas-original.svg` },
+  { name: "NUMPY",        src: `${BASE}numpy/numpy-original.svg` },
+  { name: "KERAS",        src: `${BASE}keras/keras-original.svg` },
+  { name: "SCIKIT-LEARN", src: `${BASE}scikitlearn/scikitlearn-original.svg` },
+  { name: "APACHE SPARK", src: `${BASE}apachespark/apachespark-original.svg` },
+  // Row 6 — Databases & Typed JS
   { name: "MYSQL",        src: `${BASE}mysql/mysql-original.svg` },
   { name: "POSTGRESQL",   src: `${BASE}postgresql/postgresql-original.svg` },
   { name: "REDIS",        src: `${BASE}redis/redis-original.svg` },
   { name: "TYPESCRIPT",   src: `${BASE}typescript/typescript-original.svg` },
   { name: "JAVASCRIPT",   src: `${BASE}javascript/javascript-original.svg` },
   { name: "KUBERNETES",   src: `${BASE}kubernetes/kubernetes-plain.svg` },
-  // Row 6 — Infrastructure & Web
-  { name: "AZURE",        src: `${BASE}microsoftazure/microsoftazure-original.svg` },
+  // Row 7 — Infrastructure & Web
+  { name: "AZURE",        src: `${BASE}azure/azure-original.svg` },
   { name: "LINUX",        src: `${BASE}linux/linux-original.svg` },
   { name: "HTML5",        src: `${BASE}html5/html5-original.svg` },
   { name: "CSS3",         src: `${BASE}css3/css3-original.svg` },
   { name: "BOOTSTRAP",    src: `${BASE}bootstrap/bootstrap-original.svg` },
-  { name: "TAILWIND CSS", src: `${BASE}tailwindcss/tailwindcss-plain.svg` },
+  { name: "TAILWIND CSS", src: `${BASE}tailwindcss/tailwindcss-original.svg` },
 ];
 
 const StatsSection = () => {
