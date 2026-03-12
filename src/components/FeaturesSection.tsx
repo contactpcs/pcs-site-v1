@@ -1,316 +1,354 @@
-import swDevImg from "@/assets/Software Development.png";
-import prodEngImg from "@/assets/Product Engineering.png";
-import cloudImg from "@/assets/Cloud & Infrastructure.png";
-import enterpImg from "@/assets/Enterprise Solutions.png";
-import itConsultImg from "@/assets/IT Consulting.png";
-import supportImg from "@/assets/247 IT Support.png";
-import webdevImg from "@/assets/webdev.png";
-import devopsImg from "@/assets/devops.png";
-import mobileImg from "@/assets/mobile.png";
-import dataEngImg from "@/assets/data engineering.png";
-import aimlImg from "@/assets/aiml.png";
-import qaImg from "@/assets/quality assurance.png";
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import {
+  Brain, Database, Shield, Code2, Cloud, Smartphone,
+  Settings, BarChart3, Layers, Cpu, Network, TestTube2,
+  ArrowRight, Sparkles
+} from "lucide-react";
 
-const services = [
-  { image: webdevImg, title: "FULL STACK", desc: "We develop full-stack web applications which processed, analyzed, and rendered data visually." },
-  { image: devopsImg, title: "DEV OPS", desc: "We collaborate with the Development and Operations teams to build, test and deploy software in short, fast bursts." },
-  { image: mobileImg, title: "MOBILE", desc: "We build apps for Android and Apple's iOS Phone platforms and APIs to support mobile functionality." },
-  { image: dataEngImg, title: "DATA ENGINEER", desc: "We expertise in designing and building dimensional data models to improve accessibility, efficiency, quality of data." },
-  { image: aimlImg, title: "AI, ML & DATA SCIENCE", desc: "We have experience with Information Retrieval, Recommendation Systems or NLP to provide end-to-end ML solution." },
-  { image: qaImg, title: "QUALITY ASSURANCE", desc: "We expertise in developing test plans, test cases, assessing risk and defects managements" },
+// ── Service data ──────────────────────────────────────────────────────────────
+
+type ServiceCategory = "all" | "ai" | "data" | "security" | "engineering";
+
+interface Service {
+  icon: React.ElementType;
+  title: string;
+  desc: string;
+  category: ServiceCategory[];
+  featured?: boolean;
+  badge?: string;
+  accentColor: string;
+  bgColor: string;
+  borderColor: string;
+}
+
+const services: Service[] = [
+  {
+    icon: Brain,
+    title: "AI Solutions & Automation",
+    desc: "End-to-end AI product engineering — from LLM integration and RAG pipelines to intelligent automation, agents, and AI-powered SaaS platforms.",
+    category: ["ai"],
+    featured: true,
+    badge: "Flagship",
+    accentColor: "text-violet-600",
+    bgColor: "bg-violet-50",
+    borderColor: "border-violet-200 hover:border-violet-400",
+  },
+  {
+    icon: BarChart3,
+    title: "AI / ML & Data Science",
+    desc: "Recommendation systems, NLP, computer vision, predictive analytics, and full MLOps pipelines. From PoC to production-grade ML systems.",
+    category: ["ai", "data"],
+    featured: true,
+    badge: "High Demand",
+    accentColor: "text-blue-600",
+    bgColor: "bg-blue-50",
+    borderColor: "border-blue-200 hover:border-blue-400",
+  },
+  {
+    icon: Database,
+    title: "Data Solutions & Engineering",
+    desc: "Dimensional data modelling, ETL/ELT pipelines, data lakes, warehouses, and real-time streaming architectures for data-driven organisations.",
+    category: ["data"],
+    featured: true,
+    badge: "Core Offering",
+    accentColor: "text-cyan-700",
+    bgColor: "bg-cyan-50",
+    borderColor: "border-cyan-200 hover:border-cyan-400",
+  },
+  {
+    icon: Shield,
+    title: "Cyber Security",
+    desc: "Security audits, penetration testing, zero-trust architecture, SOC setup, compliance (ISO 27001, SOC2), and ongoing vulnerability management.",
+    category: ["security"],
+    featured: true,
+    badge: "Critical",
+    accentColor: "text-red-600",
+    bgColor: "bg-red-50",
+    borderColor: "border-red-200 hover:border-red-400",
+  },
+  {
+    icon: Code2,
+    title: "Full Stack Development",
+    desc: "Modern web applications with React, Next.js, Node.js, Python, and Java — end-to-end from architecture to deployment.",
+    category: ["engineering"],
+    accentColor: "text-indigo-600",
+    bgColor: "bg-indigo-50",
+    borderColor: "border-indigo-200 hover:border-indigo-400",
+  },
+  {
+    icon: Cloud,
+    title: "Cloud & Infrastructure",
+    desc: "Cloud migrations, multi-cloud management, Kubernetes, Terraform IaC, and cost-optimised infrastructure on AWS, Azure, and GCP.",
+    category: ["engineering", "data"],
+    accentColor: "text-sky-600",
+    bgColor: "bg-sky-50",
+    borderColor: "border-sky-200 hover:border-sky-400",
+  },
+  {
+    icon: Layers,
+    title: "Product Engineering",
+    desc: "End-to-end product design and delivery — architecture, UX, MVP builds, scale-up, and long-term engineering ownership.",
+    category: ["engineering"],
+    accentColor: "text-teal-700",
+    bgColor: "bg-teal-50",
+    borderColor: "border-teal-200 hover:border-teal-400",
+  },
+  {
+    icon: Network,
+    title: "DevOps & Platform Engineering",
+    desc: "CI/CD pipelines, GitOps, observability stacks, SRE practices, and platform standardisation for high-velocity engineering teams.",
+    category: ["engineering"],
+    accentColor: "text-emerald-700",
+    bgColor: "bg-emerald-50",
+    borderColor: "border-emerald-200 hover:border-emerald-400",
+  },
+  {
+    icon: Smartphone,
+    title: "Mobile Development",
+    desc: "Native iOS and Android apps, cross-platform solutions with React Native / Flutter, and API-first mobile backends.",
+    category: ["engineering"],
+    accentColor: "text-pink-600",
+    bgColor: "bg-pink-50",
+    borderColor: "border-pink-200 hover:border-pink-400",
+  },
+  {
+    icon: Cpu,
+    title: "Enterprise Solutions",
+    desc: "ERP, CRM and business process automation — designed for enterprise-scale efficiency and seamless integration with existing systems.",
+    category: ["engineering"],
+    accentColor: "text-orange-600",
+    bgColor: "bg-orange-50",
+    borderColor: "border-orange-200 hover:border-orange-400",
+  },
+  {
+    icon: Settings,
+    title: "IT Consulting",
+    desc: "Strategic technology advisory — architecture reviews, digital transformation roadmaps, vendor selection, and CTO-as-a-service.",
+    category: ["engineering"],
+    accentColor: "text-amber-700",
+    bgColor: "bg-amber-50",
+    borderColor: "border-amber-200 hover:border-amber-400",
+  },
+  {
+    icon: TestTube2,
+    title: "Quality Assurance",
+    desc: "Test strategy, automation frameworks (Selenium, Cypress, Playwright), performance testing, and continuous QA in your CI pipeline.",
+    category: ["engineering"],
+    accentColor: "text-lime-700",
+    bgColor: "bg-lime-50",
+    borderColor: "border-lime-200 hover:border-lime-400",
+  },
 ];
 
-const features = [
-  { image: swDevImg, title: "Software Development", desc: "Custom application development and enterprise solutions built with modern tech stacks and agile methodologies tailored to your business goals." },
-  { image: prodEngImg, title: "Product Engineering", desc: "End-to-end engineering of scalable software products — from architecture and design to deployment and support." },
-  { image: cloudImg, title: "Cloud & Infrastructure", desc: "Secure cloud migrations, infrastructure management, and optimization across AWS, Azure, and Google Cloud platforms." },
-  { image: enterpImg, title: "Enterprise Solutions", desc: "Streamline operations with ERP, CRM, and business automation systems designed for enterprise-scale efficiency." },
-  { image: itConsultImg, title: "IT Consulting", desc: "Strategic IT consulting and architecture guidance to align your technology roadmap with long-term business objectives." },
-  { image: supportImg, title: "24/7 IT Support", desc: "Round-the-clock technical support and AMC services to ensure maximum uptime and operational continuity." },
+const categories: { key: ServiceCategory; label: string }[] = [
+  { key: "all", label: "All Services" },
+  { key: "ai", label: "AI & ML" },
+  { key: "data", label: "Data" },
+  { key: "security", label: "Security" },
+  { key: "engineering", label: "Engineering" },
 ];
 
+// ── Scroll-reveal hook ────────────────────────────────────────────────────────
+function useReveal(threshold = 0.08) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) setVisible(true); },
+      { threshold }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return { ref, visible };
+}
+
+// ── Component ────────────────────────────────────────────────────────────────
 const FeaturesSection = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [currentServiceIndex, setCurrentServiceIndex] = useState(0);
-  const [animate, setAnimate] = useState(false);
-  const [animateService, setAnimateService] = useState(false);
-  const touchStartX = useRef(0);
-  const touchEndX = useRef(0);
-  const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
+  const [activeCategory, setActiveCategory] = useState<ServiceCategory>("all");
+  const headerReveal = useReveal(0.1);
+  const gridReveal = useReveal(0.05);
 
-  useEffect(() => {
-    setAnimate(true);
-    const timer = setTimeout(() => setAnimate(false), 500);
-    return () => clearTimeout(timer);
-  }, [currentIndex]);
-
-  useEffect(() => {
-    setAnimateService(true);
-    const timer = setTimeout(() => setAnimateService(false), 500);
-    return () => clearTimeout(timer);
-  }, [currentServiceIndex]);
-
-  const handlePrev = () => {
-    setCurrentIndex((prev) => (prev === 0 ? features.length - 1 : prev - 1));
-  };
-
-  const handleNext = () => {
-    setCurrentIndex((prev) => (prev === features.length - 1 ? 0 : prev + 1));
-  };
-
-  const handleServicePrev = () => {
-    setCurrentServiceIndex((prev) => (prev === 0 ? services.length - 1 : prev - 1));
-  };
-
-  const handleServiceNext = () => {
-    setCurrentServiceIndex((prev) => (prev === services.length - 1 ? 0 : prev + 1));
-  };
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.changedTouches[0].screenX;
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    touchEndX.current = e.changedTouches[0].screenX;
-    handleSwipe();
-  };
-
-  const handleSwipe = () => {
-    const distance = touchStartX.current - touchEndX.current;
-    if (Math.abs(distance) > 50) {
-      if (distance > 0) {
-        handleNext();
-      } else {
-        handlePrev();
-      }
-    }
-  };
-
-  const handleServiceTouchEnd = (e: React.TouchEvent) => {
-    touchEndX.current = e.changedTouches[0].screenX;
-    handleServiceSwipe();
-  };
-
-  const handleServiceSwipe = () => {
-    const distance = touchStartX.current - touchEndX.current;
-    if (Math.abs(distance) > 50) {
-      if (distance > 0) {
-        handleServiceNext();
-      } else {
-        handleServicePrev();
-      }
-    }
-  };
-
-  const handleWheel = (e: React.WheelEvent) => {
-    e.preventDefault();
-    
-    if (scrollTimeout.current) {
-      clearTimeout(scrollTimeout.current);
-    }
-
-    scrollTimeout.current = setTimeout(() => {
-      if (e.deltaY > 0) {
-        handleNext();
-      } else if (e.deltaY < 0) {
-        handlePrev();
-      }
-    }, 100);
-  };
-
-  const handleServiceWheel = (e: React.WheelEvent) => {
-    e.preventDefault();
-    
-    if (scrollTimeout.current) {
-      clearTimeout(scrollTimeout.current);
-    }
-
-    scrollTimeout.current = setTimeout(() => {
-      if (e.deltaY > 0) {
-        handleServiceNext();
-      } else if (e.deltaY < 0) {
-        handleServicePrev();
-      }
-    }, 100);
-  };
+  const filtered = services.filter(
+    (s) => activeCategory === "all" || s.category.includes(activeCategory)
+  );
 
   return (
-    <section id="services" className="py-20 px-4">
-      <div className="container mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <h2 className="text-3xl md:text-[2.75rem] font-semibold leading-tight mb-4">
-            Comprehensive IT Services for Every Business Need
+    <section id="services" className="py-14 px-4 bg-white">
+      <style>{`
+        @keyframes svcFadeUp {
+          from { opacity: 0; transform: translateY(28px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .svc-header-reveal {
+          opacity: 0;
+          transform: translateY(20px);
+          transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .svc-header-reveal.in-view {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .svc-card-reveal {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34,1.1,0.64,1);
+        }
+        .svc-card-reveal.in-view {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .svc-card {
+          transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease, border-color 0.25s ease;
+          border-width: 1.5px;
+        }
+        .svc-card:hover {
+          transform: translateY(-7px);
+          box-shadow: 0 20px 48px rgba(0,0,0,0.09);
+        }
+        .svc-card .svc-icon-wrap {
+          transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), background 0.3s ease;
+        }
+        .svc-card:hover .svc-icon-wrap {
+          transform: scale(1.12) rotate(-4deg);
+        }
+        .svc-card .svc-arrow {
+          opacity: 0;
+          transform: translateX(-6px);
+          transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+        .svc-card:hover .svc-arrow {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        .cat-pill {
+          transition: all 0.2s ease;
+          font-size: 0.78rem;
+          font-weight: 600;
+        }
+        .cat-pill:hover { transform: translateY(-2px); }
+        .featured-badge {
+          animation: svcFadeUp 0.5s ease both;
+        }
+      `}</style>
+
+      {/* ── Header ──────────────────────────────────────────────────── */}
+      <div
+        ref={headerReveal.ref}
+        className={`svc-header-reveal ${headerReveal.visible ? "in-view" : ""} container mx-auto max-w-7xl mb-10`}
+      >
+        <div className="text-center max-w-2xl mx-auto mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-xs text-primary mb-4">
+            <Sparkles className="h-3 w-3" />
+            What We Deliver
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-3">
+            Comprehensive IT Services<br />for Every Business Need
           </h2>
           <p className="text-sm text-muted-foreground">
-            From product engineering to enterprise automation — PCS delivers end-to-end technology solutions.
+            From AI-powered products to hardened security — PCS delivers end-to-end technology solutions that scale.
           </p>
         </div>
 
-        {/* Side by Side Carousels Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Services Carousel Container - Stacked Cards */}
-          <div>
-            <div className="flex items-center justify-center perspective">
+        {/* ── Category Filter Pills ─────────────────────────────────── */}
+        <div className="flex flex-wrap justify-center gap-2">
+          {categories.map((cat) => (
+            <button
+              key={cat.key}
+              onClick={() => setActiveCategory(cat.key)}
+              className={`cat-pill px-4 py-2 rounded-full border transition-all ${
+                activeCategory === cat.key
+                  ? "bg-primary text-white border-primary shadow-md shadow-primary/20"
+                  : "bg-white text-muted-foreground border-border hover:border-primary/40 hover:text-primary"
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Featured Row (visible on "all") ─────────────────────────── */}
+      {activeCategory === "all" && (
+        <div className="container mx-auto max-w-7xl mb-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {services.filter((s) => s.featured).map((svc, i) => (
               <div
-                onTouchStart={handleTouchStart}
-                onTouchEnd={handleServiceTouchEnd}
-                onWheel={handleServiceWheel}
-                className="w-full cursor-grab active:cursor-grabbing"
-              style={{ perspective: "1000px", height: "500px", display: "flex", alignItems: "center", justifyContent: "center" }}
-            >
-              <style>{`
-                @keyframes stackSlideIn {
-                  from {
-                    opacity: 0;
-                    transform: translateY(20px) scale(0.9) rotateX(10deg);
-                  }
-                  to {
-                    opacity: 1;
-                    transform: translateY(0) scale(1) rotateX(0deg);
-                  }
-                }
-                .stacked-card {
-                  position: absolute;
-                  width: 100%;
-                  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-                  transform-style: preserve-3d;
-                }
-                .stacked-card-base {
-                  animation: stackSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-                }
-              `}</style>
-              {services.map((service, index) => {
-                const offset = index - currentServiceIndex;
-                const isActive = offset === 0;
-                const isPrev = offset === -1;
-                const isNext = offset === 1;
-                
-                const scale = isActive ? 1 : isPrev ? 0.96 : isNext ? 0.94 : 0.85;
-                const yOffset = isActive ? 0 : isPrev ? -25 : isNext ? 25 : -50;
-                const opacity = isActive || isPrev || isNext ? 1 : 0;
-                const zIndex = services.length - Math.abs(offset);
-                
-                return (
-                  <div
-                    key={`service-stack-${index}`}
-                    className={`stacked-card rounded-2xl p-8 border bg-white text-foreground border-gray-200 shadow-lg hover:shadow-2xl ${isActive ? "stacked-card-base" : ""}`}
-                    style={{
-                      width: "100%",
-                      opacity: opacity > 0.5 ? opacity : 0,
-                      transform: `translateY(${yOffset}px) scale(${scale}) ${!isActive ? "rotateX(-5deg)" : "rotateX(0deg)"}`,
-                      zIndex: zIndex,
-                      pointerEvents: isActive ? "auto" : "none",
-                    }}
-                  >
-                    <img src={service.image} alt={service.title} className="h-20 w-20 mb-6 object-contain" />
-                    <h3 className="text-2xl font-semibold text-black mb-3">{service.title}</h3>
-                    <p className="text-base leading-relaxed text-muted-foreground">{service.desc}</p>
+                key={svc.title}
+                className={`svc-card rounded-2xl border ${svc.borderColor} bg-white p-6 flex flex-col gap-4 relative overflow-hidden`}
+                style={{ animationDelay: `${i * 0.08}s` }}
+              >
+                {/* Top glow strip */}
+                <div className={`absolute top-0 left-0 right-0 h-0.5 ${svc.accentColor.replace("text-", "bg-").replace("600", "400").replace("700", "400")}`} />
+                <div className="flex items-start justify-between">
+                  <div className={`svc-icon-wrap h-11 w-11 rounded-xl ${svc.bgColor} flex items-center justify-center`}>
+                    <svc.icon className={`h-5 w-5 ${svc.accentColor}`} />
                   </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Service Indicators */}
-          <div className="flex justify-center gap-2 mt-12">
-            {services.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrentServiceIndex(i)}
-                className={`w-2 h-2 rounded-full transition-all ${
-                  i === currentServiceIndex ? "bg-[#0f72ba] w-6" : "bg-[#0f72ba]/40"
-                }`}
-                aria-label={`Go to service ${i + 1}`}
-              />
+                  {svc.badge && (
+                    <span className={`featured-badge text-[10px] font-bold px-2.5 py-1 rounded-full ${svc.bgColor} ${svc.accentColor}`}>
+                      {svc.badge}
+                    </span>
+                  )}
+                </div>
+                <div>
+                  <h3 className="font-bold text-sm mb-1.5">{svc.title}</h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{svc.desc}</p>
+                </div>
+                <div className={`flex items-center gap-1 text-xs font-semibold ${svc.accentColor} mt-auto`}>
+                  <span>Learn more</span>
+                  <ArrowRight className="svc-arrow h-3.5 w-3.5" />
+                </div>
+              </div>
             ))}
           </div>
         </div>
+      )}
 
-        {/* Features Carousel Container - Stacked Cards */}
-        <div>
-          <div className="flex items-center justify-center perspective">
-            <div
-              onTouchStart={handleTouchStart}
-              onTouchEnd={handleTouchEnd}
-              onWheel={handleWheel}
-              className="w-full cursor-grab active:cursor-grabbing"
-              style={{ perspective: "1000px", height: "500px", display: "flex", alignItems: "center", justifyContent: "center" }}
-            >
-              <style>{`
-                @keyframes stackSlideIn {
-                  from {
-                    opacity: 0;
-                    transform: translateY(20px) scale(0.9) rotateX(10deg);
-                  }
-                  to {
-                    opacity: 1;
-                    transform: translateY(0) scale(1) rotateX(0deg);
-                  }
-                }
-                .stacked-feature-card {
-                  position: absolute;
-                  width: 100%;
-                  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-                  transform-style: preserve-3d;
-                }
-                .stacked-feature-base {
-                  animation: stackSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-                }
-                .feature-hover-gradient {
-                  background: white;
-                  transition: all 0.5s ease-out;
-                }
-                .feature-hover-gradient:hover {
-                  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(147, 51, 234, 0.05) 100%), white;
-                }
-              `}</style>
-              {features.map((feature, index) => {
-                const offset = index - currentIndex;
-                const isActive = offset === 0;
-                const isPrev = offset === -1;
-                const isNext = offset === 1;
-                
-                const scale = isActive ? 1 : isPrev ? 0.94 : isNext ? 0.90 : 0.82;
-                const yOffset = isActive ? 0 : isPrev ? -30 : isNext ? 30 : -60;
-                const opacity = isActive || isPrev || isNext ? 1 : 0;
-                const zIndex = features.length - Math.abs(offset);
-                
-                return (
-                  <div
-                    key={`feature-stack-${index}`}
-                    className={`stacked-feature-card rounded-2xl p-8 border bg-white text-foreground border-gray-200 shadow-lg hover:shadow-2xl feature-hover-gradient ${isActive ? "stacked-feature-base" : ""}`}
-                    style={{
-                      width: "100%",
-                      opacity: opacity > 0.5 ? opacity : 0,
-                      transform: `translateY(${yOffset}px) scale(${scale}) ${!isActive ? "rotateX(-5deg)" : "rotateX(0deg)"}`,
-                      zIndex: zIndex,
-                      pointerEvents: isActive ? "auto" : "none",
-                    }}
-                  >
-                    <img src={feature.image} alt={feature.title} className="h-20 w-20 mb-6 object-contain" />
-                    <h3 className="text-2xl font-semibold mb-3">{feature.title}</h3>
-                    <p className="text-base leading-relaxed text-muted-foreground">{feature.desc}</p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Feature Indicators */}
-          <div className="flex justify-center gap-2 mt-12">
-            {features.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrentIndex(i)}
-                className={`w-2 h-2 rounded-full transition-all ${
-                  i === currentIndex ? "bg-[#0f72ba] w-6" : "bg-[#0f72ba]/40"
-                }`}
-                aria-label={`Go to card ${i + 1}`}
-              />
+      {/* ── Main Services Grid ──────────────────────────────────────── */}
+      <div ref={gridReveal.ref} className="container mx-auto max-w-7xl">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {filtered
+            .filter((s) => activeCategory !== "all" || !s.featured)
+            .map((svc, i) => (
+              <div
+                key={svc.title}
+                className={`svc-card svc-card-reveal ${gridReveal.visible ? "in-view" : ""} rounded-2xl border ${svc.borderColor} bg-white p-5 flex flex-col gap-3`}
+                style={{ transitionDelay: `${i * 0.06}s` }}
+              >
+                <div className={`svc-icon-wrap h-10 w-10 rounded-xl ${svc.bgColor} flex items-center justify-center`}>
+                  <svc.icon className={`h-5 w-5 ${svc.accentColor}`} />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-sm mb-1.5">{svc.title}</h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">{svc.desc}</p>
+                </div>
+                <div className={`flex items-center gap-1 text-xs font-semibold ${svc.accentColor} mt-auto pt-1`}>
+                  <span>Learn more</span>
+                  <ArrowRight className="svc-arrow h-3 w-3" />
+                </div>
+              </div>
             ))}
-          </div>
         </div>
+
+        {/* ── Bottom CTA ────────────────────────────────────────────── */}
+        <div className="mt-12 rounded-2xl bg-gradient-to-br from-[#061320] via-[#0a1f35] to-[#061320] p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+          <div>
+            <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
+              Not sure which service fits your needs?
+            </h3>
+            <p className="text-white/60 text-sm max-w-md">
+              Book a free 30-minute consultation. Our engineers will assess your requirements and recommend the right stack.
+            </p>
+          </div>
+          <button
+            onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+            className="flex-shrink-0 flex items-center gap-2 px-7 py-3 rounded-full bg-primary text-white font-semibold text-sm hover:bg-primary/90 hover:scale-105 transition-all shadow-lg shadow-primary/20"
+          >
+            Book a Free Consultation
+            <ArrowRight className="h-4 w-4" />
+          </button>
         </div>
       </div>
     </section>

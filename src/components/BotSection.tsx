@@ -1,54 +1,71 @@
-import { Zap, Briefcase, TrendingUp, ShieldCheck, Users, UserCheck, Award, Clock, UserPlus, Globe } from "lucide-react";
+import { useState } from "react";
+import { Zap, Briefcase, TrendingUp, ShieldCheck, Users, UserCheck, Award, Clock, UserPlus, Globe, Building2, Layers, BarChart3, Repeat } from "lucide-react";
 
 const painPoints = [
   {
     icon: Zap,
     title: "Are you getting the right talent?",
-    desc: "I am very busy with Funding, Product Market Fitment, Engineering, Sales and Expansion. Getting right talent, focus and scale is often second priority because of time constraints.",
+    desc: "Funding, PMF, Engineering, Sales — getting the right talent is often second priority because of time constraints.",
   },
   {
     icon: Briefcase,
-    title: "Do you currently have capacity constraints?",
-    desc: "There are often many pending feature backlogs that, if completed, would have helped the company grow further.",
+    title: "Do you have capacity constraints?",
+    desc: "Pending feature backlogs that, if completed, would have meaningfully helped the company grow.",
   },
   {
     icon: TrendingUp,
-    title: "Is your spending optimized and are you ready to scale up?",
-    desc: "I have not given enough attention to optimised and lowering costs.",
+    title: "Is your spending optimized?",
+    desc: "Costs haven't received enough attention for optimisation and reduction.",
   },
   {
     icon: ShieldCheck,
-    title: "Concerned about losing control and security if you engage outside?",
-    desc: "There is always a question on IP leakage, security, compliances — and you may lose control.",
+    title: "Concerned about security and control?",
+    desc: "Questions on IP leakage, security, compliance — and the risk of losing control.",
   },
 ];
 
-const phases = [
-  {
-    phase: "Phase 1",
+type PhaseKey = "build" | "operate" | "transfer";
+
+const phaseData: Record<PhaseKey, {
+  label: string;
+  tagline: string;
+  items: { icon: React.ElementType; title: string; desc: string }[];
+  highlight: string;
+}> = {
+  build: {
     label: "Build",
+    tagline: "We lay every foundation — legal, structural, and operational — so you can hit the ground running.",
     items: [
-      { title: "Biz Formation", desc: "We take care of all paperwork, statutory checks and transparently share every detail with you." },
-      { title: "Equity Split", desc: "Us 25% · You 75% — we are partners with skin in the game." },
+      { icon: Building2, title: "Business Entity Formation", desc: "We handle all paperwork, statutory checks and transparently share every detail with you." },
+      { icon: Layers, title: "Equity: Us 25% — You 75%", desc: "We are partners with skin in the game. Your majority stake drives alignment and trust." },
+      { icon: Users, title: "Initial Office Setup & Infra", desc: "Physical and digital workspace configured — ready for your first hires on day one." },
+      { icon: Globe, title: "Legal / HR / Finance Policies", desc: "India-compliant HR frameworks, statutory registrations, and finance policies put in place." },
     ],
+    highlight: "Turn-key setup in as fast as 3 months",
   },
-  {
-    phase: "Phase 2",
+  operate: {
     label: "Operate",
+    tagline: "We run the day-to-day operations — talent, governance, delivery — while you focus on growth.",
     items: [
-      { title: "Talent Pool", desc: "Recruitment and Workforce Management powered by our vast India network." },
-      { title: "Operations", desc: "Run in steady and stealth mode until you are ready to take the wheel." },
+      { icon: Users, title: "Vast Talent Pool", desc: "Access to pre-vetted engineers across all modern technology stacks via direct hiring channels." },
+      { icon: BarChart3, title: "Trusted Project Governance", desc: "Agile delivery models with clear KPIs, sprint reviews, and real-time transparency." },
+      { icon: Repeat, title: "Engineering & Product Mindset", desc: "We think like product teams, not just service providers — outcomes over outputs." },
+      { icon: Clock, title: "Steady Stealth Operations", desc: "Operate seamlessly without disruption to your existing teams or processes." },
     ],
+    highlight: "Fully operational captive unit within 6–12 months",
   },
-  {
-    phase: "Phase 3",
+  transfer: {
     label: "Transfer",
+    tagline: "When you're ready, we hand over a fully functional, scaled organisation — completely yours.",
     items: [
-      { title: "Scale Up", desc: "Scale up infra, talent and projects as your business demands." },
-      { title: "Scale Out", desc: "Expand services and locations — turn-key in as fast as 2 years." },
+      { icon: TrendingUp, title: "Scale Up", desc: "Expand infra, talent headcount and project throughput to match your growth velocity." },
+      { icon: Globe, title: "Scale Out", desc: "Extend to new service lines and locations — a blueprint for geographic expansion." },
+      { icon: UserCheck, title: "Knowledge Transfer", desc: "Structured knowledge handover: docs, processes, runbooks, and team introductions." },
+      { icon: Building2, title: "Full Ownership", desc: "100% equity and operational control transferred — your India captive, fully yours." },
     ],
+    highlight: "Full turn-key transfer in 18–24 months",
   },
-];
+};
 
 const buildItems = [
   "Formation of Biz Entity in India",
@@ -67,60 +84,38 @@ const runItems = [
 const keyBenefits = [
   "India has an amazingly large talent pool — we help you secure and operate it.",
   "Set up operations and run in all aspects until you wish to take 100% control.",
-  "India's statutory laws require high touchpoints. We manage all that complexity for you.",
+  "India's statutory laws require high touchpoints. We manage all complexity for you.",
   "Scale fast with numbers and throughput backed by an experienced execution team.",
   "Not just an outsourcing partner — we are your engineering back-office.",
-  "We have skin in the game for your success, benefiting only when you see positive outcomes.",
+  "We have skin in the game for your success — we benefit when you do.",
 ];
 
 const requirements = [
-  {
-    icon: Users,
-    title: "Resource Ramp Up Plan",
-    desc: "We need to know what engineers will work on, how many and when.",
-    color: "bg-blue-500/10 text-blue-400",
-  },
-  {
-    icon: UserCheck,
-    title: "Talent Acquisition Support",
-    desc: "In Year 1, last 1–2 rounds done by your staff; Year 2 fully from India.",
-    color: "bg-cyan-500/10 text-cyan-400",
-  },
-  {
-    icon: Award,
-    title: "Knowledge Ramp Up Plan",
-    desc: "Some people travel to India (reverse osmosis); some travel to HQ (osmosis).",
-    color: "bg-purple-500/10 text-purple-400",
-  },
-  {
-    icon: Clock,
-    title: "Retrospection Sessions",
-    desc: "Forward-looking 2-Qtr plan + monthly retrospection on what went right / wrong.",
-    color: "bg-indigo-500/10 text-indigo-400",
-  },
-  {
-    icon: UserPlus,
-    title: "Agreed Engineering Operating Model",
-    desc: "You decide reporting structure, hierarchy, escalation — we provide the options.",
-    color: "bg-sky-500/10 text-sky-400",
-  },
-  {
-    icon: Globe,
-    title: "Sound Financial Operations",
-    desc: "4 months advanced payments for agreed projections. Adjustments reviewed monthly.",
-    color: "bg-teal-500/10 text-teal-400",
-  },
+  { icon: Users, title: "Resource Ramp Up Plan", desc: "We need to know what engineers will work on, how many and when.", color: "bg-blue-500/10 text-blue-500" },
+  { icon: UserCheck, title: "Talent Acquisition Support", desc: "In Year 1, last 1–2 rounds done by your staff; Year 2 fully from India.", color: "bg-cyan-500/10 text-cyan-600" },
+  { icon: Award, title: "Knowledge Ramp Up Plan", desc: "Some people travel to India (reverse osmosis); some travel to HQ (osmosis).", color: "bg-violet-500/10 text-violet-600" },
+  { icon: Clock, title: "Retrospection Sessions", desc: "Forward-looking 2-Qtr plan + monthly retrospection on what went right / wrong.", color: "bg-indigo-500/10 text-indigo-600" },
+  { icon: UserPlus, title: "Agreed Engineering Model", desc: "You decide reporting structure, hierarchy, escalation — we provide options.", color: "bg-sky-500/10 text-sky-600" },
+  { icon: BarChart3, title: "Sound Financial Operations", desc: "4 months advanced payments for agreed projections. Adjustments reviewed monthly.", color: "bg-teal-500/10 text-teal-600" },
 ];
 
 const BotSection = () => {
+  const [activePhase, setActivePhase] = useState<PhaseKey>("build");
+  const phase = phaseData[activePhase];
+
   return (
     <section id="bot" className="bg-background">
       <style>{`
         @keyframes botFadeUp {
-          from { opacity: 0; transform: translateY(28px); }
+          from { opacity: 0; transform: translateY(24px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes phaseContentIn {
+          from { opacity: 0; transform: translateY(16px); }
           to { opacity: 1; transform: translateY(0); }
         }
         .bot-animate { animation: botFadeUp 0.7s ease both; }
+        .phase-content { animation: phaseContentIn 0.4s ease both; }
         .bot-card {
           transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
         }
@@ -128,29 +123,49 @@ const BotSection = () => {
           transform: translateY(-6px);
           box-shadow: 0 16px 40px rgba(15,114,186,0.15);
         }
-        .phase-card {
-          transition: all 0.3s ease;
+        .phase-tab {
+          position: relative;
+          transition: all 0.25s ease;
+          font-weight: 600;
+          letter-spacing: 0.06em;
+          font-size: 0.85rem;
+          text-transform: uppercase;
         }
-        .phase-card:hover {
-          border-color: rgba(15,114,186,0.5);
+        .phase-tab::after {
+          content: '';
+          position: absolute;
+          bottom: -1px;
+          left: 0;
+          right: 0;
+          height: 3px;
+          background: linear-gradient(90deg, #0f72ba, #3b82f6);
+          transform: scaleX(0);
+          transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+          border-radius: 2px;
         }
-        .req-card {
-          transition: all 0.3s ease;
+        .phase-tab.active::after { transform: scaleX(1); }
+        .phase-item-card {
+          transition: all 0.25s ease;
         }
-        .req-card:hover {
+        .phase-item-card:hover {
           background: rgba(15,114,186,0.06);
+          border-color: rgba(15,114,186,0.3);
           transform: translateX(4px);
+        }
+        .req-card { transition: all 0.25s ease; }
+        .req-card:hover {
+          background: rgba(15,114,186,0.04);
+          transform: translateX(4px);
+          border-color: rgba(15,114,186,0.25);
         }
       `}</style>
 
-      {/* ── Hero Banner ───────────────────────────────────────────────── */}
-      <div className="relative bg-gradient-to-br from-[#061320] via-[#081a2e] to-[#061320] py-20 px-4 text-center overflow-hidden">
-        {/* Decorative glow blobs */}
+      {/* ── Hero Banner ─────────────────────────────────────────────── */}
+      <div className="relative bg-gradient-to-br from-[#061320] via-[#081a2e] to-[#061320] py-16 px-4 text-center overflow-hidden">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-cyan-500/8 rounded-full blur-3xl pointer-events-none" />
-
         <div className="relative z-10 container mx-auto max-w-3xl bot-animate">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-blue-400/30 bg-blue-400/10 text-xs text-blue-300 mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-blue-400/30 bg-blue-400/10 text-xs text-blue-300 mb-5">
             <span className="h-1.5 w-1.5 rounded-full bg-blue-300 animate-pulse" />
             Build · Operate · Transfer
           </div>
@@ -161,31 +176,24 @@ const BotSection = () => {
             </span>
           </h2>
           <p className="text-white/70 text-base md:text-lg max-w-xl mx-auto">
-            We help you set up your India captive unit with ease — Build, Operate, and Transfer on your timeline.
+            We help you set up your India captive unit — Build, Operate, and Transfer on your timeline.
           </p>
         </div>
       </div>
 
-      {/* ── Pain Points ───────────────────────────────────────────────── */}
-      <div className="py-20 px-4">
+      {/* ── Pain Points ─────────────────────────────────────────────── */}
+      <div className="py-14 px-4">
         <div className="container mx-auto max-w-7xl">
-          <div className="text-center mb-12">
-            <h3 className="text-2xl md:text-3xl font-semibold mb-3">
-              Do any of these sound familiar?
-            </h3>
+          <div className="text-center mb-10">
+            <h3 className="text-2xl md:text-3xl font-semibold mb-2">Do any of these sound familiar?</h3>
             <p className="text-sm text-muted-foreground max-w-md mx-auto">
-              If you're a Founder or Executive and answered yes to any of the below — we can help.
+              If you're a Founder or Executive and answered yes — we can help.
             </p>
           </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {painPoints.map((pt, i) => (
-              <div
-                key={i}
-                className="bot-card rounded-2xl border border-border bg-card p-6 flex flex-col gap-4"
-                style={{ animationDelay: `${i * 0.1}s` }}
-              >
-                <div className="h-11 w-11 rounded-xl bg-primary/10 flex items-center justify-center">
+              <div key={i} className="bot-card rounded-2xl border border-border bg-card p-6 flex flex-col gap-3">
+                <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center">
                   <pt.icon className="h-5 w-5 text-primary" />
                 </div>
                 <h4 className="font-semibold text-sm leading-snug">{pt.title}</h4>
@@ -193,9 +201,8 @@ const BotSection = () => {
               </div>
             ))}
           </div>
-
-          <p className="text-center mt-8 text-sm text-muted-foreground">
-            Feel free to reach us at{" "}
+          <p className="text-center mt-7 text-sm text-muted-foreground">
+            Reach us at{" "}
             <a href="mailto:anu@perfect108.com" className="text-primary hover:underline font-medium">
               anu@perfect108.com
             </a>
@@ -203,93 +210,146 @@ const BotSection = () => {
         </div>
       </div>
 
-      {/* ── Three-Phase Model ─────────────────────────────────────────── */}
-      <div className="bg-slate-900 py-20 px-4">
+      {/* ── Interactive Phases ──────────────────────────────────────── */}
+      <div className="bg-slate-900 py-14 px-4">
         <div className="container mx-auto max-w-7xl">
-          <div className="text-center mb-14">
-            <h3 className="text-2xl md:text-3xl font-semibold text-white mb-3">
+          <div className="text-center mb-10">
+            <h3 className="text-2xl md:text-3xl font-semibold text-white mb-2">
               Partners with skin in the game
             </h3>
-            <p className="text-white/60 text-sm max-w-lg mx-auto">
-              A unique operating model that helps you set up your captive in India without the expanding pains.
+            <p className="text-white/55 text-sm max-w-lg mx-auto">
+              A unique operating model that helps you set up your captive in India without the pain.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {phases.map((p, pi) => (
-              <div
-                key={pi}
-                className="phase-card rounded-2xl border border-white/10 bg-white/5 p-7 flex flex-col gap-5"
+          {/* Tab Row */}
+          <div className="flex border-b border-white/15 mb-8 gap-0">
+            {(["build", "operate", "transfer"] as PhaseKey[]).map((key) => (
+              <button
+                key={key}
+                onClick={() => setActivePhase(key)}
+                className={`phase-tab flex-1 pb-4 pt-2 transition-colors ${
+                  activePhase === key
+                    ? "active text-white"
+                    : "text-white/40 hover:text-white/70"
+                }`}
               >
-                <div>
-                  <span className="text-xs font-semibold text-blue-400 uppercase tracking-widest">{p.phase}</span>
-                  <h4 className="text-xl font-bold text-white mt-1">{p.label}</h4>
-                  <div className="h-px w-12 bg-gradient-to-r from-blue-500 to-transparent mt-3" />
+                {phaseData[key].label}
+              </button>
+            ))}
+          </div>
+
+          {/* Tab Content */}
+          <div key={activePhase} className="phase-content">
+            <div className="grid md:grid-cols-2 gap-8 items-start">
+              {/* Left: tagline + items */}
+              <div>
+                <div className="mb-6">
+                  <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/15 text-blue-300 mb-3 uppercase tracking-widest">
+                    {phase.label}
+                  </span>
+                  <p className="text-white/75 text-sm leading-relaxed">{phase.tagline}</p>
                 </div>
-                <div className="flex flex-col gap-4">
-                  {p.items.map((item, ii) => (
-                    <div key={ii} className="bg-white/5 rounded-xl p-4 border border-white/8">
-                      <p className="font-semibold text-white text-sm mb-1">{item.title}</p>
-                      <p className="text-xs text-white/60 leading-relaxed">{item.desc}</p>
+                <div className="flex flex-col gap-3">
+                  {phase.items.map((item, i) => (
+                    <div
+                      key={i}
+                      className="phase-item-card flex gap-4 rounded-xl border border-white/10 bg-white/5 p-4"
+                    >
+                      <div className="h-9 w-9 rounded-lg bg-blue-500/15 flex items-center justify-center flex-shrink-0">
+                        <item.icon className="h-4 w-4 text-blue-400" />
+                      </div>
+                      <div>
+                        <p className="font-semibold text-white text-sm mb-0.5">{item.title}</p>
+                        <p className="text-xs text-white/55 leading-relaxed">{item.desc}</p>
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
-            ))}
+
+              {/* Right: highlight card + progress indicator */}
+              <div className="flex flex-col gap-5">
+                <div className="rounded-2xl bg-gradient-to-br from-blue-600/25 to-blue-800/10 border border-blue-500/20 p-8 text-center">
+                  <div className="text-4xl font-bold text-white mb-2">
+                    {activePhase === "build" ? "3 mo" : activePhase === "operate" ? "12 mo" : "24 mo"}
+                  </div>
+                  <p className="text-white/60 text-xs uppercase tracking-widest">{phase.highlight}</p>
+                </div>
+
+                {/* Phase progress steps */}
+                <div className="flex gap-3 items-center justify-center">
+                  {(["build", "operate", "transfer"] as PhaseKey[]).map((key, i) => {
+                    const isActive = key === activePhase;
+                    const isPast = ["build", "operate", "transfer"].indexOf(activePhase) > i;
+                    return (
+                      <div key={key} className="flex items-center gap-3">
+                        <button
+                          onClick={() => setActivePhase(key)}
+                          className={`h-9 w-9 rounded-full border-2 flex items-center justify-center text-xs font-bold transition-all duration-300 ${
+                            isActive
+                              ? "border-blue-400 bg-blue-500 text-white scale-110"
+                              : isPast
+                              ? "border-blue-600 bg-blue-600/30 text-blue-300"
+                              : "border-white/20 bg-white/5 text-white/30"
+                          }`}
+                        >
+                          {i + 1}
+                        </button>
+                        {i < 2 && (
+                          <div className={`h-px w-10 transition-colors duration-500 ${isPast || isActive ? "bg-blue-500/60" : "bg-white/15"}`} />
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+                <p className="text-center text-white/40 text-xs">
+                  Click each phase to explore what's included
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* ── How We Do It ─────────────────────────────────────────────── */}
-      <div className="py-20 px-4">
+      {/* ── How We Do It ────────────────────────────────────────────── */}
+      <div className="py-14 px-4">
         <div className="container mx-auto max-w-7xl">
-          <div className="text-center mb-14">
-            <h3 className="text-2xl md:text-3xl font-semibold mb-3">
-              How we do it — What you get
-            </h3>
+          <div className="text-center mb-12">
+            <h3 className="text-2xl md:text-3xl font-semibold mb-2">How we do it — What you get</h3>
             <p className="text-sm text-muted-foreground max-w-lg mx-auto">
               Scale in India, scale with us. We build your captive organisation and operate it till you want to manage it.
             </p>
           </div>
-
           <div className="grid md:grid-cols-2 gap-10 items-start">
-            {/* Build + Run grid */}
-            <div className="space-y-8">
+            <div className="space-y-7">
               <div>
-                <h4 className="text-base font-semibold mb-4 flex items-center gap-2">
-                  <span className="h-6 w-1 rounded-full bg-primary" />
+                <h4 className="text-base font-semibold mb-3 flex items-center gap-2">
+                  <span className="h-5 w-1 rounded-full bg-primary" />
                   Build
                 </h4>
                 <div className="grid grid-cols-2 gap-3">
                   {buildItems.map((item, i) => (
-                    <div
-                      key={i}
-                      className="rounded-xl border border-border bg-secondary/40 px-4 py-3 text-xs font-medium leading-snug hover:border-primary/40 hover:bg-primary/5 transition-colors"
-                    >
+                    <div key={i} className="rounded-xl border border-border bg-secondary/40 px-4 py-3 text-xs font-medium leading-snug hover:border-primary/40 hover:bg-primary/5 transition-colors">
                       {item}
                     </div>
                   ))}
                 </div>
               </div>
               <div>
-                <h4 className="text-base font-semibold mb-4 flex items-center gap-2">
-                  <span className="h-6 w-1 rounded-full bg-cyan-500" />
+                <h4 className="text-base font-semibold mb-3 flex items-center gap-2">
+                  <span className="h-5 w-1 rounded-full bg-cyan-500" />
                   Run
                 </h4>
                 <div className="grid grid-cols-2 gap-3">
                   {runItems.map((item, i) => (
-                    <div
-                      key={i}
-                      className="rounded-xl border border-border bg-secondary/40 px-4 py-3 text-xs font-medium leading-snug hover:border-cyan-500/40 hover:bg-cyan-500/5 transition-colors"
-                    >
+                    <div key={i} className="rounded-xl border border-border bg-secondary/40 px-4 py-3 text-xs font-medium leading-snug hover:border-cyan-500/40 hover:bg-cyan-500/5 transition-colors">
                       {item}
                     </div>
                   ))}
                 </div>
               </div>
             </div>
-
-            {/* Key benefits */}
             <ul className="space-y-3">
               {keyBenefits.map((benefit, i) => (
                 <li key={i} className="flex items-start gap-3">
@@ -302,22 +362,18 @@ const BotSection = () => {
         </div>
       </div>
 
-      {/* ── What We Need ─────────────────────────────────────────────── */}
-      <div className="bg-slate-950/50 py-20 px-4">
+      {/* ── What We Need ────────────────────────────────────────────── */}
+      <div className="bg-slate-50/70 py-14 px-4">
         <div className="container mx-auto max-w-7xl">
-          <div className="text-center mb-12">
-            <h3 className="text-2xl md:text-3xl font-semibold mb-3">What we need from you</h3>
+          <div className="text-center mb-10">
+            <h3 className="text-2xl md:text-3xl font-semibold mb-2">What we need from you</h3>
             <p className="text-sm text-muted-foreground max-w-md mx-auto">
               You get a turn-key operation in as fast as 2 years.
             </p>
           </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {requirements.map((req, i) => (
-              <div
-                key={i}
-                className="req-card rounded-2xl border border-border bg-card p-6 flex gap-4"
-              >
+              <div key={i} className="req-card rounded-2xl border border-border bg-white p-5 flex gap-4">
                 <div className={`h-10 w-10 rounded-xl flex items-center justify-center flex-shrink-0 ${req.color}`}>
                   <req.icon className="h-5 w-5" />
                 </div>
