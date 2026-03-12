@@ -10,6 +10,7 @@ import WorkflowSection from "@/components/WorkflowSection";
 import FAQSection from "@/components/FAQSection";
 import ContactSection from "@/components/ContactSection";
 import FooterSection from "@/components/FooterSection";
+import BotSection from "@/components/BotSection";
 
 const Index = () => {
   return (
@@ -19,6 +20,7 @@ const Index = () => {
       <ExpertiseSection />
       <FeaturesSection />
       <DesignDevelopmentSection />
+      <BotSection />
       <TeamSection />
       <StatsSection />
       <TrustedBySection />

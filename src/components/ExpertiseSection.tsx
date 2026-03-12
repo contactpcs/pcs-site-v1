@@ -1,21 +1,71 @@
-const capabilities = [
-  "Custom Software Development & Product Engineering",
-  "Cloud Infrastructure & DevOps (AWS, Azure, GCP)",
-  "Enterprise Solutions — ERP, CRM & Automation",
-  "24/7 IT Support & Managed Services",
-];
+import { Settings, Mail, Grid, Info, MousePointer, Bell, Zap, Clock, Target, Globe } from "lucide-react";
 
 import aboutImg from "@/assets/about.jpg";
 
-const ExpertiseSection = () => {
-  const sections = [
-    {
-      title: "Who We Are",
-      content:
-        "PCS is a bay area software development company, established in Feb 2015, a profitable US entity with a subsidiary in India.\n\nCreating Value We help businesses create value across the entire product lifecycle engineering cutting-edge solutions and helping mature products evolve as relevant to digitally savvy consumers\n\nConnecting Dots Through out the ecosystem by bringing together makers and markets to create amazing products.\n\nEngineering Talent We help our clients scale their product and engineering functions rapidly leveraging talent in United States and India. We serve 20+ clients globally with expert engineering teams.",
-    },
-  ];
+const whoWeAreContent =
+  "PCS is a bay area software development company, established in Feb 2015, a profitable US entity with a subsidiary in India.\n\nCreating Value We help businesses create value across the entire product lifecycle engineering cutting-edge solutions and helping mature products evolve as relevant to digitally savvy consumers\n\nConnecting Dots Throughout the ecosystem by bringing together makers and markets to create amazing products.\n\nEngineering Talent We help our clients scale their product and engineering functions rapidly leveraging talent in United States and India. We serve 20+ clients globally with expert engineering teams.";
 
+const functionsList = [
+  { icon: Settings, label: "Competent Employees" },
+  { icon: Mail, label: "Warm Customer Approach" },
+  { icon: Grid, label: "We Recommend Best Practices" },
+  { icon: Globe, label: "Global Connection" },
+  { icon: MousePointer, label: "Successful Track Record" },
+  { icon: Bell, label: "Open To Opportunities" },
+];
+
+const historyCards = [
+  {
+    title: "Our History",
+    desc: "Over 6+ years in product and software development, building 15+ high-impact business solutions with faster time to market.",
+    icon: Clock,
+  },
+  {
+    title: "Our Goal",
+    desc: "We want to be your preferred partner for your product development.",
+    icon: Target,
+  },
+  {
+    title: "Who We Are",
+    desc: "We are a team of experienced people who want to help our customers develop products that bring benefits and change for the good of society.",
+    icon: Info,
+  },
+];
+
+const values = [
+  {
+    title: "Faster Time to Market",
+    desc: "Go to market faster with swift ramp-ups. Top-notch talent in emerging and niche technology areas through direct hiring channels.",
+    gradient: "from-blue-600/20 to-blue-500/5",
+    badge: "bg-blue-500/10 text-blue-400",
+  },
+  {
+    title: "Niche Technologies",
+    desc: "Business-centric solutions for IoT, Data Science, Mobile, and Cloud.",
+    gradient: "from-cyan-600/20 to-cyan-500/5",
+    badge: "bg-cyan-500/10 text-cyan-400",
+  },
+  {
+    title: "E2E Execution",
+    desc: "Managed services with end-to-end execution of projects.",
+    gradient: "from-purple-600/20 to-purple-500/5",
+    badge: "bg-purple-500/10 text-purple-400",
+  },
+  {
+    title: "Flexible Engagements",
+    desc: "Engagement models suitable for a wide variety of organisational requirements.",
+    gradient: "from-indigo-600/20 to-indigo-500/5",
+    badge: "bg-indigo-500/10 text-indigo-400",
+  },
+  {
+    title: "Right Location",
+    desc: "Complement existing teams in Europe to scale rapidly with a follow-the-sun approach and cost advantage.",
+    gradient: "from-sky-600/20 to-sky-500/5",
+    badge: "bg-sky-500/10 text-sky-400",
+  },
+];
+
+const ExpertiseSection = () => {
   return (
     <section id="about" className="py-20">
       <style>{`
@@ -66,53 +116,144 @@ const ExpertiseSection = () => {
         }
         .stat-badge:hover::after { opacity: 1; }
         .stat-badge:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(37,99,235,0.18); }
+        .fn-chip {
+          transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1);
+        }
+        .fn-chip:hover {
+          transform: translateY(-3px);
+          border-color: rgba(15,114,186,0.5);
+          background: rgba(15,114,186,0.08);
+        }
+        .value-card {
+          transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
+        }
+        .value-card:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 16px 40px rgba(15,114,186,0.12);
+        }
+        .history-card {
+          transition: all 0.3s ease;
+        }
+        .history-card:hover {
+          border-color: rgba(15,114,186,0.4);
+          background: rgba(15,114,186,0.04);
+        }
       `}</style>
+
+      {/* ── Section Header ─────────────────────────────────────────── */}
       <div className="container mx-auto max-w-7xl px-4 about-section-animate">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-8 about-heading">About</h2>
         </div>
       </div>
-      {/* Two-column layout — zoom-safe, mobile-first */}
-      <div className="about-card-wrap flex flex-col md:flex-row w-full group">
 
-        {/* LEFT — image column (~55% on desktop, full width on mobile) */}
+      {/* ── Who We Are — two-column image + text ───────────────────── */}
+      <div className="about-card-wrap flex flex-col md:flex-row w-full group">
+        {/* LEFT — image */}
         <div className="relative overflow-hidden flex-none w-full md:w-3/5 lg:w-7/12 h-60 md:h-auto">
           <img
             src={aboutImg}
             alt="PCS IT Solutions"
             className="about-img-hover w-full h-full object-cover"
           />
-          {/* Blend right-edge into dark text column — desktop only */}
           <div
             className="absolute inset-0 hidden md:block pointer-events-none"
             style={{ background: "linear-gradient(to right, transparent 55%, rgba(15,23,42,0.98) 100%)" }}
           />
-          {/* Blend bottom into dark panel for mobile stacking */}
           <div
             className="absolute inset-0 block md:hidden pointer-events-none"
             style={{ background: "linear-gradient(to bottom, transparent 45%, rgba(15,23,42,0.97) 100%)" }}
           />
-          {/* Blue shimmer on hover */}
           <div
             className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
             style={{ background: "linear-gradient(135deg, transparent 50%, rgba(37,99,235,0.12) 100%)" }}
           />
         </div>
 
-        {/* RIGHT — text column with dark background */}
+        {/* RIGHT — text */}
         <div className="flex-1 bg-slate-900 flex flex-col justify-center px-8 py-10 md:px-12 md:py-14">
           <h3 className="text-2xl md:text-3xl font-semibold mb-6 text-white tracking-tight">
             Who We Are
           </h3>
-          {sections[0].content.split("\n\n").map((para, i) => (
+          {whoWeAreContent.split("\n\n").map((para, i) => (
             <div key={i} className="about-text-line mb-0">
-              <p className="text-sm md:text-base text-slate-200 leading-relaxed">
-                {para}
-              </p>
+              <p className="text-sm md:text-base text-slate-200 leading-relaxed">{para}</p>
             </div>
           ))}
         </div>
+      </div>
 
+      {/* ── Functions ─────────────────────────────────────────────── */}
+      <div className="py-20 px-4 bg-slate-950/30">
+        <div className="container mx-auto max-w-7xl">
+          <div className="text-center mb-12">
+            <h3 className="text-2xl md:text-3xl font-semibold mb-3">Functions</h3>
+            <p className="text-sm text-muted-foreground max-w-md mx-auto">
+              We want to be your preferred partner for your product development.
+            </p>
+          </div>
+
+          {/* Chips row */}
+          <div className="flex flex-wrap justify-center gap-3 mb-14">
+            {functionsList.map((fn, i) => (
+              <div
+                key={i}
+                className="fn-chip flex items-center gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-medium"
+              >
+                <fn.icon className="h-4 w-4 text-primary" />
+                {fn.label}
+              </div>
+            ))}
+          </div>
+
+          {/* History / Goal / Who We Are cards */}
+          <div className="grid md:grid-cols-3 gap-5">
+            {historyCards.map((card, i) => (
+              <div
+                key={i}
+                className="history-card rounded-2xl border border-border bg-card p-7 flex flex-col gap-4"
+              >
+                <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <card.icon className="h-5 w-5 text-primary" />
+                </div>
+                <h4 className="font-semibold text-base">{card.title}</h4>
+                <p className="text-sm text-muted-foreground leading-relaxed">{card.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Our Values ────────────────────────────────────────────── */}
+      <div className="py-20 px-4">
+        <div className="container mx-auto max-w-7xl">
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-xs text-primary mb-4">
+              <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+              What drives us
+            </div>
+            <h3 className="text-2xl md:text-3xl font-semibold mb-3">Our Values</h3>
+            <p className="text-sm text-muted-foreground max-w-lg mx-auto">
+              Over 6 years in product and software development, building 15+ high-impact business solutions with faster time to market.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {values.map((val, i) => (
+              <div
+                key={i}
+                className={`value-card rounded-2xl border border-border bg-gradient-to-br ${val.gradient} p-7 flex flex-col gap-4`}
+                style={{ animationDelay: `${i * 0.08}s` }}
+              >
+                <span className={`text-xs font-semibold px-3 py-1 rounded-full self-start ${val.badge}`}>
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h4 className="font-semibold text-base leading-snug">{val.title}</h4>
+                <p className="text-sm text-muted-foreground leading-relaxed">{val.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -8,6 +8,7 @@ const scrollLinks = [
   { label: "About", id: "about" },
   { label: "Services", id: "services" },
   { label: "Clients", id: "clients" },
+  { label: "BOT", id: "bot" },
   { label: "Brilliant Minds", id: "minds" },
   { label: "Contact Us", id: "contact" },
 ];
