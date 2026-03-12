@@ -216,24 +216,7 @@ const BotSection = () => {
             </p>
           </div>
 
-          {/* Tab Row */}
-          <div className="flex border-b border-white/15 mb-8 gap-0">
-            {(["build", "operate", "transfer"] as PhaseKey[]).map((key) => (
-              <button
-                key={key}
-                onClick={() => setActivePhase(key)}
-                className={`phase-tab flex-1 pb-4 pt-2 transition-colors ${
-                  activePhase === key
-                    ? "active text-white"
-                    : "text-white/40 hover:text-white/70"
-                }`}
-              >
-                {phaseData[key].label}
-              </button>
-            ))}
-          </div>
-
-          {/* Tab Content */}
+          {/* Phase Content */}
           <div key={activePhase} className="phase-content">
             <div className="grid md:grid-cols-2 gap-8 items-start">
               {/* Left: tagline + items */}
