@@ -99,7 +99,7 @@ const Navbar = () => {
             onClick={() => scrollTo("contact")}
             className={`text-[13px] rounded-full px-5 font-semibold nav-button relative z-10 ${
               scrolled
-                ? "bg-primary text-white hover:bg-primary/90"
+                ? "bg-[#081627] text-white hover:bg-[#0a1f35]"
                 : "bg-white text-blue-900 hover:bg-white/90"
             }`}
           >

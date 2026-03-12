@@ -289,35 +289,35 @@ const ExpertiseSection = () => {
           />
           <div
             className="absolute inset-0 hidden md:block pointer-events-none"
-            style={{ background: "linear-gradient(to right, transparent 55%, rgba(15,23,42,0.98) 100%)" }}
+            style={{ background: "linear-gradient(to right, transparent 55%, rgba(255,255,255,0.98) 100%)" }}
           />
           <div
             className="absolute inset-0 block md:hidden pointer-events-none"
-            style={{ background: "linear-gradient(to bottom, transparent 45%, rgba(15,23,42,0.97) 100%)" }}
+            style={{ background: "linear-gradient(to bottom, transparent 45%, rgba(255,255,255,0.97) 100%)" }}
           />
           <div
             className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
             style={{ background: "linear-gradient(135deg, transparent 50%, rgba(37,99,235,0.12) 100%)" }}
           />
         </div>
-        <div className="flex-1 bg-slate-900 flex flex-col justify-center px-8 py-10 md:px-12 md:py-14">
-          <h3 className="text-2xl md:text-3xl font-semibold mb-6 text-white tracking-tight">
+        <div className="flex-1 bg-white flex flex-col justify-center px-8 py-10 md:px-12 md:py-14">
+          <h3 className="text-2xl md:text-3xl font-semibold mb-6 text-slate-900 tracking-tight">
             Who We Are
           </h3>
           {whoWeAreContent.split("\n\n").map((para, i) => (
             <div key={i} className="about-text-line mb-0">
-              <p className="text-sm md:text-base text-slate-200 leading-relaxed">{para}</p>
+              <p className="text-sm md:text-base text-slate-700 leading-relaxed">{para}</p>
             </div>
           ))}
         </div>
       </div>
 
       {/* ── Functions ─────────────────────────────────────────────── */}
-      <div ref={functionsReveal.ref} className="py-14 px-4 bg-white">
+      <div ref={functionsReveal.ref} className="py-14 px-4 bg-[#061320]">
         <div className="container mx-auto max-w-7xl">
           <div className={`text-center mb-10 fn-reveal ${functionsReveal.visible ? "in-view" : ""}`}>
-            <h3 className="text-2xl md:text-3xl font-semibold mb-2">Functions</h3>
-            <p className="text-sm text-muted-foreground max-w-md mx-auto">
+            <h3 className="text-2xl md:text-3xl font-semibold mb-2 text-white">Functions</h3>
+            <p className="text-sm text-white/55 max-w-md mx-auto">
               We want to be your preferred partner for your product development.
             </p>
           </div>
@@ -327,10 +327,10 @@ const ExpertiseSection = () => {
             {functionsList.map((fn, i) => (
               <div
                 key={i}
-                className={`fn-chip fn-reveal ${functionsReveal.visible ? "in-view" : ""} flex items-center gap-2 rounded-full border border-border bg-white px-5 py-2.5 text-sm font-medium shadow-sm`}
+                className={`fn-chip fn-reveal ${functionsReveal.visible ? "in-view" : ""} flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-2.5 text-sm font-medium text-white/85`}
                 style={{ transitionDelay: `${i * 0.07}s` }}
               >
-                <fn.icon className="h-4 w-4 text-primary" />
+                <fn.icon className="h-4 w-4 text-blue-300" />
                 {fn.label}
               </div>
             ))}
@@ -344,7 +344,7 @@ const ExpertiseSection = () => {
               return (
                 <div
                   key={i}
-                  className={`history-card rounded-2xl border border-border bg-white p-7 flex flex-col gap-4 cursor-default
+                  className={`history-card rounded-2xl border border-white/15 bg-white p-7 flex flex-col gap-4 cursor-default
                     ${isDimmed ? "history-card-dimmed" : ""}
                     ${isActive ? "history-card-active" : ""}
                   `}
@@ -365,15 +365,15 @@ const ExpertiseSection = () => {
       </div>
 
       {/* ── Our Values ────────────────────────────────────────────── */}
-      <div ref={valuesReveal.ref} className="py-14 px-4 bg-slate-50/60">
+      <div ref={valuesReveal.ref} className="py-14 px-4 bg-[#061320]">
         <div className="container mx-auto max-w-7xl">
           <div className={`text-center mb-12 fn-reveal ${valuesReveal.visible ? "in-view" : ""}`}>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-xs text-primary mb-4">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-blue-400/30 bg-blue-400/10 text-xs text-blue-300 mb-4">
+              <span className="h-1.5 w-1.5 rounded-full bg-blue-300 animate-pulse" />
               What drives us
             </div>
-            <h3 className="text-2xl md:text-3xl font-semibold mb-3">Our Values</h3>
-            <p className="text-sm text-muted-foreground max-w-lg mx-auto">
+            <h3 className="text-2xl md:text-3xl font-semibold mb-3 text-white">Our Values</h3>
+            <p className="text-sm text-white/55 max-w-lg mx-auto">
               Over 10+ years in product and software development, building 15+ high-impact business solutions with faster time to market.
             </p>
           </div>

@@ -37,7 +37,7 @@ const phaseData: Record<PhaseKey, {
     tagline: "We lay every foundation — legal, structural, and operational — so you can hit the ground running.",
     items: [
       { icon: Building2, title: "Business Entity Formation", desc: "We handle all paperwork, statutory checks and transparently share every detail with you." },
-      { icon: Layers, title: "Equity: Us 25% — You 75%", desc: "We are partners with skin in the game. Your majority stake drives alignment and trust." },
+      { icon: Layers, title: "Statutory & Regulatory Setup", desc: "India-compliant registrations, PAN, GST, and all statutory filings handled end-to-end." },
       { icon: Users, title: "Initial Office Setup & Infra", desc: "Physical and digital workspace configured — ready for your first hires on day one." },
       { icon: Globe, title: "Legal / HR / Finance Policies", desc: "India-compliant HR frameworks, statutory registrations, and finance policies put in place." },
     ],
@@ -61,7 +61,7 @@ const phaseData: Record<PhaseKey, {
       { icon: TrendingUp, title: "Scale Up", desc: "Expand infra, talent headcount and project throughput to match your growth velocity." },
       { icon: Globe, title: "Scale Out", desc: "Extend to new service lines and locations — a blueprint for geographic expansion." },
       { icon: UserCheck, title: "Knowledge Transfer", desc: "Structured knowledge handover: docs, processes, runbooks, and team introductions." },
-      { icon: Building2, title: "Full Ownership", desc: "100% equity and operational control transferred — your India captive, fully yours." },
+      { icon: Building2, title: "Full Ownership", desc: "100% operational control transferred — your India captive, completely yours." },
     ],
     highlight: "Full turn-key transfer in 18–24 months",
   },
@@ -87,7 +87,7 @@ const keyBenefits = [
   "India's statutory laws require high touchpoints. We manage all complexity for you.",
   "Scale fast with numbers and throughput backed by an experienced execution team.",
   "Not just an outsourcing partner — we are your engineering back-office.",
-  "We have skin in the game for your success — we benefit when you do.",
+  "A committed long-term partner — our reputation is built on your success.",
 ];
 
 const requirements = [
@@ -201,12 +201,6 @@ const BotSection = () => {
               </div>
             ))}
           </div>
-          <p className="text-center mt-7 text-sm text-muted-foreground">
-            Reach us at{" "}
-            <a href="mailto:anu@perfect108.com" className="text-primary hover:underline font-medium">
-              anu@perfect108.com
-            </a>
-          </p>
         </div>
       </div>
 
@@ -268,44 +262,65 @@ const BotSection = () => {
                 </div>
               </div>
 
-              {/* Right: highlight card + progress indicator */}
-              <div className="flex flex-col gap-5">
-                <div className="rounded-2xl bg-gradient-to-br from-blue-600/25 to-blue-800/10 border border-blue-500/20 p-8 text-center">
-                  <div className="text-4xl font-bold text-white mb-2">
-                    {activePhase === "build" ? "3 mo" : activePhase === "operate" ? "12 mo" : "24 mo"}
-                  </div>
-                  <p className="text-white/60 text-xs uppercase tracking-widest">{phase.highlight}</p>
-                </div>
+              {/* Right: animated phase visual */}
+              <div className="flex flex-col gap-4">
+                <style>{`
+                  @keyframes phaseGlow {
+                    0%, 100% { box-shadow: 0 0 0 0 rgba(59,130,246,0.4); }
+                    50% { box-shadow: 0 0 0 10px rgba(59,130,246,0); }
+                  }
+                  .phase-node-active { animation: phaseGlow 2s ease-in-out infinite; }
+                `}</style>
 
-                {/* Phase progress steps */}
-                <div className="flex gap-3 items-center justify-center">
-                  {(["build", "operate", "transfer"] as PhaseKey[]).map((key, i) => {
-                    const isActive = key === activePhase;
-                    const isPast = ["build", "operate", "transfer"].indexOf(activePhase) > i;
-                    return (
-                      <div key={key} className="flex items-center gap-3">
-                        <button
-                          onClick={() => setActivePhase(key)}
-                          className={`h-9 w-9 rounded-full border-2 flex items-center justify-center text-xs font-bold transition-all duration-300 ${
-                            isActive
-                              ? "border-blue-400 bg-blue-500 text-white scale-110"
-                              : isPast
-                              ? "border-blue-600 bg-blue-600/30 text-blue-300"
-                              : "border-white/20 bg-white/5 text-white/30"
-                          }`}
-                        >
+                {(["build", "operate", "transfer"] as PhaseKey[]).map((key, i) => {
+                  const isActive = key === activePhase;
+                  const isPast = ["build", "operate", "transfer"].indexOf(activePhase) > i;
+                  const icons = [Building2, BarChart3, TrendingUp];
+                  const labels = ["Build", "Operate", "Transfer"];
+                  const subs = ["Entity, Infrastructure & Setup", "Talent, Governance & Delivery", "Scale Up & Full Ownership"];
+                  const Icon = icons[i];
+                  return (
+                    <div key={key}>
+                      <button
+                        onClick={() => setActivePhase(key)}
+                        className={`w-full flex gap-4 items-center p-4 rounded-2xl transition-all duration-300 text-left ${
+                          isActive
+                            ? "bg-blue-500/20 border border-blue-400/40"
+                            : "bg-white/5 border border-white/10 hover:bg-white/8"
+                        }`}
+                      >
+                        <div className={`h-11 w-11 rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0 transition-all duration-300 ${
+                          isActive
+                            ? "bg-blue-500 text-white phase-node-active"
+                            : isPast
+                            ? "bg-blue-500/30 text-blue-300 border border-blue-500/40"
+                            : "bg-white/5 text-white/30 border border-white/15"
+                        }`}>
                           {i + 1}
-                        </button>
-                        {i < 2 && (
-                          <div className={`h-px w-10 transition-colors duration-500 ${isPast || isActive ? "bg-blue-500/60" : "bg-white/15"}`} />
-                        )}
-                      </div>
-                    );
-                  })}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-0.5">
+                            <p className={`font-semibold text-sm transition-colors ${isActive ? "text-white" : isPast ? "text-white/60" : "text-white/30"}`}>
+                              {labels[i]}
+                            </p>
+                            {isActive && <span className="h-1.5 w-1.5 rounded-full bg-blue-400 animate-pulse" />}
+                          </div>
+                          <p className={`text-xs transition-colors ${isActive ? "text-white/65" : "text-white/25"}`}>{subs[i]}</p>
+                        </div>
+                        <Icon className={`h-5 w-5 flex-shrink-0 transition-colors ${isActive ? "text-blue-300" : "text-white/20"}`} />
+                      </button>
+                      {i < 2 && (
+                        <div className="flex items-center ml-[1.625rem] py-1">
+                          <div className={`w-px h-4 transition-colors duration-500 ${isPast || isActive ? "bg-blue-500/50" : "bg-white/10"}`} />
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+
+                <div className="mt-2 p-4 rounded-xl bg-white/5 border border-white/10">
+                  <p className="text-white/55 text-xs leading-relaxed text-center">{phase.tagline}</p>
                 </div>
-                <p className="text-center text-white/40 text-xs">
-                  Click each phase to explore what's included
-                </p>
               </div>
             </div>
           </div>

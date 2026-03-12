@@ -25,29 +25,29 @@ const services: Service[] = [
   {
     icon: Brain,
     title: "AI Solutions & Automation",
-    desc: "End-to-end AI product engineering — from LLM integration and RAG pipelines to intelligent automation, agents, and AI-powered SaaS platforms.",
+    desc: "End-to-end AI product engineering — LLM integration, RAG pipelines, intelligent automation, agents, and AI-powered SaaS platforms.",
     category: ["ai"],
     featured: true,
     badge: "Flagship",
-    accentColor: "text-violet-600",
-    bgColor: "bg-violet-50",
-    borderColor: "border-violet-200 hover:border-violet-400",
-  },
-  {
-    icon: BarChart3,
-    title: "AI / ML & Data Science",
-    desc: "Recommendation systems, NLP, computer vision, predictive analytics, and full MLOps pipelines. From PoC to production-grade ML systems.",
-    category: ["ai", "data"],
-    featured: true,
-    badge: "High Demand",
     accentColor: "text-blue-600",
     bgColor: "bg-blue-50",
     borderColor: "border-blue-200 hover:border-blue-400",
   },
   {
+    icon: BarChart3,
+    title: "AI / ML & Data Science",
+    desc: "Recommendation systems, NLP, computer vision, predictive analytics, and MLOps pipelines — from PoC to production.",
+    category: ["ai", "data"],
+    featured: true,
+    badge: "High Demand",
+    accentColor: "text-indigo-600",
+    bgColor: "bg-indigo-50",
+    borderColor: "border-indigo-200 hover:border-indigo-400",
+  },
+  {
     icon: Database,
     title: "Data Solutions & Engineering",
-    desc: "Dimensional data modelling, ETL/ELT pipelines, data lakes, warehouses, and real-time streaming architectures for data-driven organisations.",
+    desc: "Dimensional modelling, ETL/ELT pipelines, data lakes, warehouses, and real-time streaming architectures.",
     category: ["data"],
     featured: true,
     badge: "Core Offering",
@@ -58,27 +58,27 @@ const services: Service[] = [
   {
     icon: Shield,
     title: "Cyber Security",
-    desc: "Security audits, penetration testing, zero-trust architecture, SOC setup, compliance (ISO 27001, SOC2), and ongoing vulnerability management.",
+    desc: "Security audits, penetration testing, zero-trust architecture, SOC setup, and ISO 27001 / SOC2 compliance.",
     category: ["security"],
     featured: true,
     badge: "Critical",
-    accentColor: "text-red-600",
-    bgColor: "bg-red-50",
-    borderColor: "border-red-200 hover:border-red-400",
+    accentColor: "text-slate-700",
+    bgColor: "bg-slate-100",
+    borderColor: "border-slate-300 hover:border-slate-500",
   },
   {
     icon: Code2,
     title: "Full Stack Development",
-    desc: "Modern web applications with React, Next.js, Node.js, Python, and Java — end-to-end from architecture to deployment.",
+    desc: "Modern web apps with React, Next.js, Node.js, Python, and Java — end-to-end from architecture to deployment.",
     category: ["engineering"],
-    accentColor: "text-indigo-600",
-    bgColor: "bg-indigo-50",
-    borderColor: "border-indigo-200 hover:border-indigo-400",
+    accentColor: "text-blue-700",
+    bgColor: "bg-blue-50",
+    borderColor: "border-blue-300 hover:border-blue-500",
   },
   {
     icon: Cloud,
     title: "Cloud & Infrastructure",
-    desc: "Cloud migrations, multi-cloud management, Kubernetes, Terraform IaC, and cost-optimised infrastructure on AWS, Azure, and GCP.",
+    desc: "Cloud migrations, multi-cloud management, Kubernetes, Terraform IaC on AWS, Azure, and GCP.",
     category: ["engineering", "data"],
     accentColor: "text-sky-600",
     bgColor: "bg-sky-50",
@@ -87,7 +87,7 @@ const services: Service[] = [
   {
     icon: Layers,
     title: "Product Engineering",
-    desc: "End-to-end product design and delivery — architecture, UX, MVP builds, scale-up, and long-term engineering ownership.",
+    desc: "End-to-end product design and delivery — architecture, UX, MVP builds, scale-up, and engineering ownership.",
     category: ["engineering"],
     accentColor: "text-teal-700",
     bgColor: "bg-teal-50",
@@ -96,47 +96,47 @@ const services: Service[] = [
   {
     icon: Network,
     title: "DevOps & Platform Engineering",
-    desc: "CI/CD pipelines, GitOps, observability stacks, SRE practices, and platform standardisation for high-velocity engineering teams.",
+    desc: "CI/CD pipelines, GitOps, observability stacks, SRE practices, and platform standardisation.",
     category: ["engineering"],
-    accentColor: "text-emerald-700",
-    bgColor: "bg-emerald-50",
-    borderColor: "border-emerald-200 hover:border-emerald-400",
+    accentColor: "text-indigo-700",
+    bgColor: "bg-indigo-50",
+    borderColor: "border-indigo-300 hover:border-indigo-500",
   },
   {
     icon: Smartphone,
     title: "Mobile Development",
-    desc: "Native iOS and Android apps, cross-platform solutions with React Native / Flutter, and API-first mobile backends.",
+    desc: "Native iOS and Android apps, React Native / Flutter cross-platform solutions, and API-first mobile backends.",
     category: ["engineering"],
-    accentColor: "text-pink-600",
-    bgColor: "bg-pink-50",
-    borderColor: "border-pink-200 hover:border-pink-400",
+    accentColor: "text-sky-700",
+    bgColor: "bg-sky-50",
+    borderColor: "border-sky-300 hover:border-sky-500",
   },
   {
     icon: Cpu,
     title: "Enterprise Solutions",
-    desc: "ERP, CRM and business process automation — designed for enterprise-scale efficiency and seamless integration with existing systems.",
+    desc: "ERP, CRM, and business process automation designed for enterprise-scale efficiency and systems integration.",
     category: ["engineering"],
-    accentColor: "text-orange-600",
-    bgColor: "bg-orange-50",
-    borderColor: "border-orange-200 hover:border-orange-400",
+    accentColor: "text-slate-700",
+    bgColor: "bg-slate-100",
+    borderColor: "border-slate-200 hover:border-slate-400",
   },
   {
     icon: Settings,
     title: "IT Consulting",
-    desc: "Strategic technology advisory — architecture reviews, digital transformation roadmaps, vendor selection, and CTO-as-a-service.",
+    desc: "Technology advisory — architecture reviews, digital transformation roadmaps, and CTO-as-a-service.",
     category: ["engineering"],
-    accentColor: "text-amber-700",
-    bgColor: "bg-amber-50",
-    borderColor: "border-amber-200 hover:border-amber-400",
+    accentColor: "text-blue-800",
+    bgColor: "bg-blue-50",
+    borderColor: "border-blue-200 hover:border-blue-400",
   },
   {
     icon: TestTube2,
     title: "Quality Assurance",
-    desc: "Test strategy, automation frameworks (Selenium, Cypress, Playwright), performance testing, and continuous QA in your CI pipeline.",
+    desc: "Test strategy, automation frameworks (Selenium, Cypress, Playwright), and continuous QA in your CI pipeline.",
     category: ["engineering"],
-    accentColor: "text-lime-700",
-    bgColor: "bg-lime-50",
-    borderColor: "border-lime-200 hover:border-lime-400",
+    accentColor: "text-teal-600",
+    bgColor: "bg-teal-50",
+    borderColor: "border-teal-200 hover:border-teal-400",
   },
 ];
 
@@ -296,10 +296,6 @@ const FeaturesSection = () => {
                   <h3 className="font-bold text-sm mb-1.5">{svc.title}</h3>
                   <p className="text-xs text-muted-foreground leading-relaxed">{svc.desc}</p>
                 </div>
-                <div className={`flex items-center gap-1 text-xs font-semibold ${svc.accentColor} mt-auto`}>
-                  <span>Learn more</span>
-                  <ArrowRight className="svc-arrow h-3.5 w-3.5" />
-                </div>
               </div>
             ))}
           </div>
@@ -323,10 +319,6 @@ const FeaturesSection = () => {
                 <div>
                   <h3 className="font-semibold text-sm mb-1.5">{svc.title}</h3>
                   <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">{svc.desc}</p>
-                </div>
-                <div className={`flex items-center gap-1 text-xs font-semibold ${svc.accentColor} mt-auto pt-1`}>
-                  <span>Learn more</span>
-                  <ArrowRight className="svc-arrow h-3 w-3" />
                 </div>
               </div>
             ))}
