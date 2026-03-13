@@ -2,8 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Settings, Mail, Grid, Globe, MousePointer, Bell, Clock, Target, Info } from "lucide-react";
 import aboutImg from "@/assets/about.jpg";
 
-const whoWeAreContent =
-  "PCS is a bay area software development company, established in Feb 2015, a profitable US entity with a subsidiary in India.\n\nCreating Value We help businesses create value across the entire product lifecycle engineering cutting-edge solutions and helping mature products evolve as relevant to digitally savvy consumers\n\nConnecting Dots Throughout the ecosystem by bringing together makers and markets to create amazing products.\n\nEngineering Talent We help our clients scale their product and engineering functions rapidly leveraging talent in United States and India. We serve 20+ clients globally with expert engineering teams.";
+
 
 const functionsList = [
   { icon: Settings, label: "Competent Employees" },
@@ -271,46 +270,6 @@ const ExpertiseSection = () => {
           transform: translateY(0);
         }
       `}</style>
-
-      {/* ── Section Header ─────────────────────────────────────────── */}
-      <div className="container mx-auto max-w-7xl px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-2 about-heading">About</h2>
-        </div>
-      </div>
-
-      {/* ── Who We Are — two-column image + text ───────────────────── */}
-      <div className="about-card-wrap flex flex-col md:flex-row w-full group">
-        <div className="relative overflow-hidden flex-none w-full md:w-3/5 lg:w-7/12 h-60 md:h-auto">
-          <img
-            src={aboutImg}
-            alt="PCS IT Solutions"
-            className="about-img-hover w-full h-full object-cover"
-          />
-          <div
-            className="absolute inset-0 hidden md:block pointer-events-none"
-            style={{ background: "linear-gradient(to right, transparent 55%, rgba(255,255,255,0.98) 100%)" }}
-          />
-          <div
-            className="absolute inset-0 block md:hidden pointer-events-none"
-            style={{ background: "linear-gradient(to bottom, transparent 45%, rgba(255,255,255,0.97) 100%)" }}
-          />
-          <div
-            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
-            style={{ background: "linear-gradient(135deg, transparent 50%, rgba(37,99,235,0.12) 100%)" }}
-          />
-        </div>
-        <div className="flex-1 bg-white flex flex-col justify-center px-8 py-10 md:px-12 md:py-14">
-          <h3 className="text-2xl md:text-3xl font-semibold mb-6 text-slate-900 tracking-tight">
-            Who We Are
-          </h3>
-          {whoWeAreContent.split("\n\n").map((para, i) => (
-            <div key={i} className="about-text-line mb-0">
-              <p className="text-sm md:text-base text-slate-700 leading-relaxed">{para}</p>
-            </div>
-          ))}
-        </div>
-      </div>
 
       {/* ── Functions ─────────────────────────────────────────────── */}
       <div ref={functionsReveal.ref} className="py-14 px-4 bg-[#061320]">
