@@ -22,6 +22,8 @@ const Index = () => {
     const state = location.state as { scrollTo?: string } | null;
     if (state?.scrollTo) {
       const id = state.scrollTo;
+      // Clear the state immediately so a page reload doesn't re-scroll
+      window.history.replaceState({}, "");
       setTimeout(() => {
         document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
       }, 150);

@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+import snehaImg from "@/assets/team/sneha-sanjana.jpg";
+import amitImg from "@/assets/team/amit-jape.png";
 
 interface TeamMember {
   name: string;
@@ -75,18 +77,19 @@ const TEAM: TeamMember[] = [
   {
     name: "Amit Jape",
     title: "Developer",
-    role: "Mobile Developer",
-    img: "https://media.licdn.com/dms/image/v2/D4D03AQEQM3JTruYQJw/profile-displayphoto-crop_800_800/B4DZtw3mS8JUAI-/0/1767125183522?e=1775088000&v=beta&t=pLNRY4xH5WaMhcdsCe__E8YVrp4HTNfblImfIa8E_Rk",
+    role: "Developer",
+    img: amitImg,
     linkedin: "https://www.linkedin.com/in/amit-jape/",
     bio: [
-      "Amit is a skilled mobile developer with expertise in cross-platform development using Flutter and native iOS/Android technologies. He specializes in creating engaging, performant mobile applications that deliver seamless user experiences on multiple platforms. Amit is passionate about leveraging the latest mobile technologies to solve real-world problems.",
+      "Amit Jape is a cross-platform developer with experience spanning full stack development and project management. He brings strong expertise in Flutter, React Native, and native iOS/Android development, enabling him to build high-performance mobile and web applications from the ground up.",
+      "With a background that bridges development and delivery management, Amit coordinates effectively across design, engineering, and client stakeholders to ensure projects are shipped on time and at quality. He is passionate about clean architecture, scalable code, and delivering real-world solutions that make an impact.",
     ],
   },
   {
     name: "Sneha Sanjana Avidi",
     title: "Developer",
     role: "Full-Stack Developer",
-    img: "https://media.licdn.com/dms/image/v2/D5603AQH1S2bEwzG-IA/profile-displayphoto-crop_800_800/B56ZzdQzSFHwAI-/0/1773238697039?e=1775088000&v=beta&t=AMyoGMpuCs6CDsG9V9nULMO0BBO98GYfSoq1Xazapj4",
+    img: snehaImg,
     linkedin: "https://www.linkedin.com/in/sneha-sanjana-avidi-b1462426a/",
     bio: [
       "Sneha is a versatile full-stack developer with comprehensive skills spanning frontend frameworks, backend systems, and database optimization. Her ability to seamlessly work across the stack makes her invaluable in building cohesive, end-to-end solutions. Sneha brings a problem-solving mindset and a collaborative approach to every project she undertakes.",
