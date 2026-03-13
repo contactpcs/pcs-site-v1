@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import FeaturesSection from "@/components/FeaturesSection";
@@ -13,6 +15,18 @@ import FooterSection from "@/components/FooterSection";
 import BotSection from "@/components/BotSection";
 
 const Index = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    const state = location.state as { scrollTo?: string } | null;
+    if (state?.scrollTo) {
+      const id = state.scrollTo;
+      setTimeout(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+      }, 150);
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />

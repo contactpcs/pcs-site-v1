@@ -2,7 +2,7 @@ import logo from "@/assets/logo-pcs.png";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const scrollLinks = [
   { label: "About", id: "about" },
@@ -24,19 +24,28 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isHomePage = location.pathname === "/";
+  const isScrolledStyle = !isHomePage || scrolled;
+
+  const handleScrollTo = (id: string) => {
+    if (!isHomePage) {
+      navigate("/", { state: { scrollTo: id } });
+    } else {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    }
     setOpen(false);
   };
 
   const linkClass = `text-[13px] font-medium relative transition-all duration-300 cursor-pointer group ${
-    scrolled ? "text-foreground/70 hover:text-foreground" : "text-white/80 hover:text-white"
+    isScrolledStyle ? "text-foreground/70 hover:text-foreground" : "text-white/80 hover:text-white"
   }`;
 
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
+        isScrolledStyle
           ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100"
           : "bg-white/10 backdrop-blur-xl border-b border-white/10"
       }`}
@@ -86,7 +95,7 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-7">
           <a href="/" className={`${linkClass} nav-link`}>Home</a>
           {scrollLinks.map((link) => (
-            <button key={link.label} onClick={() => scrollTo(link.id)} className={`${linkClass} nav-link`}>
+            <button key={link.label} onClick={() => handleScrollTo(link.id)} className={`${linkClass} nav-link`}>
               {link.label}
             </button>
           ))}
@@ -96,9 +105,9 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-3">
           <Button
             size="sm"
-            onClick={() => scrollTo("contact")}
+            onClick={() => handleScrollTo("contact")}
             className={`text-[13px] rounded-full px-5 font-semibold nav-button relative z-10 ${
-              scrolled
+              isScrolledStyle
                 ? "bg-[#081627] text-white hover:bg-[#0a1f35]"
                 : "bg-white text-blue-900 hover:bg-white/90"
             }`}
@@ -109,8 +118,8 @@ const Navbar = () => {
 
         <button className="md:hidden transition-transform hover:scale-110 duration-300" onClick={() => setOpen(!open)}>
           {open
-            ? <X className={`h-5 w-5 ${scrolled ? "text-foreground" : "text-white"}`} />
-            : <Menu className={`h-5 w-5 ${scrolled ? "text-foreground" : "text-white"}`} />}
+            ? <X className={`h-5 w-5 ${isScrolledStyle ? "text-foreground" : "text-white"}`} />
+            : <Menu className={`h-5 w-5 ${isScrolledStyle ? "text-foreground" : "text-white"}`} />}
         </button>
       </div>
 
@@ -121,14 +130,14 @@ const Navbar = () => {
           {scrollLinks.map((link) => (
             <button
               key={link.label}
-              onClick={() => scrollTo(link.id)}
+              onClick={() => handleScrollTo(link.id)}
               className="block w-full text-left text-sm text-foreground/70 hover:text-foreground transition-colors duration-200"
             >
               {link.label}
             </button>
           ))}
           <Link to="/careers" className="block text-sm text-foreground/70 hover:text-foreground transition-colors duration-200">Careers</Link>
-          <Button size="sm" className="w-full rounded-full mt-2" onClick={() => scrollTo("contact")}>Book a Consultation</Button>
+          <Button size="sm" className="w-full rounded-full mt-2" onClick={() => handleScrollTo("contact")}>Book a Consultation</Button>
         </div>
       )}
     </nav>

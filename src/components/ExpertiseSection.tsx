@@ -1,9 +1,24 @@
 import { useState, useEffect, useRef } from "react";
-import { Settings, Mail, Grid, Globe, MousePointer, Bell, Clock, Target, Info } from "lucide-react";
-import aboutImg from "@/assets/about.jpg";
+import { Settings, Mail, Grid, Globe, MousePointer, Bell, Clock, Target, Info, Brain, Database, Cloud, Code2, Shield, Smartphone, Heart, MapPin, Calendar, Users } from "lucide-react";
 
-const whoWeAreContent =
-  "PCS is a bay area software development company, established in Feb 2015, a profitable US entity with a subsidiary in India.\n\nCreating Value We help businesses create value across the entire product lifecycle engineering cutting-edge solutions and helping mature products evolve as relevant to digitally savvy consumers\n\nConnecting Dots Throughout the ecosystem by bringing together makers and markets to create amazing products.\n\nEngineering Talent We help our clients scale their product and engineering functions rapidly leveraging talent in United States and India. We serve 20+ clients globally with expert engineering teams.";
+
+const whoWeAreRow1 = [
+  { icon: Calendar, title: "Est. 2015", text: "Bay Area company, profitable US entity with an India subsidiary and global reach." },
+  { icon: Brain, title: "AI & LLM Solutions", text: "GPT integrations, RAG pipelines, agents and AI-powered SaaS platforms." },
+  { icon: Users, title: "20+ Global Clients", text: "Fintech, healthcare, real estate and SaaS across US, Europe and Asia." },
+  { icon: Database, title: "Data Engineering", text: "ETL/ELT pipelines, data lakes, warehouses and real-time streaming architectures." },
+  { icon: Cloud, title: "Cloud Native", text: "Multi-cloud expertise across AWS, Azure and GCP — migrations to IaC and Kubernetes." },
+  { icon: Code2, title: "Full Stack Dev", text: "React, Next.js, Node.js, Python, Java — end-to-end delivery from idea to production." },
+];
+
+const whoWeAreRow2 = [
+  { icon: Clock, title: "10+ Years", text: "Building 15+ high-impact business solutions with faster time to market." },
+  { icon: Shield, title: "Cybersecurity", text: "Penetration testing, zero-trust architecture, ISO 27001 & SOC 2 compliance." },
+  { icon: Globe, title: "BOT Model", text: "Build-Operate-Transfer: your India engineering captive in 18–24 months." },
+  { icon: Smartphone, title: "Mobile Apps", text: "Flutter, React Native, native iOS & Android — cross-platform performance." },
+  { icon: MapPin, title: "US + India Teams", text: "Engineering talent on both coasts — follow-the-sun delivery and cost advantage." },
+  { icon: Heart, title: "Transparent Partner", text: "Open communication, shared goals, and clear financials at every stage." },
+];
 
 const functionsList = [
   { icon: Settings, label: "Competent Employees" },
@@ -186,33 +201,31 @@ const ExpertiseSection = () => {
   const functionsReveal = useScrollReveal();
 
   return (
-    <section id="about" className="pt-16 pb-0">
+    <section id="about">
       <style>{`
-        @keyframes fadeSlideUp {
-          from { opacity: 0; transform: translateY(30px); }
-          to { opacity: 1; transform: translateY(0); }
+        /* Who We Are marquee */
+        @keyframes scrollLeft {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
         }
-        @keyframes countUp {
-          from { opacity: 0; transform: scale(0.7); }
-          to { opacity: 1; transform: scale(1); }
+        @keyframes scrollRight {
+          from { transform: translateX(-50%); }
+          to { transform: translateX(0); }
         }
-        .about-heading { animation: fadeSlideUp 0.7s ease both; }
-        .about-card-wrap { animation: fadeSlideUp 0.8s ease 0.15s both; }
-        .about-img-hover {
-          transition: transform 0.7s cubic-bezier(0.4,0,0.2,1), filter 0.5s ease;
+        .who-left { animation: scrollLeft 45s linear infinite; }
+        .who-right { animation: scrollRight 38s linear infinite; }
+        .who-row:hover .who-left,
+        .who-row:hover .who-right { animation-play-state: paused; }
+        .who-card-dark, .who-card-light {
+          transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
         }
-        .about-card-wrap:hover .about-img-hover {
-          transform: scale(1.04);
-          filter: brightness(1.05);
+        .who-card-dark:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 16px 40px rgba(13,50,100,0.4);
         }
-        .about-text-line {
-          border-left: 3px solid rgba(59,130,246,0.5);
-          padding-left: 1rem;
-          margin-bottom: 1rem;
-          transition: border-color 0.3s ease;
-        }
-        .about-card-wrap:hover .about-text-line {
-          border-color: rgba(59,130,246,1);
+        .who-card-light:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 16px 40px rgba(0,0,0,0.1);
         }
         .fn-chip {
           transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1);
@@ -272,43 +285,75 @@ const ExpertiseSection = () => {
         }
       `}</style>
 
-      {/* ── Section Header ─────────────────────────────────────────── */}
-      <div className="container mx-auto max-w-7xl px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-2 about-heading">About</h2>
-        </div>
-      </div>
-
-      {/* ── Who We Are — two-column image + text ───────────────────── */}
-      <div className="about-card-wrap flex flex-col md:flex-row w-full group">
-        <div className="relative overflow-hidden flex-none w-full md:w-3/5 lg:w-7/12 h-60 md:h-auto">
-          <img
-            src={aboutImg}
-            alt="PCS IT Solutions"
-            className="about-img-hover w-full h-full object-cover"
-          />
-          <div
-            className="absolute inset-0 hidden md:block pointer-events-none"
-            style={{ background: "linear-gradient(to right, transparent 55%, rgba(255,255,255,0.98) 100%)" }}
-          />
-          <div
-            className="absolute inset-0 block md:hidden pointer-events-none"
-            style={{ background: "linear-gradient(to bottom, transparent 45%, rgba(255,255,255,0.97) 100%)" }}
-          />
-          <div
-            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
-            style={{ background: "linear-gradient(135deg, transparent 50%, rgba(37,99,235,0.12) 100%)" }}
-          />
-        </div>
-        <div className="flex-1 bg-white flex flex-col justify-center px-8 py-10 md:px-12 md:py-14">
-          <h3 className="text-2xl md:text-3xl font-semibold mb-6 text-slate-900 tracking-tight">
+      {/* ── Who We Are — animated horizontal marquee ─────────────── */}
+      <div className="py-20 bg-white overflow-hidden">
+        {/* Header */}
+        <div className="container mx-auto max-w-5xl px-4 text-center mb-14">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-xs font-medium text-blue-600 mb-5">
+            <span className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-pulse" />
+            About PCS IT Solutions
+          </div>
+          <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-5 leading-tight tracking-tight">
             Who We Are
-          </h3>
-          {whoWeAreContent.split("\n\n").map((para, i) => (
-            <div key={i} className="about-text-line mb-0">
-              <p className="text-sm md:text-base text-slate-700 leading-relaxed">{para}</p>
-            </div>
-          ))}
+          </h2>
+          <p className="text-base text-slate-500 max-w-2xl mx-auto leading-relaxed">
+            A Bay Area-founded technology company delivering world-class software, AI, and data solutions since 2015 — partnering with 20+ clients globally to engineer, scale, and transform.
+          </p>
+        </div>
+
+        {/* Row 1 — scrolls left */}
+        <div
+          className="who-row mb-5"
+          style={{
+            WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)",
+            maskImage: "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)",
+          }}
+        >
+          <div className="who-left flex gap-5" style={{ width: "max-content" }}>
+            {[...whoWeAreRow1, ...whoWeAreRow1].map((card, i) => {
+              const Icon = card.icon;
+              return (
+                <div
+                  key={i}
+                  className="who-card-dark flex-none w-[270px] rounded-3xl p-6"
+                  style={{ background: "linear-gradient(135deg, #0d3264 0%, #061320 100%)" }}
+                >
+                  <div className="mb-4 h-10 w-10 rounded-2xl bg-white/15 flex items-center justify-center">
+                    <Icon className="h-5 w-5 text-blue-200" />
+                  </div>
+                  <h4 className="text-sm font-semibold text-white mb-2 leading-snug">{card.title}</h4>
+                  <p className="text-xs text-white/60 leading-relaxed">{card.text}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Row 2 — scrolls right */}
+        <div
+          className="who-row"
+          style={{
+            WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)",
+            maskImage: "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)",
+          }}
+        >
+          <div className="who-right flex gap-5" style={{ width: "max-content" }}>
+            {[...whoWeAreRow2, ...whoWeAreRow2].map((card, i) => {
+              const Icon = card.icon;
+              return (
+                <div
+                  key={i}
+                  className="who-card-light flex-none w-[270px] rounded-3xl bg-white border border-slate-100 shadow-sm p-6"
+                >
+                  <div className="mb-4 h-10 w-10 rounded-2xl bg-blue-50 flex items-center justify-center">
+                    <Icon className="h-5 w-5 text-[#0f72ba]" />
+                  </div>
+                  <h4 className="text-sm font-semibold text-slate-900 mb-2 leading-snug">{card.title}</h4>
+                  <p className="text-xs text-slate-500 leading-relaxed">{card.text}</p>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
 

@@ -99,7 +99,6 @@ const TeamSection = () => {
   const [displayIndex, setDisplayIndex] = useState<number>(-1);
   const [panelVisible, setPanelVisible] = useState(true);
   const [cardsVisible, setCardsVisible] = useState(false);
-  const [showAll, setShowAll] = useState(false);
   const gridRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -129,12 +128,6 @@ const TeamSection = () => {
   };
 
   const current = displayIndex >= 0 ? TEAM[displayIndex] : null;
-  useEffect(() => {
-    if (!showAll && selectedIndex > 5) {
-      setSelectedIndex(-1);
-      setDisplayIndex(-1);
-    }
-  }, [showAll]);
 
   return (
     <section id="minds" style={{ background: "#ffffff", width: "100%" }}>
@@ -203,24 +196,20 @@ const TeamSection = () => {
           .tm-heading { padding: 40px 20px 24px !important; }
           .tm-heading h2 { font-size: 28px !important; }
 
-          /* horizontal scroll strip */
+          /* 2-column grid */
           .tm-mob-scroll {
-            display: flex;
-            overflow-x: auto;
-            gap: 14px;
-            padding: 0 20px 16px;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            padding: 0 16px 16px;
           }
-          .tm-mob-scroll::-webkit-scrollbar { display: none; }
 
           .tm-mob-card {
-            flex-shrink: 0;
-            width: 130px;
             cursor: pointer;
             padding-bottom: 10px;
             border-bottom: 2px solid transparent;
             transition: border-color 0.25s;
+            border-radius: 10px;
           }
           .tm-mob-card.tm-active { border-bottom-color: #0f72ba; }
 
@@ -283,10 +272,8 @@ const TeamSection = () => {
 
         {/* LEFT — scrollable photo grid */}
         <div className="tm-left" style={{ width: "50%", maxHeight: "100vh", overflowY: "auto", padding: "32px" }}>
-          <div ref={gridRef} className="tm-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "18px" }}>
-            {(() => {
-              const visible = showAll ? TEAM : TEAM.slice(0, 6);
-              return visible.map((member) => {
+          <div ref={gridRef} className="tm-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "14px" }}>
+            {TEAM.map((member) => {
                 const fullIndex = TEAM.indexOf(member);
                 return (
                   <div
@@ -321,21 +308,8 @@ const TeamSection = () => {
                     </div>
                   </div>
                 );
-              });
-            })()}
+            })}
           </div>
-
-          {TEAM.length > 6 && (
-            <div style={{ display: "flex", justifyContent: "center", marginTop: "18px" }}>
-              <a
-                onClick={() => setShowAll((s) => !s)}
-                role="button"
-                style={{ color: "#0f72ba", cursor: "pointer", fontFamily: "'Sora', sans-serif", fontSize: "14px", textDecoration: "none" }}
-              >
-                {showAll ? "Show less" : "Show more"}
-              </a>
-            </div>
-          )}
         </div>
 
         {/* RIGHT — sticky bio panel */}
