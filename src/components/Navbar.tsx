@@ -93,7 +93,17 @@ const Navbar = () => {
         </Link>
 
         <div className="hidden md:flex items-center gap-7">
-          <a href="/" className={`${linkClass} nav-link`}>Home</a>
+          <button
+            onClick={() => {
+              if (isHomePage) {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              } else {
+                navigate("/");
+              }
+              setOpen(false);
+            }}
+            className={`${linkClass} nav-link`}
+          >Home</button>
           {scrollLinks.map((link) => (
             <button key={link.label} onClick={() => handleScrollTo(link.id)} className={`${linkClass} nav-link`}>
               {link.label}
@@ -126,7 +136,17 @@ const Navbar = () => {
       {/* Mobile menu */}
       {open && (
         <div className="md:hidden bg-white/95 backdrop-blur-lg border-b border-border px-4 pb-4 pt-2 space-y-3 animate-in fade-in slide-in-from-top-2 duration-300">
-          <a href="/" className="block text-sm text-foreground/70 hover:text-foreground transition-colors duration-200">Home</a>
+          <button
+            onClick={() => {
+              if (isHomePage) {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              } else {
+                navigate("/");
+              }
+              setOpen(false);
+            }}
+            className="block w-full text-left text-sm text-foreground/70 hover:text-foreground transition-colors duration-200"
+          >Home</button>
           {scrollLinks.map((link) => (
             <button
               key={link.label}

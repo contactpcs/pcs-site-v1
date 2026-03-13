@@ -166,14 +166,22 @@ function useReveal(threshold = 0.08) {
 }
 
 // ── Component ────────────────────────────────────────────────────────────────
+const MOBILE_INITIAL = 5;
+
 const FeaturesSection = () => {
   const [activeCategory, setActiveCategory] = useState<ServiceCategory>("all");
+  const [showAllMobile, setShowAllMobile] = useState(false);
   const headerReveal = useReveal(0.1);
   const gridReveal = useReveal(0.05);
 
   const filtered = services.filter(
     (s) => activeCategory === "all" || s.category.includes(activeCategory)
   );
+
+  const handleCategoryChange = (cat: ServiceCategory) => {
+    setActiveCategory(cat);
+    setShowAllMobile(false);
+  };
 
   return (
     <section id="services" className="py-14 px-4 bg-white">
@@ -257,7 +265,7 @@ const FeaturesSection = () => {
           {categories.map((cat) => (
             <button
               key={cat.key}
-              onClick={() => setActiveCategory(cat.key)}
+              onClick={() => handleCategoryChange(cat.key)}
               className={`cat-pill px-4 py-2 rounded-full border transition-all ${
                 activeCategory === cat.key
                   ? "bg-primary text-white border-primary shadow-md shadow-primary/20"
@@ -304,25 +312,45 @@ const FeaturesSection = () => {
 
       {/* ── Main Services Grid ──────────────────────────────────────── */}
       <div ref={gridReveal.ref} className="container mx-auto max-w-7xl">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {filtered
-            .filter((s) => activeCategory !== "all" || !s.featured)
-            .map((svc, i) => (
-              <div
-                key={svc.title}
-                className={`svc-card svc-card-reveal ${gridReveal.visible ? "in-view" : ""} rounded-2xl border ${svc.borderColor} bg-white p-5 flex flex-col gap-3`}
-                style={{ transitionDelay: `${i * 0.06}s` }}
-              >
-                <div className={`svc-icon-wrap h-10 w-10 rounded-xl ${svc.bgColor} flex items-center justify-center`}>
-                  <svc.icon className={`h-5 w-5 ${svc.accentColor}`} />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-sm mb-1.5">{svc.title}</h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">{svc.desc}</p>
-                </div>
+        {(() => {
+          const gridCards = filtered.filter((s) => activeCategory !== "all" || !s.featured);
+          const visibleCards = showAllMobile ? gridCards : gridCards.slice(0, MOBILE_INITIAL);
+          return (
+            <>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                {/* On mobile show limited cards; on sm+ show all */}
+                {gridCards.map((svc, i) => (
+                  <div
+                    key={svc.title}
+                    className={`svc-card svc-card-reveal ${gridReveal.visible ? "in-view" : ""} rounded-2xl border ${svc.borderColor} bg-white p-5 flex flex-col gap-3 ${!showAllMobile && i >= MOBILE_INITIAL ? "hidden sm:flex" : ""}`}
+                    style={{ transitionDelay: `${i * 0.06}s` }}
+                  >
+                    <div className={`svc-icon-wrap h-10 w-10 rounded-xl ${svc.bgColor} flex items-center justify-center`}>
+                      <svc.icon className={`h-5 w-5 ${svc.accentColor}`} />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-sm mb-1.5">{svc.title}</h3>
+                      <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">{svc.desc}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-        </div>
+              {/* Mobile show-more button */}
+              {gridCards.length > MOBILE_INITIAL && (
+                <div className="flex justify-center mt-5 sm:hidden">
+                  <button
+                    onClick={() => setShowAllMobile((s) => !s)}
+                    className="flex items-center gap-2 px-6 py-2.5 rounded-full border border-primary/30 text-primary text-sm font-medium hover:bg-primary/5 transition-colors"
+                  >
+                    {showAllMobile ? "Show less" : `Show ${gridCards.length - MOBILE_INITIAL} more services`}
+                    <ArrowRight className={`h-3.5 w-3.5 transition-transform ${showAllMobile ? "rotate-90" : ""}`} />
+                  </button>
+                </div>
+              )}
+            </>
+          );
+        })()}
+
 
         {/* ── Bottom CTA ────────────────────────────────────────────── */}
         <div className="mt-12 rounded-2xl bg-gradient-to-br from-[#061320] via-[#0a1f35] to-[#061320] p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">

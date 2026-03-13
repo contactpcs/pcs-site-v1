@@ -1,9 +1,32 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { MapPin, Phone, Mail, Clock, ExternalLink } from "lucide-react";
+import { MapPin, Phone, Mail, ExternalLink } from "lucide-react";
 
 const ContactSection = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleSend = (e: React.FormEvent) => {
+    e.preventDefault();
+    const subject = `Website Enquiry from ${name}`;
+    const body = `Hi PCS IT Solutions,\n\nYou have received a new message from your website contact form.\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}\n\nBest regards,\n${name}`;
+    window.open(
+      `mailto:contact@pcsdatai.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    );
+  };
+
+  const handleScheduleDemo = () => {
+    const subject = "Demo Request — PCS IT Solutions";
+    const body = `Hi PCS IT Solutions,\n\nI would like to schedule a demo.\n\nName: ${name || "(your name)"}\nEmail: ${email || "(your email)"}\nPhone: ${phone || "(your phone)"}\n\n${message ? `Additional info:\n${message}\n\n` : ""}Please let me know your availability.\n\nBest regards,\n${name || "(your name)"}`;
+    window.open(
+      `mailto:contact@pcsdatai.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    );
+  };
+
   return (
     <section id="contact" className="py-20 px-4">
       <div className="container mx-auto">
@@ -17,14 +40,41 @@ const ContactSection = () => {
         </div>
         <div className="grid md:grid-cols-2 gap-10 items-start">
           {/* Form */}
-          <form className="space-y-4">
-            <Input placeholder="Full Name" className="rounded-xl" />
-            <Input placeholder="Email Address" type="email" className="rounded-xl" />
-            <Input placeholder="Phone Number" type="tel" className="rounded-xl" />
-            <Textarea placeholder="Your Message" className="rounded-xl min-h-[120px]" />
+          <form className="space-y-4" onSubmit={handleSend}>
+            <Input
+              placeholder="Full Name"
+              className="rounded-xl"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+            <Input
+              placeholder="Email Address"
+              type="email"
+              className="rounded-xl"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <Input
+              placeholder="Phone Number"
+              type="tel"
+              className="rounded-xl"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+            <Textarea
+              placeholder="Your Message"
+              className="rounded-xl min-h-[120px]"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
+            <p className="text-xs text-muted-foreground">
+              Clicking Send or Schedule will open your email client pre-filled with your details.
+            </p>
             <div className="flex gap-3">
-              <Button className="rounded-full px-6 text-sm">Send Message</Button>
-              <Button variant="outline" className="rounded-full px-6 text-sm">Schedule a Demo</Button>
+              <Button type="submit" className="rounded-full px-6 text-sm">Send Message</Button>
+              <Button type="button" variant="outline" className="rounded-full px-6 text-sm" onClick={handleScheduleDemo}>Schedule a Demo</Button>
             </div>
           </form>
 
@@ -35,7 +85,6 @@ const ContactSection = () => {
                 { icon: MapPin, text: "Magarpatta City, Pune, India" },
                 { icon: Phone, text: "+91 724-9310743" },
                 { icon: Mail, text: "contact@pcsdatai.com" },
-                { icon: Clock, text: "Mon–Sat: 9AM – 6PM IST" },
               ].map((item) => (
                 <div key={item.text} className="flex items-center gap-4">
                   <div className="h-10 w-10 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0">

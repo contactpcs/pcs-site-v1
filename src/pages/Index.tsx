@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import AboutSection from "@/components/AboutSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import DesignDevelopmentSection from "@/components/DesignDevelopmentSection";
 import TeamSection from "@/components/TeamSection";
@@ -31,6 +32,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <HeroSection />
+      <AboutSection />
       <ExpertiseSection />
       <FeaturesSection />
       <DesignDevelopmentSection />
