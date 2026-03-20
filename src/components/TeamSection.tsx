@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { flushSync } from "react-dom";
 import snehaImg from "@/assets/team/sneha-sanjana.jpg";
 import amitImg from "@/assets/team/amit-jape.png";
 
@@ -99,8 +100,8 @@ const TEAM: TeamMember[] = [
 
 const N = TEAM.length;
 const AUTO_INTERVAL = 4000;
-// Render enough copies so wrapping is never visible (2 extra sets each side)
-const COPIES = 5;
+// 3 copies (1 center + 1 each side) is enough since we normalize after each transition
+const COPIES = 3;
 
 const TeamSection = () => {
   // rawIndex is continuous — not clamped to [0,N). This lets wrap-around
@@ -113,8 +114,6 @@ const TeamSection = () => {
   const [inView, setInView] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
   const isNormalizing = useRef(false);
-
-  const realIndex = ((rawIndex % N) + N) % N;
 
   // Observe section entering viewport
   useEffect(() => {
@@ -130,48 +129,29 @@ const TeamSection = () => {
 
   // After the CSS transition finishes, silently re-center rawIndex into [0, N)
   // so the track doesn't drift infinitely.
+  // flushSync ensures React commits the DOM update synchronously before we
+  // re-enable the transition — otherwise the jump would be visible.
   useEffect(() => {
     const el = trackRef.current;
     if (!el) return;
-    const handler = () => {
+    const handler = (e: TransitionEvent) => {
+      if (e.target !== el || e.propertyName !== "transform") return;
       if (isNormalizing.current) return;
       const normalized = ((rawIndex % N) + N) % N;
       if (normalized !== rawIndex) {
         isNormalizing.current = true;
-        // Disable transition, reset position, re-enable
         el.style.transition = "none";
-        setRawIndex(normalized);
-        // Force reflow then restore transition
-        requestAnimationFrame(() => {
-          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-          el.offsetHeight; // force reflow
-          el.style.transition = "";
-          isNormalizing.current = false;
-        });
+        // flushSync forces React to commit the new translateX to the DOM
+        // synchronously, so re-enabling the transition won't animate the jump
+        flushSync(() => setRawIndex(normalized));
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+        el.offsetHeight; // force reflow
+        el.style.transition = "";
+        isNormalizing.current = false;
       }
     };
     el.addEventListener("transitionend", handler);
     return () => el.removeEventListener("transitionend", handler);
-  }, [rawIndex]);
-
-  // Navigate — always takes shortest path around the ring
-  const goTo = useCallback((targetReal: number) => {
-    const target = ((targetReal % N) + N) % N;
-    const currentReal = ((rawIndex % N) + N) % N;
-    if (target === currentReal) return;
-
-    // Shortest delta on the circular ring
-    let delta = target - currentReal;
-    if (delta > N / 2) delta -= N;
-    if (delta < -N / 2) delta += N;
-
-    setPanelVisible(false);
-    const nextRaw = rawIndex + delta;
-    setRawIndex(nextRaw);
-    setTimeout(() => {
-      setDisplayIndex(((nextRaw % N) + N) % N);
-      setPanelVisible(true);
-    }, 200);
   }, [rawIndex]);
 
   // Auto-advance
@@ -192,10 +172,18 @@ const TeamSection = () => {
     return () => clearInterval(id);
   }, [paused, inView]);
 
-  // Click on a card — pause and select
-  const handleCardClick = (realIdx: number) => {
+  // Click on a card — pause and navigate by physical position delta
+  // (not realIdx, so clicking LEFT always animates left)
+  const handleCardClick = (delta: number) => {
+    if (delta === 0) return;
     setPaused(true);
-    goTo(realIdx);
+    setPanelVisible(false);
+    const nextRaw = rawIndex + delta;
+    setRawIndex(nextRaw);
+    setTimeout(() => {
+      setDisplayIndex(((nextRaw % N) + N) % N);
+      setPanelVisible(true);
+    }, 200);
   };
 
   const current = TEAM[displayIndex];
@@ -289,15 +277,15 @@ const TeamSection = () => {
         </p>
       </div>
 
-      {/* Carousel */}
-      <div style={{ position: "relative", overflow: "hidden", padding: "8px 0 12px" }}>
+      {/* Carousel — extra top padding so scaled center card border isn't clipped */}
+      <div style={{ position: "relative", overflow: "hidden", padding: "16px 0 12px" }}>
         <CarouselTrack
           trackRef={trackRef}
           items={items}
           rawIndex={rawIndex}
           homeOffset={homeOffset}
           onCardClick={handleCardClick}
-          onSwipe={(dir) => { setPaused(true); goTo(realIndex + dir); }}
+          onSwipe={(dir) => { handleCardClick(dir); }}
           cardWidthDesktop={CARD_W_DESKTOP}
           cardWidthMobile={CARD_W_MOBILE}
           gapDesktop={GAP_DESKTOP}
@@ -373,7 +361,7 @@ interface CarouselTrackProps {
   items: { member: TeamMember; realIdx: number; key: string }[];
   rawIndex: number;
   homeOffset: number;
-  onCardClick: (realIdx: number) => void;
+  onCardClick: (delta: number) => void;
   onSwipe: (direction: 1 | -1) => void;
   cardWidthDesktop: number;
   cardWidthMobile: number;
@@ -466,7 +454,7 @@ const CarouselTrack = ({ trackRef, items, rawIndex, homeOffset, onCardClick, onS
             key={item.key}
             className="tm-card-outer"
             onClick={() => {
-              if (!swipeHandled.current) onCardClick(item.realIdx);
+              if (!swipeHandled.current) onCardClick(i - centerItemIndex);
             }}
             style={{
               transform: `scale(${scale})`,
