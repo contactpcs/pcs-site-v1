@@ -14,6 +14,7 @@ import FAQSection from "@/components/FAQSection";
 import ContactSection from "@/components/ContactSection";
 import FooterSection from "@/components/FooterSection";
 import BotSection from "@/components/BotSection";
+import DialogflowChatbot from "@/components/DialogflowChatbot";
 
 const Index = () => {
   const location = useLocation();
@@ -46,6 +47,7 @@ const Index = () => {
       <FAQSection />
       <ContactSection />
       <FooterSection />
+      <DialogflowChatbot />
     </div>
   );
 };
