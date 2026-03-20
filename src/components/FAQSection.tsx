@@ -15,7 +15,7 @@ const faqs = [
 
 const FAQSection = () => {
   return (
-    <section id="resources" className="py-20 px-4 bg-secondary/50">
+    <section id="faq" className="py-20 px-4 bg-secondary/50">
       <div className="container mx-auto max-w-3xl">
         <h2 className="text-3xl md:text-[2.5rem] font-semibold mb-10 leading-tight">
           Frequently Asked<br />Questions

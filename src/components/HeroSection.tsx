@@ -59,11 +59,11 @@ const HeroSection = () => {
 
           <h1 className="hero-title text-[clamp(2rem,5.5vw,4.5rem)] font-light tracking-tight leading-[1.08] mb-5 text-white px-2" style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8), 0 0 40px rgba(0,0,0,0.5)' }}>
             Scalable{" "}
-            <span className="italic bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 via-blue-100 to-white">
+            <span className="italic bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 via-blue-100 to-white pr-1">
               IT Solutions
             </span>
             <br />
-            <span className="italic bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 via-blue-100 to-white">
+            <span className="italic bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 via-blue-100 to-white pr-1">
               Delivered.
             </span>
           </h1>

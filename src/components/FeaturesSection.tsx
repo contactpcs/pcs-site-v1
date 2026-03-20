@@ -71,6 +71,8 @@ const services: Service[] = [
     title: "Full Stack Development",
     desc: "Modern web apps with React, Next.js, Node.js, Python, and Java — end-to-end from architecture to deployment.",
     category: ["engineering"],
+    featured: true,
+    badge: "Popular",
     accentColor: "text-blue-700",
     bgColor: "bg-blue-50",
     borderColor: "border-blue-300 hover:border-blue-500",
@@ -80,9 +82,22 @@ const services: Service[] = [
     title: "Cloud & Infrastructure",
     desc: "Cloud migrations, multi-cloud management, Kubernetes, Terraform IaC on AWS, Azure, and GCP.",
     category: ["engineering", "data"],
+    featured: true,
+    badge: "Essential",
     accentColor: "text-sky-600",
     bgColor: "bg-sky-50",
     borderColor: "border-sky-200 hover:border-sky-400",
+  },
+  {
+    icon: Smartphone,
+    title: "Mobile Development",
+    desc: "Native iOS and Android apps, React Native / Flutter cross-platform solutions, and API-first mobile backends.",
+    category: ["engineering"],
+    featured: true,
+    badge: "Growing",
+    accentColor: "text-sky-700",
+    bgColor: "bg-sky-50",
+    borderColor: "border-sky-300 hover:border-sky-500",
   },
   {
     icon: Layers,
@@ -101,15 +116,6 @@ const services: Service[] = [
     accentColor: "text-indigo-700",
     bgColor: "bg-indigo-50",
     borderColor: "border-indigo-300 hover:border-indigo-500",
-  },
-  {
-    icon: Smartphone,
-    title: "Mobile Development",
-    desc: "Native iOS and Android apps, React Native / Flutter cross-platform solutions, and API-first mobile backends.",
-    category: ["engineering"],
-    accentColor: "text-sky-700",
-    bgColor: "bg-sky-50",
-    borderColor: "border-sky-300 hover:border-sky-500",
   },
   {
     icon: Cpu,
@@ -166,11 +172,9 @@ function useReveal(threshold = 0.08) {
 }
 
 // ── Component ────────────────────────────────────────────────────────────────
-const MOBILE_INITIAL = 5;
 
 const FeaturesSection = () => {
   const [activeCategory, setActiveCategory] = useState<ServiceCategory>("all");
-  const [showAllMobile, setShowAllMobile] = useState(false);
   const headerReveal = useReveal(0.1);
   const gridReveal = useReveal(0.05);
 
@@ -178,10 +182,8 @@ const FeaturesSection = () => {
     (s) => activeCategory === "all" || s.category.includes(activeCategory)
   );
 
-  const handleCategoryChange = (cat: ServiceCategory) => {
-    setActiveCategory(cat);
-    setShowAllMobile(false);
-  };
+  const featuredCards = filtered.filter((s) => s.featured);
+  const otherCards = filtered.filter((s) => !s.featured);
 
   return (
     <section id="services" className="py-14 px-4 bg-white">
@@ -240,6 +242,28 @@ const FeaturesSection = () => {
         .featured-badge {
           animation: svcFadeUp 0.5s ease both;
         }
+
+        /* Mobile horizontal scroll container */
+        .svc-scroll-container {
+          -webkit-overflow-scrolling: touch;
+          scroll-snap-type: x mandatory;
+          scrollbar-width: none;
+        }
+        .svc-scroll-container::-webkit-scrollbar {
+          display: none;
+        }
+        .svc-scroll-item {
+          scroll-snap-align: start;
+          flex: 0 0 auto;
+        }
+
+        /* On mobile, disable hover translateY so cards don't jump while scrolling */
+        @media (max-width: 767px) {
+          .svc-card:hover {
+            transform: none;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+          }
+        }
       `}</style>
 
       {/* ── Header ──────────────────────────────────────────────────── */}
@@ -265,7 +289,7 @@ const FeaturesSection = () => {
           {categories.map((cat) => (
             <button
               key={cat.key}
-              onClick={() => handleCategoryChange(cat.key)}
+              onClick={() => setActiveCategory(cat.key)}
               className={`cat-pill px-4 py-2 rounded-full border transition-all ${
                 activeCategory === cat.key
                   ? "bg-primary text-white border-primary shadow-md shadow-primary/20"
@@ -278,11 +302,46 @@ const FeaturesSection = () => {
         </div>
       </div>
 
-      {/* ── Featured Row (visible on "all") ─────────────────────────── */}
-      {activeCategory === "all" && (
+      {/* ── Featured Services ─────────────────────────────────────── */}
+      {featuredCards.length > 0 && (
         <div className="container mx-auto max-w-7xl mb-6">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {services.filter((s) => s.featured).map((svc, i) => (
+          {/* Mobile: horizontal scroll / Desktop: grid */}
+          <div className="md:hidden">
+            <div className="flex items-center gap-2 mb-3 px-1">
+              <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Featured</span>
+              <span className="text-[10px] text-muted-foreground/60">— swipe to explore</span>
+            </div>
+            <div className="svc-scroll-container flex gap-3 overflow-x-auto pb-3 -mx-4 px-4">
+              {featuredCards.map((svc, i) => (
+                <div
+                  key={svc.title}
+                  className={`svc-scroll-item svc-card rounded-2xl border ${svc.borderColor} bg-white p-5 flex flex-col gap-3 relative overflow-hidden`}
+                  style={{ width: "260px", minWidth: "260px", animationDelay: `${i * 0.08}s` }}
+                >
+                  {/* Top glow strip */}
+                  <div className={`absolute top-0 left-0 right-0 h-0.5 ${svc.accentColor.replace("text-", "bg-").replace("600", "400").replace("700", "400")}`} />
+                  <div className="flex items-start justify-between">
+                    <div className={`svc-icon-wrap h-11 w-11 rounded-xl ${svc.bgColor} flex items-center justify-center`}>
+                      <svc.icon className={`h-5 w-5 ${svc.accentColor}`} />
+                    </div>
+                    {svc.badge && (
+                      <span className={`featured-badge text-[10px] font-bold px-2.5 py-1 rounded-full ${svc.bgColor} ${svc.accentColor}`}>
+                        {svc.badge}
+                      </span>
+                    )}
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-sm mb-1.5">{svc.title}</h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed">{svc.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Desktop: grid layout */}
+          <div className="hidden md:grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {featuredCards.map((svc, i) => (
               <div
                 key={svc.title}
                 className={`svc-card rounded-2xl border ${svc.borderColor} bg-white p-6 flex flex-col gap-4 relative overflow-hidden`}
@@ -310,49 +369,57 @@ const FeaturesSection = () => {
         </div>
       )}
 
-      {/* ── Main Services Grid ──────────────────────────────────────── */}
-      <div ref={gridReveal.ref} className="container mx-auto max-w-7xl">
-        {(() => {
-          const gridCards = filtered.filter((s) => activeCategory !== "all" || !s.featured);
-          const visibleCards = showAllMobile ? gridCards : gridCards.slice(0, MOBILE_INITIAL);
-          return (
-            <>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {/* On mobile show limited cards; on sm+ show all */}
-                {gridCards.map((svc, i) => (
-                  <div
-                    key={svc.title}
-                    className={`svc-card svc-card-reveal ${gridReveal.visible ? "in-view" : ""} rounded-2xl border ${svc.borderColor} bg-white p-5 flex flex-col gap-3 ${!showAllMobile && i >= MOBILE_INITIAL ? "hidden sm:flex" : ""}`}
-                    style={{ transitionDelay: `${i * 0.06}s` }}
-                  >
-                    <div className={`svc-icon-wrap h-10 w-10 rounded-xl ${svc.bgColor} flex items-center justify-center`}>
-                      <svc.icon className={`h-5 w-5 ${svc.accentColor}`} />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-sm mb-1.5">{svc.title}</h3>
-                      <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">{svc.desc}</p>
-                    </div>
+      {/* ── Other Services Grid ──────────────────────────────────── */}
+      {otherCards.length > 0 && (
+        <div ref={gridReveal.ref} className="container mx-auto max-w-7xl">
+          {/* Mobile: horizontal scroll */}
+          <div className="md:hidden">
+            <div className="flex items-center gap-2 mb-3 px-1">
+              <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">More Services</span>
+              <span className="text-[10px] text-muted-foreground/60">— swipe to explore</span>
+            </div>
+            <div className="svc-scroll-container flex gap-3 overflow-x-auto pb-3 -mx-4 px-4">
+              {otherCards.map((svc, i) => (
+                <div
+                  key={svc.title}
+                  className={`svc-scroll-item svc-card svc-card-reveal ${gridReveal.visible ? "in-view" : ""} rounded-2xl border ${svc.borderColor} bg-white p-5 flex flex-col gap-3`}
+                  style={{ width: "240px", minWidth: "240px", transitionDelay: `${i * 0.06}s` }}
+                >
+                  <div className={`svc-icon-wrap h-10 w-10 rounded-xl ${svc.bgColor} flex items-center justify-center`}>
+                    <svc.icon className={`h-5 w-5 ${svc.accentColor}`} />
                   </div>
-                ))}
-              </div>
-              {/* Mobile show-more button */}
-              {gridCards.length > MOBILE_INITIAL && (
-                <div className="flex justify-center mt-5 sm:hidden">
-                  <button
-                    onClick={() => setShowAllMobile((s) => !s)}
-                    className="flex items-center gap-2 px-6 py-2.5 rounded-full border border-primary/30 text-primary text-sm font-medium hover:bg-primary/5 transition-colors"
-                  >
-                    {showAllMobile ? "Show less" : `Show ${gridCards.length - MOBILE_INITIAL} more services`}
-                    <ArrowRight className={`h-3.5 w-3.5 transition-transform ${showAllMobile ? "rotate-90" : ""}`} />
-                  </button>
+                  <div>
+                    <h3 className="font-semibold text-sm mb-1.5">{svc.title}</h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed">{svc.desc}</p>
+                  </div>
                 </div>
-              )}
-            </>
-          );
-        })()}
+              ))}
+            </div>
+          </div>
 
+          {/* Desktop: grid layout */}
+          <div className="hidden md:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {otherCards.map((svc, i) => (
+              <div
+                key={svc.title}
+                className={`svc-card svc-card-reveal ${gridReveal.visible ? "in-view" : ""} rounded-2xl border ${svc.borderColor} bg-white p-5 flex flex-col gap-3`}
+                style={{ transitionDelay: `${i * 0.06}s` }}
+              >
+                <div className={`svc-icon-wrap h-10 w-10 rounded-xl ${svc.bgColor} flex items-center justify-center`}>
+                  <svc.icon className={`h-5 w-5 ${svc.accentColor}`} />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-sm mb-1.5">{svc.title}</h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">{svc.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
-        {/* ── Bottom CTA ────────────────────────────────────────────── */}
+      {/* ── Bottom CTA ────────────────────────────────────────────── */}
+      <div className="container mx-auto max-w-7xl">
         <div className="mt-12 rounded-2xl bg-gradient-to-br from-[#061320] via-[#0a1f35] to-[#061320] p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
           <div>
             <h3 className="text-xl md:text-2xl font-bold text-white mb-2">

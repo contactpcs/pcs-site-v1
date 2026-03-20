@@ -6,10 +6,11 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const scrollLinks = [
   { label: "About", id: "about" },
-  { label: "Services", id: "services" },
   { label: "Clients", id: "clients" },
+  { label: "Services", id: "services" },
   { label: "BOT", id: "bot" },
   { label: "Brilliant Minds", id: "minds" },
+  { label: "FAQs", id: "faq" },
   { label: "Contact Us", id: "contact" },
 ];
 

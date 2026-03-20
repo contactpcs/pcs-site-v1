@@ -111,7 +111,7 @@ const Careers = () => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
-                  className="rounded-xl"
+                  className="rounded-xl text-sm placeholder:text-sm h-11"
                 />
                 <Input
                   placeholder="Your Email"
@@ -119,7 +119,7 @@ const Careers = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="rounded-xl"
+                  className="rounded-xl text-sm placeholder:text-sm h-11"
                 />
               </div>
               <Input
@@ -127,13 +127,13 @@ const Careers = () => {
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="rounded-xl"
+                className="rounded-xl text-sm placeholder:text-sm h-11"
               />
               <Textarea
                 placeholder="Tell us about yourself and what kind of role you're interested in..."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                className="rounded-xl min-h-[120px]"
+                className="rounded-xl min-h-[120px] text-sm placeholder:text-sm"
               />
 
               {/* Resume file picker */}
@@ -148,15 +148,19 @@ const Careers = () => {
                 <button
                   type="button"
                   onClick={() => fileRef.current?.click()}
-                  className="w-full flex items-center justify-center gap-2 rounded-xl border-2 border-dashed border-border hover:border-primary/40 hover:bg-primary/5 py-4 text-sm text-muted-foreground hover:text-primary transition-all"
+                  className="w-full flex items-center justify-center gap-2 rounded-xl border-2 border-dashed border-border hover:border-primary/40 hover:bg-primary/5 py-4 text-xs sm:text-sm text-muted-foreground hover:text-primary transition-all"
                 >
-                  <Upload className="h-4 w-4" />
+                  <Upload className="h-4 w-4 flex-shrink-0" />
                   {fileName ? fileName : "Add Your Resume (PDF, DOC, DOCX)"}
                 </button>
               </div>
 
-              <Button type="submit" className="w-full rounded-full text-sm" size="lg">
-                <Mail className="h-4 w-4 mr-2" />
+              <Button
+                type="submit"
+                className="w-full rounded-full text-xs sm:text-sm whitespace-normal h-auto py-3 px-4"
+                size="lg"
+              >
+                <Mail className="h-4 w-4 mr-1.5 flex-shrink-0" />
                 Send to contact@pcsdatai.com
               </Button>
               <p className="text-center text-xs text-muted-foreground">

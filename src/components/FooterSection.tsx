@@ -91,7 +91,7 @@ const FooterSection = () => {
                 <p>9715 Venice Blvd. Apt #4<br />Los Angeles, CA. 90034</p>
               </li>
               <li className="pt-2">
-                <a href="mailto:vaasudev@perfect108.com" className="footer-link">vaasudev@perfect108.com</a>
+                <a href="mailto:contact@pcsdatai.com" className="footer-link">contact@pcsdatai.com</a>
               </li>
               <li>
                 <a href="tel:+19499814976" className="footer-link">+1 (949) 981 4976</a>
@@ -108,7 +108,7 @@ const FooterSection = () => {
                 <p>6th Floor, Pentagon P2,<br />Magarpatta City, Pune - 411013</p>
               </li>
               <li className="pt-2">
-                <a href="mailto:vaasudev@perfect108.com" className="footer-link">vaasudev@perfect108.com</a>
+                <a href="mailto:contact@pcsdatai.com" className="footer-link">contact@pcsdatai.com</a>
               </li>
               <li>
                 <a href="tel:+917249310743" className="footer-link">+91 724-9310743</a>
@@ -125,7 +125,7 @@ const FooterSection = () => {
                 <p>Panepistimiou, 12-14<br />Ground Floor, Pyla, 7080<br />Larnaca, Cyprus</p>
               </li>
               <li className="pt-2">
-                <a href="mailto:vaasudev@perfect108.com" className="footer-link">vaasudev@perfect108.com</a>
+                <a href="mailto:contact@pcsdatai.com" className="footer-link">contact@pcsdatai.com</a>
               </li>
             </ul>
           </div>

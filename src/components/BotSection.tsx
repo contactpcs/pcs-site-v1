@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Zap, Briefcase, TrendingUp, ShieldCheck, Users, UserCheck, Award, Clock, UserPlus, Globe, Building2, Layers, BarChart3, Repeat } from "lucide-react";
 
 const painPoints = [
@@ -101,7 +101,26 @@ const requirements = [
 
 const BotSection = () => {
   const [activePhase, setActivePhase] = useState<PhaseKey>("build");
+  const [visible, setVisible] = useState(true);
+  const pendingPhase = useRef<PhaseKey | null>(null);
   const phase = phaseData[activePhase];
+
+  const switchPhase = (key: PhaseKey) => {
+    if (key === activePhase) return;
+    setVisible(false);
+    pendingPhase.current = key;
+  };
+
+  const handleTransitionEnd = () => {
+    if (!visible && pendingPhase.current) {
+      setActivePhase(pendingPhase.current);
+      pendingPhase.current = null;
+      // Allow a frame for React to render new content, then fade in
+      requestAnimationFrame(() => {
+        setVisible(true);
+      });
+    }
+  };
 
   return (
     <section id="bot" className="bg-background">
@@ -110,12 +129,18 @@ const BotSection = () => {
           from { opacity: 0; transform: translateY(24px); }
           to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes phaseContentIn {
-          from { opacity: 0; transform: translateY(16px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
         .bot-animate { animation: botFadeUp 0.7s ease both; }
-        .phase-content { animation: phaseContentIn 0.4s ease both; }
+        .phase-content-transition {
+          transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .phase-content-visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .phase-content-hidden {
+          opacity: 0;
+          transform: translateY(16px);
+        }
         .bot-card {
           transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
         }
@@ -171,7 +196,7 @@ const BotSection = () => {
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
             Scale with the{" "}
-            <span className="italic bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 via-blue-200 to-white">
+            <span className="italic bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 via-blue-200 to-white pr-1">
               BOT Model
             </span>
           </h2>
@@ -186,8 +211,10 @@ const BotSection = () => {
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-10">
             <h3 className="text-2xl md:text-3xl font-semibold mb-2">Do any of these sound familiar?</h3>
-            <p className="text-sm text-muted-foreground max-w-md mx-auto">
-              If you're a Founder or Executive and answered yes — we can help.
+            <p className="text-sm text-muted-foreground max-w-md mx-auto text-center">
+              If you are a Founder or Executive and answered yes to the following queries —
+              <br />
+              <span className="font-semibold text-primary text-base mt-1 inline-block">we can help!</span>
             </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -216,45 +243,18 @@ const BotSection = () => {
             </p>
           </div>
 
-          {/* Phase Content */}
-          <div key={activePhase} className="phase-content">
-            <div className="grid md:grid-cols-2 gap-8 items-start">
-              {/* Left: tagline + items */}
-              <div>
-                <div className="mb-6">
-                  <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/15 text-blue-300 mb-3 uppercase tracking-widest">
-                    {phase.label}
-                  </span>
-                  <p className="text-white/75 text-sm leading-relaxed">{phase.tagline}</p>
-                </div>
-                <div className="flex flex-col gap-3">
-                  {phase.items.map((item, i) => (
-                    <div
-                      key={i}
-                      className="phase-item-card flex gap-4 rounded-xl border border-white/10 bg-white/5 p-4"
-                    >
-                      <div className="h-9 w-9 rounded-lg bg-blue-500/15 flex items-center justify-center flex-shrink-0">
-                        <item.icon className="h-4 w-4 text-blue-400" />
-                      </div>
-                      <div>
-                        <p className="font-semibold text-white text-sm mb-0.5">{item.title}</p>
-                        <p className="text-xs text-white/55 leading-relaxed">{item.desc}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+          <style>{`
+            @keyframes phaseGlow {
+              0%, 100% { box-shadow: 0 0 0 0 rgba(59,130,246,0.4); }
+              50% { box-shadow: 0 0 0 10px rgba(59,130,246,0); }
+            }
+            .phase-node-active { animation: phaseGlow 2s ease-in-out infinite; }
+          `}</style>
 
-              {/* Right: animated phase visual */}
+          {/* Phase selector buttons — render function used in both mobile and desktop positions */}
+          {(() => {
+            const phaseButtons = (
               <div className="flex flex-col gap-4">
-                <style>{`
-                  @keyframes phaseGlow {
-                    0%, 100% { box-shadow: 0 0 0 0 rgba(59,130,246,0.4); }
-                    50% { box-shadow: 0 0 0 10px rgba(59,130,246,0); }
-                  }
-                  .phase-node-active { animation: phaseGlow 2s ease-in-out infinite; }
-                `}</style>
-
                 {(["build", "operate", "transfer"] as PhaseKey[]).map((key, i) => {
                   const isActive = key === activePhase;
                   const isPast = ["build", "operate", "transfer"].indexOf(activePhase) > i;
@@ -265,7 +265,7 @@ const BotSection = () => {
                   return (
                     <div key={key}>
                       <button
-                        onClick={() => setActivePhase(key)}
+                        onClick={() => switchPhase(key)}
                         className={`w-full flex gap-4 items-center p-4 rounded-2xl transition-all duration-300 text-left ${
                           isActive
                             ? "bg-blue-500/20 border border-blue-400/40"
@@ -305,8 +305,54 @@ const BotSection = () => {
                   <p className="text-white/55 text-xs leading-relaxed text-center">{phase.tagline}</p>
                 </div>
               </div>
-            </div>
-          </div>
+            );
+
+            const phaseContent = (
+              <div
+                className={`phase-content-transition ${visible ? "phase-content-visible" : "phase-content-hidden"}`}
+                onTransitionEnd={handleTransitionEnd}
+              >
+                <div className="mb-6">
+                  <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/15 text-blue-300 mb-3 uppercase tracking-widest">
+                    {phase.label}
+                  </span>
+                  <p className="text-white/75 text-sm leading-relaxed">{phase.tagline}</p>
+                </div>
+                <div className="flex flex-col gap-3">
+                  {phase.items.map((item, i) => (
+                    <div
+                      key={i}
+                      className="phase-item-card flex gap-4 rounded-xl border border-white/10 bg-white/5 p-4"
+                    >
+                      <div className="h-9 w-9 rounded-lg bg-blue-500/15 flex items-center justify-center flex-shrink-0">
+                        <item.icon className="h-4 w-4 text-blue-400" />
+                      </div>
+                      <div>
+                        <p className="font-semibold text-white text-sm mb-0.5">{item.title}</p>
+                        <p className="text-xs text-white/55 leading-relaxed">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+
+            return (
+              <>
+                {/* Mobile layout: buttons on top, content below */}
+                <div className="md:hidden flex flex-col gap-8">
+                  {phaseButtons}
+                  {phaseContent}
+                </div>
+
+                {/* Desktop layout: content left, buttons right */}
+                <div className="hidden md:grid md:grid-cols-2 gap-8 items-start">
+                  <div>{phaseContent}</div>
+                  {phaseButtons}
+                </div>
+              </>
+            );
+          })()}
         </div>
       </div>
 

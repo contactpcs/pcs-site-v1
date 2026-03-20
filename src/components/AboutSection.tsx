@@ -104,6 +104,7 @@ const AboutSection = () => {
 
   return (
     <section
+      id="about"
       className="py-16 bg-white overflow-hidden"
       onMouseEnter={() => { hoverRef.current = true; }}
       onMouseLeave={() => { hoverRef.current = false; }}
@@ -147,7 +148,9 @@ const AboutSection = () => {
                 className="absolute inset-0 pointer-events-none"
                 style={{
                   background: isCenter
-                    ? "linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.05) 40%, rgba(0,0,0,0.05) 55%, rgba(0,0,0,0.18) 100%)"
+                    ? isMobile
+                      ? "linear-gradient(to bottom, rgba(0,0,0,0.40) 0%, rgba(0,0,0,0.02) 35%, rgba(0,0,0,0) 50%)"
+                      : "linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.05) 40%, rgba(0,0,0,0.05) 55%, rgba(0,0,0,0.18) 100%)"
                     : displayPos === 1 || displayPos === 3
                     ? "rgba(0,0,0,0.52)"
                     : "rgba(0,0,0,0.65)",
@@ -175,9 +178,10 @@ const AboutSection = () => {
                   <div
                     className="absolute inset-x-0 bottom-0 pointer-events-none"
                     style={{
-                      height: "65%",
-                      background:
-                        "linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.55) 60%, rgba(255,255,255,0) 100%)",
+                      height: isMobile ? "80%" : "65%",
+                      background: isMobile
+                        ? "linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0.97) 40%, rgba(255,255,255,0.85) 60%, rgba(255,255,255,0.5) 78%, rgba(255,255,255,0) 100%)"
+                        : "linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.55) 60%, rgba(255,255,255,0) 100%)",
                     }}
                   />
 
@@ -213,7 +217,7 @@ const AboutSection = () => {
       </div>
 
       {/* Navigation controls — BCG style, bottom-left */}
-      <div className="flex items-center gap-2 mt-6 px-3 md:px-8">
+      <div className="flex items-center justify-center md:justify-start gap-2 mt-6 px-3 md:px-8">
         {/* Play / Pause */}
         <button
           aria-label={isPlaying ? "Pause" : "Play"}

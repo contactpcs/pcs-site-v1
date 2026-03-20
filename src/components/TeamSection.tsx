@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import snehaImg from "@/assets/team/sneha-sanjana.jpg";
 import amitImg from "@/assets/team/amit-jape.png";
 
@@ -97,70 +97,155 @@ const TEAM: TeamMember[] = [
   },
 ];
 
-const TeamSection = () => {
-  const [selectedIndex, setSelectedIndex] = useState<number>(-1);
-  const [displayIndex, setDisplayIndex] = useState<number>(-1);
-  const [panelVisible, setPanelVisible] = useState(true);
-  const [cardsVisible, setCardsVisible] = useState(false);
-  const gridRef = useRef<HTMLDivElement>(null);
+const N = TEAM.length;
+const AUTO_INTERVAL = 4000;
+// Render enough copies so wrapping is never visible (2 extra sets each side)
+const COPIES = 5;
 
+const TeamSection = () => {
+  // rawIndex is continuous — not clamped to [0,N). This lets wrap-around
+  // transitions go the short way (e.g. 7→8 instead of 7→0).
+  const [rawIndex, setRawIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [panelVisible, setPanelVisible] = useState(true);
+  const [displayIndex, setDisplayIndex] = useState(0);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const isNormalizing = useRef(false);
+
+  const realIndex = ((rawIndex % N) + N) % N;
+
+  // Observe section entering viewport
   useEffect(() => {
-    const el = gridRef.current;
+    const el = sectionRef.current;
     if (!el) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setCardsVisible(true);
-          observer.disconnect();
-        }
-      },
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) setInView(true); },
       { threshold: 0.1 }
     );
-    observer.observe(el);
-    return () => observer.disconnect();
+    obs.observe(el);
+    return () => obs.disconnect();
   }, []);
 
-  const handleSelect = (index: number) => {
-    if (index === selectedIndex) return;
-    setSelectedIndex(index);
+  // After the CSS transition finishes, silently re-center rawIndex into [0, N)
+  // so the track doesn't drift infinitely.
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const handler = () => {
+      if (isNormalizing.current) return;
+      const normalized = ((rawIndex % N) + N) % N;
+      if (normalized !== rawIndex) {
+        isNormalizing.current = true;
+        // Disable transition, reset position, re-enable
+        el.style.transition = "none";
+        setRawIndex(normalized);
+        // Force reflow then restore transition
+        requestAnimationFrame(() => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+          el.offsetHeight; // force reflow
+          el.style.transition = "";
+          isNormalizing.current = false;
+        });
+      }
+    };
+    el.addEventListener("transitionend", handler);
+    return () => el.removeEventListener("transitionend", handler);
+  }, [rawIndex]);
+
+  // Navigate — always takes shortest path around the ring
+  const goTo = useCallback((targetReal: number) => {
+    const target = ((targetReal % N) + N) % N;
+    const currentReal = ((rawIndex % N) + N) % N;
+    if (target === currentReal) return;
+
+    // Shortest delta on the circular ring
+    let delta = target - currentReal;
+    if (delta > N / 2) delta -= N;
+    if (delta < -N / 2) delta += N;
+
     setPanelVisible(false);
+    const nextRaw = rawIndex + delta;
+    setRawIndex(nextRaw);
     setTimeout(() => {
-      setDisplayIndex(index);
+      setDisplayIndex(((nextRaw % N) + N) % N);
       setPanelVisible(true);
-    }, 180);
+    }, 200);
+  }, [rawIndex]);
+
+  // Auto-advance
+  useEffect(() => {
+    if (paused || !inView) return;
+    const id = setInterval(() => {
+      // Always go +1 (next)
+      setPanelVisible(false);
+      setRawIndex(prev => {
+        const next = prev + 1;
+        setTimeout(() => {
+          setDisplayIndex(((next % N) + N) % N);
+          setPanelVisible(true);
+        }, 200);
+        return next;
+      });
+    }, AUTO_INTERVAL);
+    return () => clearInterval(id);
+  }, [paused, inView]);
+
+  // Click on a card — pause and select
+  const handleCardClick = (realIdx: number) => {
+    setPaused(true);
+    goTo(realIdx);
   };
 
-  const current = displayIndex >= 0 ? TEAM[displayIndex] : null;
+  const current = TEAM[displayIndex];
+
+  // Build carousel items: COPIES sets, with the middle set as "home"
+  const items: { member: TeamMember; realIdx: number; key: string }[] = [];
+  const setsOnEachSide = Math.floor(COPIES / 2);
+  for (let offset = -setsOnEachSide * N; offset < (setsOnEachSide + 1) * N; offset++) {
+    const realIdx = ((offset % N) + N) % N;
+    items.push({ member: TEAM[realIdx], realIdx, key: `${offset}` });
+  }
+  // The "home" 0-index lives at array position setsOnEachSide * N
+  const homeOffset = setsOnEachSide * N;
+
+  const CARD_W_DESKTOP = 170;
+  const CARD_W_MOBILE = 130;
+  const GAP_DESKTOP = 16;
+  const GAP_MOBILE = 12;
 
   return (
-    <section id="minds" style={{ background: "#ffffff", width: "100%" }}>
+    <section id="minds" ref={sectionRef} style={{ background: "#ffffff", width: "100%", overflow: "hidden" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap');
-
         #minds * { box-sizing: border-box; }
 
-        /* ── shared image / placeholder styles ── */
+        .tm-track {
+          display: flex;
+          transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+          will-change: transform;
+        }
+
+        .tm-card-outer {
+          flex-shrink: 0;
+          transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
+          cursor: pointer;
+        }
+
         .tm-card-img-wrap {
           overflow: hidden;
           border-radius: 10px;
           aspect-ratio: 3 / 4;
-          background: #e2e2e0;
+          background: #e8e8e6;
         }
         .tm-card-img {
           width: 100%;
           height: 100%;
           object-fit: cover;
           object-position: top;
-          filter: grayscale(35%);
-          transition: filter 0.3s ease, transform 0.3s ease;
           display: block;
         }
-        .tm-card:hover .tm-card-img,
-        .tm-card.tm-active .tm-card-img {
-          filter: grayscale(0%);
-          transform: scale(1.03);
-        }
-        .tm-card.tm-active { border-bottom: 2px solid #0f72ba; }
         .tm-placeholder {
           width: 100%;
           height: 100%;
@@ -169,287 +254,270 @@ const TeamSection = () => {
           align-items: center;
           justify-content: center;
           font-family: 'Sora', sans-serif;
-          font-size: 12px;
+          font-size: 11px;
           color: #aaa;
           letter-spacing: 0.08em;
           text-transform: uppercase;
-          transition: background 0.3s ease;
         }
-        .tm-card:hover .tm-placeholder,
-        .tm-card.tm-active .tm-placeholder {
-          background: linear-gradient(145deg, #d4dce8, #c0cede);
+
+        .tm-bio-panel {
+          transition: opacity 0.3s ease, transform 0.3s ease;
         }
         .tm-linkedin:hover { text-decoration: underline; }
-        .tm-panel-content { transition: opacity 0.28s ease, transform 0.28s ease; }
 
-        /* ── mobile layout hidden on desktop ── */
-        .tm-mobile { display: none; }
-
-        /* ── desktop: show split, hide mobile ── */
-        @media (min-width: 769px) {
-          .tm-split  { display: flex; }
-          .tm-mobile { display: none; }
-          .tm-heading { padding: 60px 24px 36px; }
+        /* Desktop card sizes */
+        .tm-card-outer {
+          width: ${CARD_W_DESKTOP}px;
+          margin-right: ${GAP_DESKTOP}px;
         }
 
-        /* ── mobile breakpoint ── */
         @media (max-width: 768px) {
-          .tm-split  { display: none !important; }
-          .tm-mobile { display: block; }
-          .tm-heading { padding: 40px 20px 24px !important; }
-          .tm-heading h2 { font-size: 28px !important; }
-
-          /* 2-column grid */
-          .tm-mob-scroll {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            padding: 0 16px 16px;
-          }
-
-          .tm-mob-card {
-            cursor: pointer;
-            padding-bottom: 10px;
-            border-bottom: 2px solid transparent;
-            transition: border-color 0.25s;
-            border-radius: 10px;
-          }
-          .tm-mob-card.tm-active { border-bottom-color: #0f72ba; }
-
-          .tm-mob-img-wrap {
-            overflow: hidden;
-            border-radius: 10px;
-            aspect-ratio: 3 / 4;
-            background: #e2e2e0;
-          }
-          .tm-mob-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: top;
-            filter: grayscale(30%);
-            transition: filter 0.3s ease;
-            display: block;
-          }
-          .tm-mob-card.tm-active .tm-mob-img { filter: grayscale(0%); }
-          .tm-mob-card.tm-active .tm-mob-placeholder {
-            background: linear-gradient(145deg, #d4dce8, #c0cede);
-          }
-          .tm-mob-placeholder {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(145deg, #e8e8e6, #d8d8d6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Sora', sans-serif;
-            font-size: 11px;
-            color: #aaa;
-            letter-spacing: 0.07em;
-            text-transform: uppercase;
-          }
-
-          /* bio area below strip */
-          .tm-mob-bio {
-            padding: 28px 20px 48px;
-            border-top: 1px solid #e8e8e8;
-            transition: opacity 0.28s ease, transform 0.28s ease;
+          .tm-card-outer {
+            width: ${CARD_W_MOBILE}px;
+            margin-right: ${GAP_MOBILE}px;
           }
         }
       `}</style>
 
-      {/* ── Heading (shared) ── */}
-      <div className="tm-heading" style={{ textAlign: "center", maxWidth: "640px", margin: "0 auto" }}>
-        <h2 style={{ fontFamily: "'Sora', sans-serif", fontSize: "clamp(28px, 3.5vw, 44px)", fontWeight: 400, color: "#1a1a1a", lineHeight: 1.15, marginBottom: "14px", letterSpacing: "-0.01em" }}>
+      {/* Heading — compact */}
+      <div style={{ textAlign: "center", maxWidth: "600px", margin: "0 auto", padding: "40px 20px 24px" }}>
+        <h2 style={{ fontFamily: "'Sora', sans-serif", fontSize: "clamp(24px, 3vw, 38px)", fontWeight: 400, color: "#1a1a1a", lineHeight: 1.15, marginBottom: "10px", letterSpacing: "-0.01em" }}>
           Brilliant Minds Behind PCS
         </h2>
-        <p style={{ fontFamily: "'Sora', sans-serif", fontSize: "15px", fontWeight: 300, color: "#6b6b6b", lineHeight: 1.65, margin: 0 }}>
-          The people who shape our vision, culture, and technology — meet the leadership and engineers driving PCS forward.
+        <p style={{ fontFamily: "'Sora', sans-serif", fontSize: "14px", fontWeight: 300, color: "#6b6b6b", lineHeight: 1.6, margin: 0 }}>
+          Meet the leadership and engineers driving PCS forward.
         </p>
       </div>
 
-      {/* ══════════════════════════════════
-          DESKTOP — split screen
-      ══════════════════════════════════ */}
-      <div className="tm-split" style={{ width: "100%", minHeight: "100vh", alignItems: "flex-start" }}>
+      {/* Carousel */}
+      <div style={{ position: "relative", overflow: "hidden", padding: "8px 0 12px" }}>
+        <CarouselTrack
+          trackRef={trackRef}
+          items={items}
+          rawIndex={rawIndex}
+          homeOffset={homeOffset}
+          onCardClick={handleCardClick}
+          onSwipe={(dir) => { setPaused(true); goTo(realIndex + dir); }}
+          cardWidthDesktop={CARD_W_DESKTOP}
+          cardWidthMobile={CARD_W_MOBILE}
+          gapDesktop={GAP_DESKTOP}
+          gapMobile={GAP_MOBILE}
+        />
+      </div>
 
-        {/* LEFT — scrollable photo grid */}
-        <div className="tm-left" style={{ width: "50%", maxHeight: "100vh", overflowY: "auto", padding: "32px" }}>
-          <div ref={gridRef} className="tm-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "14px" }}>
-            {TEAM.map((member) => {
-                const fullIndex = TEAM.indexOf(member);
-                return (
-                  <div
-                    key={member.name}
-                    className={`tm-card${selectedIndex === fullIndex ? " tm-active" : ""}`}
-                    onClick={() => handleSelect(fullIndex)}
-                    style={{
-                      cursor: "pointer",
-                      borderRadius: "10px",
-                      paddingBottom: "12px",
-                      opacity: cardsVisible ? 1 : 0,
-                      transform: cardsVisible ? "translateY(0)" : "translateY(30px)",
-                      transition: cardsVisible
-                        ? `opacity 0.5s cubic-bezier(0.22,1,0.36,1) ${fullIndex * 80}ms, transform 0.5s cubic-bezier(0.22,1,0.36,1) ${fullIndex * 80}ms`
-                        : "none",
-                    }}
-                  >
-                    <div className="tm-card-img-wrap">
-                      {member.img ? (
-                        <img src={member.img} alt={member.name} className="tm-card-img" />
-                      ) : (
-                        <div className="tm-placeholder">Photo</div>
-                      )}
-                    </div>
-                    <div style={{ padding: "10px 4px 0" }}>
-                      <div style={{ fontFamily: "'Sora', sans-serif", fontSize: "15px", fontWeight: 400, color: "#1a1a1a", lineHeight: 1.3 }}>
-                        {member.name}
-                      </div>
-                      <div style={{ fontFamily: "'Sora', sans-serif", fontSize: "13px", fontWeight: 300, color: "#6b6b6b", marginTop: "4px", lineHeight: 1.3 }}>
-                        {member.role}
-                      </div>
-                    </div>
-                  </div>
-                );
-            })}
-          </div>
+      {/* Bio panel — compact */}
+      <div
+        className="tm-bio-panel"
+        style={{
+          maxWidth: "720px",
+          margin: "0 auto",
+          padding: "20px 24px 32px",
+          opacity: panelVisible ? 1 : 0,
+          transform: panelVisible ? "translateY(0)" : "translateY(8px)",
+          minHeight: "140px",
+        }}
+      >
+        <h3 style={{ fontFamily: "'Sora', sans-serif", fontSize: "clamp(22px, 2.5vw, 32px)", fontWeight: 400, color: "#1a1a1a", lineHeight: 1.15, marginBottom: "4px", marginTop: 0 }}>
+          {current.name}
+        </h3>
+        <div style={{ fontFamily: "'Sora', sans-serif", fontSize: "14px", fontWeight: 400, color: "#0f72ba", marginBottom: current.linkedin ? "10px" : "16px" }}>
+          {current.title}
         </div>
-
-        {/* RIGHT — sticky bio panel */}
-        <div
-          className="tm-right"
-          style={{
-            width: "50%",
-            position: "sticky",
-            top: 0,
-            height: "100vh",
-            overflowY: "auto",
-            padding: "48px 48px 48px 52px",
-            borderLeft: "1px solid #e5e5e5",
-            background: "#ffffff",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <div
-            className="tm-panel-content"
-            style={{ opacity: panelVisible ? 1 : 0, transform: panelVisible ? "translateY(0)" : "translateY(-12px)", width: "100%" }}
+        {current.linkedin && (
+          <a
+            href={current.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="tm-linkedin"
+            style={{ fontFamily: "'Sora', sans-serif", fontSize: "11px", letterSpacing: "0.1em", fontWeight: 500, color: "#0f72ba", textDecoration: "none", textTransform: "uppercase", display: "inline-flex", alignItems: "center", gap: "4px", marginBottom: "14px" }}
           >
-            {current ? (
-              <>
-                <h3 style={{ fontFamily: "'Sora', sans-serif", fontSize: "clamp(30px, 3.2vw, 52px)", fontWeight: 400, color: "#1a1a1a", lineHeight: 1.1, marginBottom: "10px", marginTop: 0 }}>
-                  {current.name}
-                </h3>
-                <div style={{ fontFamily: "'Sora', sans-serif", fontSize: "17px", fontWeight: 400, color: "#3a3a3a", marginBottom: current.linkedin ? "18px" : "28px" }}>
-                  {current.title}
-                </div>
-                {current.linkedin && (
-                  <a href={current.linkedin} target="_blank" rel="noopener noreferrer" className="tm-linkedin"
-                    style={{ fontFamily: "'Sora', sans-serif", fontSize: "12px", letterSpacing: "0.1em", fontWeight: 500, color: "#0f72ba", textDecoration: "none", textTransform: "uppercase", display: "inline-flex", alignItems: "center", gap: "5px", marginBottom: "28px" }}>
-                    LinkedIn ↗
-                  </a>
-                )}
-                {current.bio.map((para, idx) => (
-                  <p key={idx} style={{ fontFamily: "'Sora', sans-serif", fontSize: "15px", lineHeight: 1.78, color: "#3d3d3d", marginBottom: "20px", marginTop: 0, fontWeight: 300 }}>
-                    {para}
-                  </p>
-                ))}
-              </>
-            ) : (
-              <div style={{ fontFamily: "'Sora', sans-serif", color: "#000000", fontSize: "22px", lineHeight: 1.4 }}>
-                Select a team member for more details.
-              </div>
-            )}
-          </div>
-        </div>
+            LinkedIn ↗
+          </a>
+        )}
+        {current.bio.map((para, idx) => (
+          <p key={idx} style={{ fontFamily: "'Sora', sans-serif", fontSize: "14px", lineHeight: 1.7, color: "#4a4a4a", marginBottom: "12px", marginTop: 0, fontWeight: 300 }}>
+            {para}
+          </p>
+        ))}
       </div>
 
-      {/* ══════════════════════════════════
-          MOBILE — horizontal scroll + bio
-      ══════════════════════════════════ */}
-      <div className="tm-mobile">
-
-        {/* Horizontal photo strip */}
-        <div className="tm-mob-scroll">
-          {TEAM.map((member, i) => (
-            <div
-              key={member.name}
-              className={`tm-mob-card${selectedIndex === i ? " tm-active" : ""}`}
-              onClick={() => handleSelect(i)}
-            >
-              <div className="tm-mob-img-wrap">
-                {member.img ? (
-                  <img src={member.img} alt={member.name} className="tm-mob-img" />
-                ) : (
-                  <div className="tm-mob-placeholder">Photo</div>
-                )}
-              </div>
-              <div style={{ padding: "8px 2px 0" }}>
-                <div style={{
-                  fontFamily: "'Sora', sans-serif",
-                  fontSize: "12px",
-                  fontWeight: 500,
-                  color: selectedIndex === i ? "#0f72ba" : "#1a1a1a",
-                  lineHeight: 1.3,
-                  transition: "color 0.25s",
-                }}>
-                  {member.name}
-                </div>
-                <div style={{
-                  fontFamily: "'Sora', sans-serif",
-                  fontSize: "11px",
-                  fontWeight: 300,
-                  color: selectedIndex === i ? "#0f72ba" : "#888",
-                  marginTop: "3px",
-                  lineHeight: 1.3,
-                  transition: "color 0.25s",
-                }}>
-                  {member.role}
-                </div>
-              </div>
-            </div>
-          ))}
+      {/* Pause indicator */}
+      {paused && (
+        <div style={{ textAlign: "center", paddingBottom: "16px" }}>
+          <button
+            onClick={() => setPaused(false)}
+            style={{
+              fontFamily: "'Sora', sans-serif",
+              fontSize: "11px",
+              fontWeight: 500,
+              color: "#0f72ba",
+              background: "none",
+              border: "1px solid rgba(15,114,186,0.3)",
+              borderRadius: "20px",
+              padding: "6px 16px",
+              cursor: "pointer",
+              letterSpacing: "0.05em",
+            }}
+          >
+            Resume auto-scroll
+          </button>
         </div>
-
-        {/* Bio panel below strip */}
-        <div
-          className="tm-mob-bio"
-          style={{ opacity: panelVisible ? 1 : 0, transform: panelVisible ? "translateY(0)" : "translateY(10px)" }}
-        >
-          {current ? (
-            <>
-              <h3 style={{ fontFamily: "'Sora', sans-serif", fontSize: "26px", fontWeight: 400, color: "#1a1a1a", lineHeight: 1.15, marginBottom: "8px", marginTop: 0 }}>
-                {current.name}
-              </h3>
-              <div style={{ fontFamily: "'Sora', sans-serif", fontSize: "15px", fontWeight: 400, color: "#0f72ba", marginBottom: current.linkedin ? "14px" : "20px" }}>
-                {current.title}
-              </div>
-              {current.linkedin && (
-                <a
-                  href={current.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="tm-linkedin"
-                  style={{ fontFamily: "'Sora', sans-serif", fontSize: "11px", letterSpacing: "0.1em", fontWeight: 500, color: "#0f72ba", textDecoration: "none", textTransform: "uppercase", display: "inline-flex", alignItems: "center", gap: "4px", marginBottom: "20px" }}
-                >
-                  LinkedIn ↗
-                </a>
-              )}
-              {current.bio.map((para, idx) => (
-                <p key={idx} style={{ fontFamily: "'Sora', sans-serif", fontSize: "14px", lineHeight: 1.8, color: "#3d3d3d", marginBottom: "16px", marginTop: 0, fontWeight: 300 }}>
-                  {para}
-                </p>
-              ))}
-            </>
-          ) : (
-            <div style={{ fontFamily: "'Sora', sans-serif", color: "#6b6b6b", fontSize: "15px", lineHeight: 1.6 }}>
-              Select a team member for more details.
-            </div>
-          )}
-        </div>
-      </div>
-
+      )}
     </section>
+  );
+};
+
+/* ── Carousel Track ── */
+interface CarouselTrackProps {
+  trackRef: React.RefObject<HTMLDivElement>;
+  items: { member: TeamMember; realIdx: number; key: string }[];
+  rawIndex: number;
+  homeOffset: number;
+  onCardClick: (realIdx: number) => void;
+  onSwipe: (direction: 1 | -1) => void;
+  cardWidthDesktop: number;
+  cardWidthMobile: number;
+  gapDesktop: number;
+  gapMobile: number;
+}
+
+const CarouselTrack = ({ trackRef, items, rawIndex, homeOffset, onCardClick, onSwipe, cardWidthDesktop, cardWidthMobile, gapDesktop, gapMobile }: CarouselTrackProps) => {
+  const [isMobile, setIsMobile] = useState(false);
+  const [containerWidth, setContainerWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 1200);
+
+  // Touch/swipe state
+  const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
+  const touchDeltaX = useRef(0);
+  const isSwiping = useRef(false);
+  const swipeHandled = useRef(false);
+
+  useEffect(() => {
+    const check = () => {
+      setIsMobile(window.innerWidth <= 768);
+      setContainerWidth(window.innerWidth);
+    };
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const cardW = isMobile ? cardWidthMobile : cardWidthDesktop;
+  const gap = isMobile ? gapMobile : gapDesktop;
+  const step = cardW + gap;
+
+  // Center the item at homeOffset + rawIndex
+  const centerItemIndex = homeOffset + rawIndex;
+  const translateX = -(centerItemIndex * step) + (containerWidth / 2) - (cardW / 2);
+
+  // Touch handlers for swipe
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+    touchDeltaX.current = 0;
+    isSwiping.current = false;
+    swipeHandled.current = false;
+  }, []);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    const dx = e.touches[0].clientX - touchStartX.current;
+    const dy = e.touches[0].clientY - touchStartY.current;
+    touchDeltaX.current = dx;
+
+    // If horizontal movement dominates, we're swiping
+    if (!isSwiping.current && Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy)) {
+      isSwiping.current = true;
+    }
+
+    // Prevent vertical scroll while swiping horizontally
+    if (isSwiping.current) {
+      e.preventDefault();
+    }
+  }, []);
+
+  const handleTouchEnd = useCallback(() => {
+    if (swipeHandled.current) return;
+    const SWIPE_THRESHOLD = 40;
+    if (isSwiping.current && Math.abs(touchDeltaX.current) > SWIPE_THRESHOLD) {
+      swipeHandled.current = true;
+      onSwipe(touchDeltaX.current < 0 ? 1 : -1);
+    }
+    isSwiping.current = false;
+  }, [onSwipe]);
+
+  return (
+    <div
+      ref={trackRef}
+      className="tm-track"
+      style={{ transform: `translateX(${translateX}px)`, touchAction: "pan-y" }}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
+      {items.map((item, i) => {
+        const distFromCenter = Math.abs(i - centerItemIndex);
+        const isCenter = distFromCenter === 0;
+        const isNear = distFromCenter <= 1;
+        const scale = isCenter ? 1.08 : isNear ? 0.95 : 0.88;
+        const opacity = isCenter ? 1 : isNear ? 0.8 : 0.5;
+
+        return (
+          <div
+            key={item.key}
+            className="tm-card-outer"
+            onClick={() => {
+              if (!swipeHandled.current) onCardClick(item.realIdx);
+            }}
+            style={{
+              transform: `scale(${scale})`,
+              opacity,
+              zIndex: isCenter ? 10 : isNear ? 5 : 1,
+            }}
+          >
+            <div
+              className="tm-card-img-wrap"
+              style={{
+                borderRadius: "10px",
+                border: isCenter ? "2px solid #0f72ba" : "2px solid transparent",
+                transition: "border-color 0.4s ease",
+              }}
+            >
+              {item.member.img ? (
+                <img src={item.member.img} alt={item.member.name} className="tm-card-img" draggable={false} />
+              ) : (
+                <div className="tm-placeholder">Photo</div>
+              )}
+            </div>
+            <div style={{ padding: "8px 2px 0", textAlign: "center" }}>
+              <div style={{
+                fontFamily: "'Sora', sans-serif",
+                fontSize: isMobile ? "11px" : "13px",
+                fontWeight: isCenter ? 600 : 400,
+                color: isCenter ? "#0f72ba" : "#1a1a1a",
+                lineHeight: 1.3,
+                transition: "color 0.3s, font-weight 0.3s",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}>
+                {item.member.name}
+              </div>
+              <div style={{
+                fontFamily: "'Sora', sans-serif",
+                fontSize: isMobile ? "10px" : "11px",
+                fontWeight: 300,
+                color: isCenter ? "#0f72ba" : "#999",
+                marginTop: "2px",
+                lineHeight: 1.3,
+                transition: "color 0.3s",
+              }}>
+                {item.member.role}
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
   );
 };
 

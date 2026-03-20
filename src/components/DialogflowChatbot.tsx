@@ -40,8 +40,8 @@ const DialogflowChatbot = () => {
 
         @media (max-width: 420px) {
           df-messenger {
-            width: 100vw;
-            right: 0 !important;
+            --df-messenger-chat-window-height: 60vh;
+            --df-messenger-chat-window-width: 85vw;
           }
         }
       `}</style>
