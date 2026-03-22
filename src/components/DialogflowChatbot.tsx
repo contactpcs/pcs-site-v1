@@ -8,7 +8,7 @@ declare global {
         "chat-title": string;
         "agent-id": string;
         "language-code": string;
-        [key: string]: string;
+        "chat-icon"?: string;
       };
     }
   }
@@ -16,14 +16,13 @@ declare global {
 
 const DialogflowChatbot = () => {
   useEffect(() => {
-    // Ensure the Dialogflow messenger script is loaded
-    const script = document.querySelector(
-      'script[src*="dialogflow-console/fast/messenger/bootstrap.js"]'
-    );
-    
-    if (script) {
-      // Script is already in the document
-      (window as any).dfMessengerInitialized = true;
+    // Load Dialogflow script dynamically
+    if (!document.querySelector('script[src*="dialogflow-console"]')) {
+      const script = document.createElement("script");
+      script.src =
+        "https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1";
+      script.async = true;
+      document.body.appendChild(script);
     }
   }, []);
 
@@ -51,6 +50,7 @@ const DialogflowChatbot = () => {
         chat-title="PCS_CHATBOT"
         agent-id="d8a2b07e-955d-4938-a03c-15134d76cb3a"
         language-code="en"
+        chat-icon="https://cdn-icons-png.flaticon.com/512/4712/4712027.png"
       ></df-messenger>
     </>
   );
