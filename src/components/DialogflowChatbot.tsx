@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import logoPcs from "@/assets/logo-pcs.png";
 
 declare global {
@@ -16,6 +16,8 @@ declare global {
 }
 
 const DialogflowChatbot = () => {
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
   const forceCloseChatbot = () => {
     const widget = document.querySelector("df-messenger") as HTMLElement | null;
     if (!widget) {
@@ -80,12 +82,12 @@ const DialogflowChatbot = () => {
       }
 
       const isMobile = window.matchMedia("(max-width: 480px)").matches;
-      const mobileWidthPx = Math.min(Math.round(window.innerWidth * 0.82), 300);
+      const mobileWidthPx = Math.min(Math.round(window.innerWidth * 0.90), 330);
       const headerReservePx = 72;
       const mobileBottomGapPx = 12;
       const viewportHeight = Math.round(window.visualViewport?.height ?? window.innerHeight);
       const availableHeightPx = Math.max(viewportHeight - headerReservePx - mobileBottomGapPx, 260);
-      const mobileHeightPx = Math.min(Math.round(viewportHeight * 0.62), 460, availableHeightPx);
+      const mobileHeightPx = Math.min(Math.round(viewportHeight * 0.68), 506, availableHeightPx);
 
       widget.style.setProperty(
         "--df-messenger-chat-window-height",
@@ -146,6 +148,8 @@ const DialogflowChatbot = () => {
           element.style.setProperty("flex-direction", "column", "important");
           element.style.setProperty("justify-content", "flex-start", "important");
           element.style.setProperty("contain", "layout paint size", "important");
+          element.style.setProperty("box-sizing", "border-box", "important");
+          element.style.setProperty("padding-right", "6px", "important");
         }
       }
     };
@@ -263,6 +267,10 @@ const DialogflowChatbot = () => {
         logo.height = 30;
         logo.style.objectFit = "contain";
         logo.style.marginRight = "10px";
+        logo.style.background = "#ffffff";
+        logo.style.borderRadius = "5px";
+        logo.style.padding = "2px 5px";
+        logo.style.flexShrink = "0";
 
         primaryTitle.prepend(logo);
       }
@@ -455,6 +463,11 @@ const DialogflowChatbot = () => {
       }
     };
 
+    const handleChatOpened = () => setIsChatOpen(true);
+    const handleChatClosed = () => setIsChatOpen(false);
+    document.addEventListener("df-messenger-chat-opened", handleChatOpened);
+    document.addEventListener("df-messenger-chat-closed", handleChatClosed);
+
     const logoInterval = window.setInterval(addLogoBeforeTitle, 1000);
     const sizeInterval = window.setInterval(applyChatSize, 1000);
     const inputSizeInterval = window.setInterval(applyInputBoxSize, 1000);
@@ -488,6 +501,8 @@ const DialogflowChatbot = () => {
       window.visualViewport?.removeEventListener("resize", keepHeaderVisibleOnMobile);
       window.visualViewport?.removeEventListener("scroll", keepHeaderVisibleOnMobile);
       window.visualViewport?.removeEventListener("resize", lockMessageScrollArea);
+      document.removeEventListener("df-messenger-chat-opened", handleChatOpened);
+      document.removeEventListener("df-messenger-chat-closed", handleChatClosed);
     };
   }, []);
 
@@ -514,8 +529,8 @@ const DialogflowChatbot = () => {
 
         @media (max-width: 480px) {
           df-messenger {
-            --df-messenger-chat-window-height: 62vh;
-            --df-messenger-chat-window-width: 82vw;
+            --df-messenger-chat-window-height: 68vh;
+            --df-messenger-chat-window-width: 90vw;
           }
 
           .pcs-chat-close-fallback {
@@ -524,7 +539,7 @@ const DialogflowChatbot = () => {
             justify-content: center;
             position: fixed;
             right: 14px;
-            bottom: 18px;
+            bottom: 74px;
             width: 34px;
             height: 34px;
             border: 0;
@@ -542,20 +557,22 @@ const DialogflowChatbot = () => {
 
       <df-messenger
         intent="WELCOME"
-        chat-title="Here we are to assist you!"
+        chat-title="Here for your assistance!"
         agent-id="d8a2b07e-955d-4938-a03c-15134d76cb3a"
         language-code="en"
         chat-icon="https://cdn-icons-png.flaticon.com/512/4712/4712027.png"
       ></df-messenger>
 
-      <button
-        type="button"
-        className="pcs-chat-close-fallback"
-        onClick={forceCloseChatbot}
-        aria-label="Close chatbot"
-      >
-        ×
-      </button>
+      {isChatOpen && (
+        <button
+          type="button"
+          className="pcs-chat-close-fallback"
+          onClick={forceCloseChatbot}
+          aria-label="Close chatbot"
+        >
+          ×
+        </button>
+      )}
     </>
   );
 };
