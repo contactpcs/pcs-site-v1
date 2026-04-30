@@ -2,12 +2,16 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { flushSync } from "react-dom";
 import snehaImg from "@/assets/team/sneha-sanjana.jpg";
 import amitImg from "@/assets/team/amit-jape.png";
+import jaswanthImg from "@/assets/team/jaswanth-krishna.jpg";
+import mohanImg from "@/assets/team/mohan-rao.png";
+import deepakImg from "@/assets/team/deepak-chandani.jpg";
 
 interface TeamMember {
   name: string;
   title: string;
   role: string;
   img: string | null;
+  initials?: string;
   linkedin: string;
   bio: string[];
 }
@@ -17,7 +21,7 @@ const TEAM: TeamMember[] = [
     name: "Deepak Chandani",
     title: "Chief Executive Officer & Founder, PCS",
     role: "Leadership",
-    img: "https://media.licdn.com/dms/image/v2/D4D03AQHFNEVguLk6dA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1725156410171?e=1775088000&v=beta&t=WFNySACkvaNHD6s9Y2F7X7gFj0ofAu7S2ucRuFfJClE",
+    img: deepakImg,
     linkedin: "https://www.linkedin.com/in/deepakchandani",
     bio: [
       "Deepak Chandani is the founder and CEO of PCS, a Bay Area software development company established in February 2015. With over two decades of experience spanning enterprise architecture, product engineering, and business leadership, Deepak has been instrumental in growing PCS into a trusted technology partner for startups and established enterprises alike.",
@@ -29,7 +33,8 @@ const TEAM: TeamMember[] = [
     name: "Anu Shadeja",
     title: "Co-Founder",
     role: "Leadership",
-    img: "https://media.licdn.com/dms/image/v2/C4D03AQE6u0wmeB5VcA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1534133901853?e=1775088000&v=beta&t=gyK-gAjJhFK4qLR3sBeH8uFCxrta0_baLqfJnrnc6dA",
+    img: null,
+    initials: "AS",
     linkedin: "https://www.linkedin.com/in/anu-shadeja-79128716a/",
     bio: [
       "Anu Shadeja is Co-Founder of PCS and leads strategic partnerships and operations. She brings extensive experience in building cross-border teams, establishing go-to-market strategies, and fostering client relationships that scale. Anu focuses on aligning product delivery with business outcomes and operational excellence.",
@@ -39,7 +44,8 @@ const TEAM: TeamMember[] = [
     name: "Vaasudev Chandani",
     title: "Director",
     role: "Leadership",
-    img: "https://media.licdn.com/dms/image/v2/D4D03AQHDGX3RP1oWVg/profile-displayphoto-crop_800_800/B4DZnHdg3dJUAI-/0/1759988027662?e=1775088000&v=beta&t=e0K_wB3SJsDNvYU7W9At__8QprRI5TSD48OnrpZ7Z_I",
+    img: null,
+    initials: "VC",
     linkedin: "https://www.linkedin.com/in/vaasudevchandani/",
     bio: [
       "Vaasudev Chandani is Director at PCS, overseeing business operations and growth initiatives. With a background in finance and program management, he drives efficiency across delivery, vendor partnerships, and long-term strategic planning. Vaasudev ensures the company scales sustainably while maintaining high delivery standards.",
@@ -49,7 +55,8 @@ const TEAM: TeamMember[] = [
     name: "Unnati Chandani",
     title: "Product Lead",
     role: "Leadership",
-    img: "https://media.licdn.com/dms/image/v2/D4E03AQGXOB_OW07LMw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1692457968671?e=1775088000&v=beta&t=kJDuaHp_vhVLzxk48um8kRoIPBJNoEKmYaNzFsPKjiI",
+    img: null,
+    initials: "UC",
     linkedin: "https://www.linkedin.com/in/unnati-c-16148a289/",
     bio: [
       "Unnati Chandani is Product Lead at PCS, responsible for product strategy, user experience, and roadmap execution. She combines user-centered design with strong technical collaboration to shape product direction and deliver meaningful user outcomes. Unnati champions continuous discovery and rapid prototyping to validate ideas early.",
@@ -59,7 +66,7 @@ const TEAM: TeamMember[] = [
     name: "Mohan Rao Appikatla",
     title: "Developer",
     role: "Full-Stack Engineer",
-    img: "https://media.licdn.com/dms/image/v2/D5603AQEH4TuxKEM3jQ/profile-displayphoto-scale_400_400/B56ZzdVxF_HIAg-/0/1773239998806?e=1775088000&v=beta&t=eby_CP33sF_ma74OhtfodI8yIxCe53lwHVWv-j5smyc",
+    img: mohanImg,
     linkedin: "https://www.linkedin.com/in/mohan-rao-appikatla-198375269/",
     bio: [
       "Mohan Rao is a seasoned full-stack engineer with expertise in building scalable APIs and cloud infrastructure. With a strong foundation in server-side architecture and system design, he has contributed to multiple high-performance projects across fintech and enterprise domains. Mohan excels at designing robust backend systems that power mission-critical applications.",
@@ -69,7 +76,7 @@ const TEAM: TeamMember[] = [
     name: "Jaswanth Krishna Perla",
     title: "Developer",
     role: "Frontend Developer",
-    img: "https://media.licdn.com/dms/image/v2/D5603AQGeJV676xiDEg/profile-displayphoto-crop_800_800/B56ZzcoERbI0AI-/0/1773228018752?e=1775088000&v=beta&t=pI7exwTT2wdCXOhP4yrMefa5Cx6jGKPLQVZRsRhubxI",
+    img: jaswanthImg,
     linkedin: "https://www.linkedin.com/in/jaswanthperla/",
     bio: [
       "Jaswanth is a talented frontend engineer specializing in modern web technologies with deep expertise in React and TypeScript. He brings a passion for crafting intuitive, performant user interfaces and a keen eye for responsive design. Jaswanth is committed to writing clean, maintainable code and delivering exceptional user experiences across diverse projects.",
@@ -237,15 +244,15 @@ const TeamSection = () => {
         .tm-placeholder {
           width: 100%;
           height: 100%;
-          background: linear-gradient(145deg, #e8e8e6, #d8d8d6);
+          background: linear-gradient(145deg, #0a1f35, #0f2d4a);
           display: flex;
           align-items: center;
           justify-content: center;
           font-family: 'Sora', sans-serif;
-          font-size: 11px;
-          color: #aaa;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
+          font-size: clamp(22px, 4vw, 32px);
+          font-weight: 600;
+          color: #4aa3e8;
+          letter-spacing: 0.04em;
         }
 
         .tm-bio-panel {
@@ -473,7 +480,7 @@ const CarouselTrack = ({ trackRef, items, rawIndex, homeOffset, onCardClick, onS
               {item.member.img ? (
                 <img src={item.member.img} alt={item.member.name} className="tm-card-img" draggable={false} />
               ) : (
-                <div className="tm-placeholder">Photo</div>
+                <div className="tm-placeholder">{item.member.initials ?? "?"}</div>
               )}
             </div>
             <div style={{ padding: "8px 2px 0", textAlign: "center" }}>
