@@ -4,7 +4,7 @@ import snehaImg from "@/assets/team/sneha-sanjana.jpg";
 import amitImg from "@/assets/team/amit-jape.png";
 import jaswanthImg from "@/assets/team/jaswanth-krishna.jpg";
 import mohanImg from "@/assets/team/mohan-rao.png";
-import deepakImg from "@/assets/team/deepak-chandani.jpg";
+import deepakImg from "@/assets/team/deepakchandaniprofilephoto.jpeg";
 
 interface TeamMember {
   name: string;
