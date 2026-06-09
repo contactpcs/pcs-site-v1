@@ -15,7 +15,7 @@ const ContactSection = () => {
     const subject = `Website Enquiry from ${name}`;
     const body = `Hi PCS IT Solutions,\n\nYou have received a new message from your website contact form.\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}\n\nBest regards,\n${name}`;
     window.open(
-      `mailto:contact@pcsdatai.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+      `mailto:deepak@pcsitspl.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
     );
   };
 
@@ -23,7 +23,7 @@ const ContactSection = () => {
     const subject = "Demo Request — PCS IT Solutions";
     const body = `Hi PCS IT Solutions,\n\nI would like to schedule a demo.\n\nName: ${name || "(your name)"}\nEmail: ${email || "(your email)"}\nPhone: ${phone || "(your phone)"}\n\n${message ? `Additional info:\n${message}\n\n` : ""}Please let me know your availability.\n\nBest regards,\n${name || "(your name)"}`;
     window.open(
-      `mailto:contact@pcsdatai.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+      `mailto:deepak@pcsitspl.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
     );
   };
 
@@ -32,10 +32,10 @@ const ContactSection = () => {
       <div className="container mx-auto">
         <div className="text-center max-w-xl mx-auto mb-14">
           <h2 className="text-3xl md:text-[2.5rem] font-semibold leading-tight mb-3">
-            Let's Talk About<br />Your IT Needs
+            Get in Touch<br />About NeuroWellness
           </h2>
           <p className="text-sm text-muted-foreground">
-            Schedule a demo or consultation with our experts. We're here to help you build technology solutions that drive growth.
+            Interested in the NeuroWellness platform for your clinic, or want to partner with us? Reach out to schedule a demo or learn more about early access.
           </p>
         </div>
         <div className="grid md:grid-cols-2 gap-10 items-start">
@@ -84,7 +84,7 @@ const ContactSection = () => {
               {[
                 { icon: MapPin, text: "Magarpatta City, Pune, India" },
                 { icon: Phone, text: "+91 724-9310743" },
-                { icon: Mail, text: "contact@pcsdatai.com" },
+                { icon: Mail, text: "deepak@pcsitspl.com" },
               ].map((item) => (
                 <div key={item.text} className="flex items-center gap-4">
                   <div className="h-10 w-10 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0">

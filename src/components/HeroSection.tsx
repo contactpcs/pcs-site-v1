@@ -54,22 +54,22 @@ const HeroSection = () => {
         <div className="container mx-auto px-4 text-center max-w-4xl flex flex-col items-center">
           <div className="hero-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full border bg-white/10 backdrop-blur-sm text-xs text-white/80 mb-8">
             <span className="h-1.5 w-1.5 rounded-full bg-blue-300 animate-pulse" />
-            India's Trusted IT Partner
+            Healthcare Technology Startup — Pune, India
           </div>
 
           <h1 className="hero-title text-[clamp(2rem,5.5vw,4.5rem)] font-light tracking-tight leading-[1.08] mb-5 text-white px-2" style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8), 0 0 40px rgba(0,0,0,0.5)' }}>
-            Scalable{" "}
+            Building the{" "}
             <span className="italic bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 via-blue-100 to-white pr-1">
-              IT Solutions
+              NeuroWellness
             </span>
             <br />
             <span className="italic bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 via-blue-100 to-white pr-1">
-              Delivered.
+              Platform.
             </span>
           </h1>
 
           <p className="hero-description text-base text-white/90 max-w-lg mx-auto mb-10 leading-relaxed" style={{ textShadow: '0 1px 10px rgba(0,0,0,0.9)' }}>
-            From IT support to cloud infrastructure — we build technology that grows with your business.
+            A neuromodulation therapy management platform for clinics and patients — EMRs, appointments, and long-term care workflows for neurological and mental health conditions.
           </p>
         </div>
       </div>
@@ -78,10 +78,10 @@ const HeroSection = () => {
       <div className="hero-stats relative z-20 w-full">
         <div className="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center border-t border-white/10 py-8">
           {[
-            { value: "20+", label: "Clients Served" },
-            { value: "500+", label: "Projects Delivered" },
-            { value: "10+", label: "Years of Experience" },
-            { value: "50+", label: "Expert Professionals" },
+            { value: "2017", label: "Founded, Pune India" },
+            { value: "B2B", label: "Clinic-facing Platform" },
+            { value: "B2C", label: "Patient-facing App" },
+            { value: "6", label: "Core Team Members" },
           ].map((stat, i) => (
             <div key={stat.label} className="stat-item" style={{ animationDelay: `${0.6 + i * 0.1}s` }}>
               <p className="text-xl md:text-2xl font-semibold text-white">{stat.value}</p>

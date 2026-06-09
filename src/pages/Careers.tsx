@@ -24,7 +24,7 @@ const Careers = () => {
     const subject = `Resume Submission — ${name}`;
     const body = `Hi PCS IT Solutions,\n\nI would like to share my resume and express my interest in working with PCS.\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\n\n${message}\n\nPlease find my resume attached to this email.\n\nBest regards,\n${name}`;
     window.open(
-      `mailto:contact@pcsdatai.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+      `mailto:deepak@pcsitspl.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
     );
   };
 
@@ -45,7 +45,7 @@ const Careers = () => {
             Join the <span className="text-primary">PCS</span> Team
           </h1>
           <p className="text-sm text-muted-foreground max-w-lg mx-auto leading-relaxed">
-            We're a tight-knit team building world-class technology solutions. If you're driven, curious, and want to make an impact — we'd love to hear from you.
+            We're a lean 6-person team building NeuroWellness — a healthcare platform for neuromodulation therapy. If you're driven, curious, and want to work on meaningful healthcare technology — we'd love to hear from you.
           </p>
         </div>
       </section>
@@ -59,18 +59,18 @@ const Careers = () => {
             {[
               {
                 icon: Users,
-                title: "Collaborative Culture",
-                desc: "Work alongside experienced engineers and consultants across AI, Data, and Cloud disciplines.",
+                title: "Tight-knit Startup Team",
+                desc: "Work directly with founders and domain experts building NeuroWellness from the ground up — no bureaucracy, real ownership.",
               },
               {
                 icon: Lightbulb,
-                title: "Cutting-Edge Tech",
-                desc: "Get hands-on with the latest in AI, LLMs, data engineering, and cloud infrastructure.",
+                title: "Healthcare Technology",
+                desc: "Get hands-on with clinical workflows, patient data, and purpose-built healthcare software for India's neuromodulation market.",
               },
               {
                 icon: Heart,
-                title: "Meaningful Work",
-                desc: "Deliver solutions that create real business impact for clients across the globe.",
+                title: "Patient Impact",
+                desc: "Build technology that directly improves care journeys for patients managing neurological and mental health conditions.",
               },
             ].map((item, i) => (
               <div
@@ -98,8 +98,8 @@ const Careers = () => {
               </p>
               <p className="text-xs text-muted-foreground mt-2">
                 Or email us directly at{" "}
-                <a href="mailto:contact@pcsdatai.com" className="text-primary hover:underline font-medium">
-                  contact@pcsdatai.com
+                <a href="mailto:deepak@pcsitspl.com" className="text-primary hover:underline font-medium">
+                  deepak@pcsitspl.com
                 </a>
               </p>
             </div>
@@ -161,7 +161,7 @@ const Careers = () => {
                 size="lg"
               >
                 <Mail className="h-4 w-4 mr-1.5 flex-shrink-0" />
-                Send to contact@pcsdatai.com
+                Send to deepak@pcsitspl.com
               </Button>
               <p className="text-center text-xs text-muted-foreground">
                 Clicking Send will open your email client with your details pre-filled. Please attach your resume file before sending.

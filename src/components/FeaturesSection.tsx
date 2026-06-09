@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import {
   Brain, Database, Shield, Code2, Cloud, Smartphone,
   Settings, BarChart3, Layers, Cpu, Network, TestTube2,
-  ArrowRight, Sparkles
+  ArrowRight, Sparkles, Heart
 } from "lucide-react";
 
 // ── Service data ──────────────────────────────────────────────────────────────
@@ -24,30 +24,41 @@ interface Service {
 const services: Service[] = [
   {
     icon: Brain,
-    title: "AI Solutions & Automation",
-    desc: "End-to-end AI product engineering — LLM integration, RAG pipelines, intelligent automation, agents, and AI-powered SaaS platforms.",
+    title: "NeuroWellness Platform",
+    desc: "Our flagship product — a B2B clinic management system and B2C patient app for neuromodulation therapy, EMRs, appointment scheduling, and long-term care workflows.",
     category: ["ai"],
     featured: true,
-    badge: "Flagship",
+    badge: "Flagship Product",
     accentColor: "text-blue-600",
     bgColor: "bg-blue-50",
     borderColor: "border-blue-200 hover:border-blue-400",
   },
   {
     icon: BarChart3,
-    title: "AI / ML & Data Science",
-    desc: "Recommendation systems, NLP, computer vision, predictive analytics, and MLOps pipelines — from PoC to production.",
+    title: "Healthcare Diagnostics",
+    desc: "Structured clinical data capture, therapy outcome tracking, and longitudinal patient health records designed for neurological and mental health care settings.",
     category: ["ai", "data"],
     featured: true,
-    badge: "High Demand",
+    badge: "Core",
     accentColor: "text-indigo-600",
     bgColor: "bg-indigo-50",
     borderColor: "border-indigo-200 hover:border-indigo-400",
   },
   {
+    icon: Heart,
+    title: "Mental Health & Neuromodulation",
+    desc: "Focused on brain stimulation therapies (TMS, tDCS, neurofeedback) — enabling clinics to manage treatment protocols and monitor patient progress over time.",
+    category: ["ai"],
+    featured: true,
+    badge: "Specialty",
+    accentColor: "text-pink-600",
+    bgColor: "bg-pink-50",
+    borderColor: "border-pink-200 hover:border-pink-400",
+  },
+  {
     icon: Database,
-    title: "Data Solutions & Engineering",
-    desc: "Dimensional modelling, ETL/ELT pipelines, data lakes, warehouses, and real-time streaming architectures.",
+    title: "Clinical Data & EMR",
+    desc: "Electronic medical records tailored for neuromodulation therapy — session notes, therapy dosage logs, patient history, and referral management.",
     category: ["data"],
     featured: true,
     badge: "Core Offering",
@@ -56,53 +67,51 @@ const services: Service[] = [
     borderColor: "border-cyan-200 hover:border-cyan-400",
   },
   {
-    icon: Shield,
-    title: "Cyber Security",
-    desc: "Security audits, penetration testing, zero-trust architecture, SOC setup, and ISO 27001 / SOC2 compliance.",
-    category: ["security"],
-    featured: true,
-    badge: "Critical",
-    accentColor: "text-slate-700",
-    bgColor: "bg-slate-100",
-    borderColor: "border-slate-300 hover:border-slate-500",
-  },
-  {
-    icon: Code2,
-    title: "Full Stack Development",
-    desc: "Modern web apps with React, Next.js, Node.js, Python, and Java — end-to-end from architecture to deployment.",
-    category: ["engineering"],
-    featured: true,
-    badge: "Popular",
-    accentColor: "text-blue-700",
-    bgColor: "bg-blue-50",
-    borderColor: "border-blue-300 hover:border-blue-500",
-  },
-  {
-    icon: Cloud,
-    title: "Cloud & Infrastructure",
-    desc: "Cloud migrations, multi-cloud management, Kubernetes, Terraform IaC on AWS, Azure, and GCP.",
-    category: ["engineering", "data"],
-    featured: true,
-    badge: "Essential",
-    accentColor: "text-sky-600",
-    bgColor: "bg-sky-50",
-    borderColor: "border-sky-200 hover:border-sky-400",
-  },
-  {
     icon: Smartphone,
-    title: "Mobile Development",
-    desc: "Native iOS and Android apps, React Native / Flutter cross-platform solutions, and API-first mobile backends.",
+    title: "Patient Mobile App",
+    desc: "A B2C patient-facing app for appointment booking, therapy session reminders, progress tracking, and secure communication with treating clinicians.",
     category: ["engineering"],
     featured: true,
-    badge: "Growing",
+    badge: "B2C",
     accentColor: "text-sky-700",
     bgColor: "bg-sky-50",
     borderColor: "border-sky-300 hover:border-sky-500",
   },
   {
+    icon: Cloud,
+    title: "Cloud Infrastructure (AWS)",
+    desc: "AWS-hosted platform architecture — secure, HIPAA-aligned, scalable cloud infrastructure powering the NeuroWellness backend and data pipelines.",
+    category: ["engineering", "data"],
+    featured: true,
+    badge: "Infrastructure",
+    accentColor: "text-sky-600",
+    bgColor: "bg-sky-50",
+    borderColor: "border-sky-200 hover:border-sky-400",
+  },
+  {
+    icon: Code2,
+    title: "Clinic Admin Portal",
+    desc: "A B2B web portal for clinic administrators to manage therapists, patient rosters, scheduling, billing notes, and compliance documentation.",
+    category: ["engineering"],
+    featured: true,
+    badge: "B2B",
+    accentColor: "text-blue-700",
+    bgColor: "bg-blue-50",
+    borderColor: "border-blue-300 hover:border-blue-500",
+  },
+  {
+    icon: Shield,
+    title: "Data Privacy & Security",
+    desc: "Patient data encryption, role-based access controls, audit logs, and compliance with India's healthcare data protection requirements.",
+    category: ["security"],
+    accentColor: "text-slate-700",
+    bgColor: "bg-slate-100",
+    borderColor: "border-slate-300 hover:border-slate-500",
+  },
+  {
     icon: Layers,
     title: "Product Engineering",
-    desc: "End-to-end product design and delivery — architecture, UX, MVP builds, scale-up, and engineering ownership.",
+    desc: "End-to-end product design and delivery for the NeuroWellness platform — architecture, UX, MVP builds, and iterative development.",
     category: ["engineering"],
     accentColor: "text-teal-700",
     bgColor: "bg-teal-50",
@@ -110,8 +119,8 @@ const services: Service[] = [
   },
   {
     icon: Network,
-    title: "DevOps & Platform Engineering",
-    desc: "CI/CD pipelines, GitOps, observability stacks, SRE practices, and platform standardisation.",
+    title: "DevOps & Deployment",
+    desc: "CI/CD pipelines, automated testing, and managed deployment workflows — ensuring reliable, fast releases for the NeuroWellness platform.",
     category: ["engineering"],
     accentColor: "text-indigo-700",
     bgColor: "bg-indigo-50",
@@ -119,26 +128,17 @@ const services: Service[] = [
   },
   {
     icon: Cpu,
-    title: "Enterprise Solutions",
-    desc: "ERP, CRM, and business process automation designed for enterprise-scale efficiency and systems integration.",
-    category: ["engineering"],
+    title: "Analytics & Reporting",
+    desc: "Clinic performance dashboards, patient outcome reports, and therapy utilisation analytics — helping providers make data-driven clinical decisions.",
+    category: ["data"],
     accentColor: "text-slate-700",
     bgColor: "bg-slate-100",
     borderColor: "border-slate-200 hover:border-slate-400",
   },
   {
-    icon: Settings,
-    title: "IT Consulting",
-    desc: "Technology advisory — architecture reviews, digital transformation roadmaps, and CTO-as-a-service.",
-    category: ["engineering"],
-    accentColor: "text-blue-800",
-    bgColor: "bg-blue-50",
-    borderColor: "border-blue-200 hover:border-blue-400",
-  },
-  {
     icon: TestTube2,
     title: "Quality Assurance",
-    desc: "Test strategy, automation frameworks (Selenium, Cypress, Playwright), and continuous QA in your CI pipeline.",
+    desc: "Rigorous testing of clinical workflows — automated test suites, user acceptance testing with clinic partners, and continuous quality monitoring.",
     category: ["engineering"],
     accentColor: "text-teal-600",
     bgColor: "bg-teal-50",
@@ -147,9 +147,9 @@ const services: Service[] = [
 ];
 
 const categories: { key: ServiceCategory; label: string }[] = [
-  { key: "all", label: "All Services" },
-  { key: "ai", label: "AI & ML" },
-  { key: "data", label: "Data" },
+  { key: "all", label: "All Capabilities" },
+  { key: "ai", label: "Platform & Product" },
+  { key: "data", label: "Data & EMR" },
   { key: "security", label: "Security" },
   { key: "engineering", label: "Engineering" },
 ];
@@ -274,13 +274,13 @@ const FeaturesSection = () => {
         <div className="text-center max-w-2xl mx-auto mb-8">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-xs text-primary mb-4">
             <Sparkles className="h-3 w-3" />
-            What We Deliver
+            What We Are Building
           </div>
           <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-3">
-            Comprehensive IT Services<br />for Every Business Need
+            NeuroWellness Platform<br />Capabilities
           </h2>
           <p className="text-sm text-muted-foreground">
-            From AI-powered products to hardened security — PCS delivers end-to-end technology solutions that scale.
+            A full-stack healthcare product for neuromodulation therapy — from clinic management and EMRs to patient engagement and outcome analytics.
           </p>
         </div>
 
@@ -423,10 +423,10 @@ const FeaturesSection = () => {
         <div className="mt-12 rounded-2xl bg-gradient-to-br from-[#061320] via-[#0a1f35] to-[#061320] p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
           <div>
             <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
-              Not sure which service fits your needs?
+              Interested in NeuroWellness for your clinic?
             </h3>
             <p className="text-white/60 text-sm max-w-md">
-              Book a free 30-minute consultation. Our engineers will assess your requirements and recommend the right stack.
+              We're onboarding early clinic partners. Book a 30-minute demo to see how NeuroWellness can simplify your therapy workflows.
             </p>
           </div>
           <button

@@ -24,9 +24,9 @@ const TEAM: TeamMember[] = [
     img: deepakImg,
     linkedin: "https://www.linkedin.com/in/deepakchandani",
     bio: [
-      "Deepak Chandani is the founder and CEO of PCS, a Bay Area software development company established in February 2015. With over two decades of experience spanning enterprise architecture, product engineering, and business leadership, Deepak has been instrumental in growing PCS into a trusted technology partner for startups and established enterprises alike.",
-      "Under his leadership, PCS has built and shipped products across fintech, healthcare, real estate, and SaaS verticals — serving clients from the Bay Area to global markets. His philosophy centers on outcome-driven engineering, transparent partnerships, and investing deeply in engineering talent both in the United States and India.",
-      "Deepak brings together a rare combination of technical depth and business acumen, guiding PCS's expansion into AI/ML, cloud infrastructure, and managed services while maintaining the agility and personal attention of a boutique technology firm.",
+      "Deepak Chandani is the Founder and CEO of PCS IT Solutions Pvt. Ltd., a Pune-registered healthcare technology startup established in 2017. With over two decades of experience spanning enterprise architecture, product engineering, and business leadership, Deepak is leading the development of NeuroWellness — a neuromodulation therapy management platform for clinics and patients across India.",
+      "Under his leadership, the PCS team is building a B2B clinic management portal and B2C patient application targeting neurological and mental health clinics. His philosophy centres on patient-first product design, lean team execution, and building technology that directly improves healthcare outcomes.",
+      "Deepak combines technical depth with domain expertise in healthcare workflows, guiding the NeuroWellness platform from concept through to launch — planned for 2026.",
     ],
   },
   {

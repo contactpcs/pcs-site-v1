@@ -6,11 +6,11 @@ import {
 } from "@/components/ui/accordion";
 
 const faqs = [
-  { q: "What is PCS IT Solutions?", a: "PCS IT Solutions Pvt Ltd is a technology partner that specializes in engineering and software solutions. We deliver custom software development, product engineering, cloud infrastructure, enterprise automation, and 24/7 IT support for businesses of all sizes." },
-  { q: "What services does PCS offer?", a: "We offer end-to-end IT services including custom software development, product engineering, cloud & infrastructure management (AWS, Azure, GCP), enterprise solutions (ERP, CRM), IT consulting, and round-the-clock IT support & AMC services." },
-  { q: "Which technologies does PCS work with?", a: "Our tech stack includes Java, Spring Boot, React, Node.js, PostgreSQL, MongoDB, AWS, Azure, Docker, Kubernetes, and many more industry-proven technologies." },
-  { q: "How can I get started with PCS?", a: "You can book a free consultation through our website. We'll assess your requirements, propose a technology roadmap, and get started with a tailored solution for your business." },
-  { q: "Does PCS provide 24/7 support?", a: "Yes! We provide round-the-clock technical support, proactive monitoring, and Annual Maintenance Contract (AMC) services to ensure maximum uptime and operational continuity." },
+  { q: "What is PCS IT Solutions Pvt. Ltd.?", a: "PCS IT Solutions Pvt. Ltd. is a Pune-registered healthcare technology startup founded in 2017. We are building NeuroWellness — a neuromodulation therapy management platform for clinics and patients managing neurological and mental health conditions across India." },
+  { q: "What is NeuroWellness?", a: "NeuroWellness is our flagship product — a B2B clinic-facing platform for managing neuromodulation therapies, electronic medical records (EMRs), appointments, and care workflows. It is paired with a B2C patient mobile app for monitoring therapy progress and staying connected with treating clinicians. We are targeting neurological and mental health clinics across India, with a planned launch in 2026." },
+  { q: "Who can use NeuroWellness?", a: "NeuroWellness serves two audiences: clinics and healthcare providers (B2B) who need a purpose-built platform to manage neuromodulation therapy protocols, patient records, and scheduling; and patients (B2C) who want to track their treatment journey, manage appointments, and stay informed about their care plan." },
+  { q: "How can a clinic partner with us?", a: "We are currently onboarding early clinic partners for the NeuroWellness platform. If you are a clinic offering neuromodulation therapies — such as TMS, tDCS, or neurofeedback — reach out to us at deepak@pcsitspl.com to schedule a product demo and discuss an early partnership." },
+  { q: "Is PCS IT Solutions an Indian company?", a: "Yes. PCS IT Solutions Pvt. Ltd. is incorporated and registered in India, headquartered in Pune, Maharashtra. Our founding team is Pune-based, and our product is built specifically for India's healthcare market." },
 ];
 
 const FAQSection = () => {

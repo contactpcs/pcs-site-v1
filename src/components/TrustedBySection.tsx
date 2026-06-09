@@ -16,45 +16,40 @@ import sonyLogo       from "../assets/client/sony-logo.png";
 import valfixLogo     from "../assets/client/valfix.svg";
 
 const clients = [
-  { name: "ICE Mortgage Technology", color: "#003087", logo: iceLogo,        url: "https://mortgagetech.ice.com/" },
+  { name: "MIND Therapy Clinic",    color: "#2E86C1", logo: mindLogo,       url: "https://mindtherapyclinic.com/" },
   { name: "FortifID",               color: "#5B4FCF", logo: fortifidLogo,   url: "https://fortifid.com/" },
   { name: "My Home Pathway",        color: "#E8432A", logo: mhpLogo,        url: "https://www.myhomepathway.com/" },
-  { name: "MIND Therapy Clinic",    color: "#2E86C1", logo: mindLogo,       url: "https://mindtherapyclinic.com/" },
   { name: "Digital Spaces Inc.",    color: "#556CD6", logo: dsiLogo,        url: "https://digitalspacesinc.com/" },
   { name: "CRIOT",                  color: "#FF6B35", logo: criotLogo,      url: "https://www.criotsolutions.com/" },
   { name: "mychatri",               color: "#00B4D8", logo: mychatriLogo,   url: "https://mychatri.com/" },
   { name: "infiswift solutions",    color: "#1A9AE0", logo: infiswiftLogo,  url: "https://infiswift.ai/" },
   { name: "tavisca",                color: "#E31837", logo: taviscaLogo,    url: "https://usepower.com/" },
   { name: "enquero",                color: "#00A651", logo: enqueroLogo,    url: "https://enquero.com/" },
-  { name: "The New York Times",     color: "#121212", logo: nytLogo,        url: "https://www.nytimes.com/" },
-  { name: "accenture",              color: "#A100FF", logo: accentureLogo,  url: "https://www.accenture.com/in-en" },
-  { name: "PRIZELOGIC",             color: "#FF6600", logo: prizelogicLogo, url: "https://www.ebbo.com/" },
-  { name: "Connexis",               color: "#1D6FA4", logo: sonyLogo,       url: "https://www.tavisca.com/" },
   { name: "Valfix",                 color: "#0066CC", logo: valfixLogo,     url: "https://www.valfixmed.com/" },
 ];
 
 const stats = [
-  { value: "15+", label: "Client Organizations" },
-  { value: "10+", label: "Years in Business" },
-  { value: "100+", label: "Projects Delivered" },
-  { value: "5",   label: "Industry Verticals" },
+  { value: "2017", label: "Founded in Pune" },
+  { value: "6",    label: "Core Team Members" },
+  { value: "B2B+B2C", label: "Business Model" },
+  { value: "2026", label: "Platform Launch" },
 ];
 
 const reasons = [
   {
     index: "01",
-    heading: "Outcome-Driven Delivery",
-    body: "We measure success by business impact, not hours billed. Every sprint is aligned to a goal that moves the product forward.",
+    heading: "Healthcare Domain Focus",
+    body: "NeuroWellness is designed specifically for neuromodulation therapy — not a generic platform adapted to healthcare. Our team understands clinical workflows and patient care pathways.",
   },
   {
     index: "02",
-    heading: "Full-Stack Coverage",
-    body: "From pixel-perfect frontends to battle-tested cloud infrastructure — one partner handles the entire engineering stack.",
+    heading: "India-registered & Compliant",
+    body: "PCS IT Solutions Pvt. Ltd. is incorporated in India. We build with Indian healthcare regulations, data residency requirements, and local clinical practice norms in mind.",
   },
   {
     index: "03",
-    heading: "Transparent Partnerships",
-    body: "Real-time visibility into progress, honest timelines, and direct access to the engineers building your product.",
+    heading: "Founder-led, Transparent Team",
+    body: "A lean 6-person team where the founders are directly involved in every product decision — fast iterations, open communication, and genuine accountability.",
   },
 ];
 
@@ -223,12 +218,12 @@ const TrustedBySection = () => {
 
       {/* ── Header ── */}
       <div className="container mx-auto text-center mb-10">
-        <p className="text-[11px] font-bold tracking-[0.5em] text-foreground uppercase mb-3">OUR CLIENTS</p>
+        <p className="text-[11px] font-bold tracking-[0.5em] text-foreground uppercase mb-3">EARLY PARTNERS & COLLABORATORS</p>
         <h2 className="text-3xl md:text-[2.75rem] font-light leading-tight mb-4">
-          Trusted by Leading Organizations
+          Organisations We Have Worked With
         </h2>
         <p className="text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-          From Bay Area startups to global enterprises — PCS has been the engineering partner of choice across industries for over a decade.
+          As a bootstrapped startup building NeuroWellness, these are organisations and projects our founding team has engaged with — bringing hands-on healthcare and technology experience to our product.
         </p>
       </div>
 
@@ -315,7 +310,7 @@ const TrustedBySection = () => {
             marginBottom: "28px",
           }}
         >
-          Why Clients Choose PCS
+          Why NeuroWellness
         </p>
         <div
           className="grid grid-cols-1 md:grid-cols-3 border border-border rounded-2xl overflow-hidden"
@@ -442,7 +437,7 @@ const TrustedBySection = () => {
       {/* ── Bottom trust line ── */}
       <div className="text-center mt-8">
         <p className="text-sm text-muted-foreground/70 max-w-md mx-auto leading-relaxed">
-          Consistently recognised for engineering quality, delivery speed, and long-term partnerships.
+          Our founding team brings hands-on experience across healthcare technology, clinical workflows, and product engineering — building NeuroWellness from the ground up.
         </p>
       </div>
     </section>

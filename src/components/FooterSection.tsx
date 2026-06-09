@@ -8,10 +8,10 @@ const FooterSection = () => {
       <div className="bg-gradient-to-br from-[#081627] via-[#0a1f2e] to-[#081627] py-20 px-4 text-center">
         <div className="container mx-auto max-w-3xl">
           <h2 className="text-3xl md:text-5xl font-semibold text-primary-foreground mb-4 leading-tight">
-            Scalable IT Solutions <br />Delivered.
+            NeuroWellness — <br />Launching 2026.
           </h2>
           <p className="text-primary-foreground/70 text-sm mb-8 max-w-md mx-auto">
-            Join 100+ businesses already transforming their operations with PCS IT Solutions.
+            A neuromodulation therapy management platform for clinics and patients across India. Built by PCS IT Solutions Pvt. Ltd., Pune.
           </p>
 
         </div>
@@ -22,7 +22,7 @@ const FooterSection = () => {
         <div className="flex animate-marquee whitespace-nowrap">
           {[...Array(8)].map((_, i) => (
             <span key={i} className="text-white/70 text-sm font-medium mx-10">
-              Web Development &nbsp;&nbsp;•&nbsp;&nbsp; Mobile Apps &nbsp;&nbsp;•&nbsp;&nbsp; AI & Machine Learning &nbsp;&nbsp;•&nbsp;&nbsp; Cloud Infrastructure &nbsp;&nbsp;•&nbsp;&nbsp; Data Migration &nbsp;&nbsp;•&nbsp;&nbsp; Custom Software Development &nbsp;&nbsp;•&nbsp;&nbsp; Enterprise Solutions &nbsp;&nbsp;•&nbsp;&nbsp; UI/UX Design
+              NeuroWellness Platform &nbsp;&nbsp;•&nbsp;&nbsp; Neuromodulation Therapy &nbsp;&nbsp;•&nbsp;&nbsp; EMR & Clinic Management &nbsp;&nbsp;•&nbsp;&nbsp; Patient Mobile App &nbsp;&nbsp;•&nbsp;&nbsp; Mental Health Tech &nbsp;&nbsp;•&nbsp;&nbsp; Healthcare Diagnostics &nbsp;&nbsp;•&nbsp;&nbsp; AWS Cloud &nbsp;&nbsp;•&nbsp;&nbsp; India Healthcare
             </span>
           ))}
         </div>
@@ -75,7 +75,7 @@ const FooterSection = () => {
           <div className="footer-section lg:col-span-2">
             <h3 className="font-bold text-white text-sm mb-2">PCS IT Solutions Pvt. Ltd.</h3>
             <p className="text-xs text-white/50 mb-4 italic">Aspire. Create. Understand</p>
-            <p className="text-xs leading-relaxed mb-4">Delivering world-class IT consulting, tech services, and digital transformation solutions since 2015.</p>
+            <p className="text-xs leading-relaxed mb-4">Building NeuroWellness — a neuromodulation therapy management platform for clinics and patients across India. Founded 2017, Pune.</p>
             <div className="flex items-center gap-2">
               <Input placeholder="Your email" className="h-8 text-xs bg-white/10 border-white/20 text-white placeholder:text-white/40 rounded-full px-3 transition-all hover:bg-white/15" />
               <Button size="sm" variant="secondary" className="rounded-full text-xs h-8 px-3 transition-all hover:scale-105 hover:shadow-lg">Subscribe</Button>
@@ -91,7 +91,7 @@ const FooterSection = () => {
                 <p>9715 Venice Blvd. Apt #4<br />Los Angeles, CA. 90034</p>
               </li>
               <li className="pt-2">
-                <a href="mailto:contact@pcsdatai.com" className="footer-link">contact@pcsdatai.com</a>
+                <a href="mailto:deepak@pcsitspl.com" className="footer-link">deepak@pcsitspl.com</a>
               </li>
               <li>
                 <a href="tel:+19499814976" className="footer-link">+1 (949) 981 4976</a>
@@ -108,7 +108,7 @@ const FooterSection = () => {
                 <p>6th Floor, Pentagon P2,<br />Magarpatta City, Pune - 411013</p>
               </li>
               <li className="pt-2">
-                <a href="mailto:contact@pcsdatai.com" className="footer-link">contact@pcsdatai.com</a>
+                <a href="mailto:deepak@pcsitspl.com" className="footer-link">deepak@pcsitspl.com</a>
               </li>
               <li>
                 <a href="tel:+917249310743" className="footer-link">+91 724-9310743</a>
@@ -125,13 +125,13 @@ const FooterSection = () => {
                 <p>Panepistimiou, 12-14<br />Ground Floor, Pyla, 7080<br />Larnaca, Cyprus</p>
               </li>
               <li className="pt-2">
-                <a href="mailto:contact@pcsdatai.com" className="footer-link">contact@pcsdatai.com</a>
+                <a href="mailto:deepak@pcsitspl.com" className="footer-link">deepak@pcsitspl.com</a>
               </li>
             </ul>
           </div>
         </div>
         <div className="container mx-auto mt-8 pt-6 border-t border-white/10 text-xs text-center transition-colors hover:text-white/80">
-          © 2025 Perfect & Complete Solutions. All Rights Reserved. | Powered by PCS IT Solutions Pvt Ltd
+          © 2026 PCS IT Solutions Pvt. Ltd. All Rights Reserved. | Registered in India | deepak@pcsitspl.com
         </div>
       </div>
     </footer>

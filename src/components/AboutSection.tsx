@@ -10,35 +10,35 @@ const cards = [
     id: 0,
     title: "Who We Are",
     description:
-      "PCS is a Bay Area software development company established in February 2015. We operate as a profitable US entity with a strong development subsidiary in India, delivering innovative software solutions to global businesses.",
+      "PCS IT Solutions Pvt. Ltd. is a Pune-registered product startup founded in 2017. We are building NeuroWellness — a neuromodulation therapy platform for clinics and patients managing neurological and mental health conditions across India.",
     image: whoWeAreImg,
   },
   {
     id: 1,
     title: "What We Do",
     description:
-      "We help businesses create value across the entire product lifecycle by engineering cutting-edge solutions and enabling existing products to evolve for digitally driven markets.",
+      "We are building a B2B and B2C healthcare platform that enables clinics to manage neuromodulation therapies, electronic medical records, appointments, and long-term care workflows — helping patients and providers stay connected throughout treatment.",
     image: whatWeDoImg,
   },
   {
     id: 2,
     title: "Our Approach",
     description:
-      "We connect makers and markets across the technology ecosystem, bringing together innovation, engineering expertise, and business insights to build impactful digital products.",
+      "We combine clinical domain expertise with modern software engineering to build tools that are practical for clinic administrators, accessible for patients, and robust enough to scale across India's healthcare landscape.",
     image: ourApproachImg,
   },
   {
     id: 3,
-    title: "Engineering Talent",
+    title: "Our Technology",
     description:
-      "Our expert engineering teams help organizations scale their product and engineering capabilities rapidly by leveraging top talent from the United States and India.",
+      "Our engineering team applies AI, healthcare data standards, and cloud infrastructure to build a secure, scalable platform — planning to incorporate AI/ML for therapy outcome analytics and patient care personalisation.",
     image: engineeringTalentImg,
   },
   {
     id: 4,
-    title: "Global Impact",
+    title: "Our Mission",
     description:
-      "PCS supports more than 20 global clients, delivering scalable engineering solutions and long-term product innovation across multiple industries.",
+      "We aim to improve the quality of life for patients undergoing neuromodulation therapy by connecting them with the right clinics, tracking their care journeys, and equipping providers with data-driven tools for better outcomes.",
     image: globalImpactImg,
   },
 ];

@@ -3,21 +3,21 @@ import { Settings, Mail, Grid, Globe, MousePointer, Bell, Clock, Target, Info, B
 
 
 const whoWeAreRow1 = [
-  { icon: Calendar, title: "Est. 2015", text: "Bay Area company, profitable US entity with an India subsidiary and global reach." },
-  { icon: Brain, title: "AI & LLM Solutions", text: "GPT integrations, RAG pipelines, agents and AI-powered SaaS platforms." },
-  { icon: Users, title: "20+ Global Clients", text: "Fintech, healthcare, real estate and SaaS across US, Europe and Asia." },
-  { icon: Database, title: "Data Engineering", text: "ETL/ELT pipelines, data lakes, warehouses and real-time streaming architectures." },
-  { icon: Cloud, title: "Cloud Native", text: "Multi-cloud expertise across AWS, Azure and GCP — migrations to IaC and Kubernetes." },
-  { icon: Code2, title: "Full Stack Dev", text: "React, Next.js, Node.js, Python, Java — end-to-end delivery from idea to production." },
+  { icon: Calendar, title: "Est. 2017", text: "India-registered product startup headquartered in Pune, Maharashtra." },
+  { icon: Brain, title: "NeuroWellness Platform", text: "B2B clinic management and B2C patient engagement for neuromodulation therapy." },
+  { icon: Heart, title: "Healthcare Focus", text: "Neurological and mental health conditions — EMRs, appointments, and long-term care workflows." },
+  { icon: Database, title: "Healthcare Data", text: "Structured clinical records, therapy tracking, and outcome analytics built for India's market." },
+  { icon: Cloud, title: "Cloud Native", text: "AWS-powered infrastructure — secure, scalable, and built for healthcare compliance." },
+  { icon: Code2, title: "Full Stack Dev", text: "React, Node.js, Python — end-to-end platform delivery from clinic dashboard to patient app." },
 ];
 
 const whoWeAreRow2 = [
-  { icon: Clock, title: "10+ Years", text: "Building 15+ high-impact business solutions with faster time to market." },
-  { icon: Shield, title: "Cybersecurity", text: "Penetration testing, zero-trust architecture, ISO 27001 & SOC 2 compliance." },
-  { icon: Globe, title: "BOT Model", text: "Build-Operate-Transfer: your India engineering captive in 18–24 months." },
-  { icon: Smartphone, title: "Mobile Apps", text: "Flutter, React Native, native iOS & Android — cross-platform performance." },
-  { icon: MapPin, title: "US + India Teams", text: "Engineering talent on both coasts — follow-the-sun delivery and cost advantage." },
-  { icon: Heart, title: "Transparent Partner", text: "Open communication, shared goals, and clear financials at every stage." },
+  { icon: Clock, title: "Bootstrapped Startup", text: "Self-funded since 2017 — lean, focused, and building our first product for market." },
+  { icon: Shield, title: "Data Security", text: "Patient data security, healthcare-grade privacy practices, and secure cloud infrastructure." },
+  { icon: Globe, title: "India-first", text: "Designed for India's healthcare ecosystem — vernacular support and local compliance in focus." },
+  { icon: Smartphone, title: "Patient Mobile App", text: "Cross-platform mobile app for patients to manage therapy sessions and care plans on the go." },
+  { icon: MapPin, title: "Pune-based Team", text: "Core engineering and clinical domain team based in Magarpatta City, Pune." },
+  { icon: Heart, title: "Patient-centred", text: "Every feature is designed around improving patient outcomes and simplifying clinic operations." },
 ];
 
 const functionsList = [
@@ -32,17 +32,17 @@ const functionsList = [
 const historyCards = [
   {
     title: "Our History",
-    desc: "Over 10+ years in product and software development, building 15+ high-impact business solutions with faster time to market.",
+    desc: "Founded in 2017 in Pune, India, PCS IT Solutions Pvt. Ltd. is a bootstrapped product startup with a focused team working on NeuroWellness — a neuromodulation therapy management platform.",
     icon: Clock,
   },
   {
     title: "Our Goal",
-    desc: "We want to be your preferred partner for your product development.",
+    desc: "To launch NeuroWellness as India's first dedicated neuromodulation therapy management platform — connecting clinics and patients for better care outcomes.",
     icon: Target,
   },
   {
     title: "Who We Are",
-    desc: "We are a team of experienced people who want to help our customers develop products that bring benefits and change for the good of society.",
+    desc: "A team of 6 engineers and domain specialists building healthcare software that improves quality of life for patients undergoing neurological and mental health treatment.",
     icon: Info,
   },
 ];
@@ -141,38 +141,38 @@ const ValueIllustrations = [
 
 const values = [
   {
-    title: "Faster Time to Market",
-    desc: "Go to market faster with swift ramp-ups. Top-notch talent in emerging and niche technology areas through direct hiring channels.",
+    title: "Patient-First Design",
+    desc: "Every feature starts with the patient's care journey — making therapy management accessible, trackable, and stress-free for individuals and caregivers.",
     accent: "border-blue-200 hover:border-blue-400",
     labelColor: "text-blue-600 bg-blue-50",
   },
   {
-    title: "Niche Technologies",
-    desc: "Business-centric solutions for IoT, Data Science, Mobile, and Cloud.",
+    title: "Healthcare Technology",
+    desc: "Purpose-built for neuromodulation therapy — integrating EMRs, session scheduling, and outcome monitoring into one unified platform.",
     accent: "border-cyan-200 hover:border-cyan-400",
     labelColor: "text-cyan-700 bg-cyan-50",
   },
   {
-    title: "E2E Execution",
-    desc: "Managed services with end-to-end execution of projects from inception to deployment.",
+    title: "End-to-End Platform",
+    desc: "From clinic onboarding to patient discharge — a single platform managing the full treatment lifecycle for neurological and mental health care.",
     accent: "border-violet-200 hover:border-violet-400",
     labelColor: "text-violet-700 bg-violet-50",
   },
   {
-    title: "Flexible Engagements",
-    desc: "Engagement models suitable for a wide variety of organisational requirements.",
+    title: "India-registered Entity",
+    desc: "PCS IT Solutions Pvt. Ltd. is incorporated and operating in India — compliant with Indian healthcare regulations and data privacy norms.",
     accent: "border-orange-200 hover:border-orange-400",
     labelColor: "text-orange-700 bg-orange-50",
   },
   {
-    title: "Right Location",
-    desc: "Complement existing teams in Europe to scale rapidly with a follow-the-sun approach and cost advantage.",
+    title: "Bootstrapped & Focused",
+    desc: "A lean, self-funded team of 6 — no bloat, no distractions. Every resource goes into building and validating NeuroWellness for the Indian market.",
     accent: "border-sky-200 hover:border-sky-400",
     labelColor: "text-sky-700 bg-sky-50",
   },
   {
-    title: "Transparent Partnership",
-    desc: "We operate with full transparency — shared goals, clear financials, and open communication at every stage.",
+    title: "Transparent Operations",
+    desc: "Open communication, honest timelines, and clear product roadmaps — with stakeholders, clinic partners, and our founding team.",
     accent: "border-green-200 hover:border-green-400",
     labelColor: "text-green-700 bg-green-50",
   },
@@ -377,8 +377,18 @@ const ExpertiseSection = () => {
           </h2>
           <p className="text-lg text-slate-400 font-medium mb-5">Get To Know Us</p>
           <p className="text-base text-slate-500 max-w-2xl mx-auto leading-relaxed">
-            A Bay Area-founded technology company delivering world-class software, AI, and data solutions since 2015 — partnering with 20+ clients globally to engineer, scale, and transform.
+            PCS IT Solutions Pvt. Ltd. is a Pune-registered healthcare technology startup founded in 2017, building NeuroWellness — a neuromodulation therapy management platform for clinics and patients across India.
           </p>
+          <div className="mt-6 mx-auto max-w-2xl rounded-2xl border border-blue-100 bg-blue-50 px-6 py-5 text-left">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 border border-blue-200 text-[11px] font-semibold text-blue-700 mb-3">
+              <span className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-pulse" />
+              Flagship Product
+            </div>
+            <h3 className="text-base font-bold text-slate-900 mb-2">NeuroWellness Platform</h3>
+            <p className="text-sm text-slate-600 leading-relaxed">
+              Our core product — a B2B clinic-facing platform for managing neuromodulation therapies, EMRs, appointments, and care workflows, paired with a B2C patient app for monitoring treatment journeys. Targeting neurological and mental health clinics across India, launching 2026.
+            </p>
+          </div>
         </div>
 
         {/* Row 1 — scrolls left */}
@@ -520,7 +530,7 @@ const ExpertiseSection = () => {
             </div>
             <h3 className="text-xl md:text-3xl font-semibold mb-2 md:mb-3 text-white">Our Values</h3>
             <p className="text-xs md:text-sm text-white/55 max-w-lg mx-auto">
-              Over 10+ years in product and software development, building 15+ high-impact business solutions with faster time to market.
+              A bootstrapped startup with strong foundations — our values shape how we build NeuroWellness and serve the healthcare community.
             </p>
           </div>
 
