@@ -25,7 +25,7 @@ const services: Service[] = [
   {
     icon: Brain,
     title: "NeuroWellness Platform",
-    desc: "Our flagship product — a B2B clinic management system and B2C patient app for neuromodulation therapy, EMRs, appointment scheduling, and long-term care workflows.",
+    desc: "A patient-facing and clinic-integrated platform for neuromodulation therapy — covering EMRs, appointment scheduling, treatment protocols, and long-term care workflows.",
     category: ["ai"],
     featured: true,
     badge: "Flagship Product",
@@ -69,10 +69,10 @@ const services: Service[] = [
   {
     icon: Smartphone,
     title: "Patient Mobile App",
-    desc: "A B2C patient-facing app for appointment booking, therapy session reminders, progress tracking, and secure communication with treating clinicians.",
+    desc: "Appointment booking, therapy session reminders, progress tracking, and secure communication with treating clinicians — all in the patient's hands.",
     category: ["engineering"],
     featured: true,
-    badge: "B2C",
+    badge: "Patient App",
     accentColor: "text-sky-700",
     bgColor: "bg-sky-50",
     borderColor: "border-sky-300 hover:border-sky-500",
@@ -91,10 +91,10 @@ const services: Service[] = [
   {
     icon: Code2,
     title: "Clinic Admin Portal",
-    desc: "A B2B web portal for clinic administrators to manage therapists, patient rosters, scheduling, billing notes, and compliance documentation.",
+    desc: "A web portal for clinic administrators to manage therapists, patient rosters, scheduling, billing notes, and compliance documentation.",
     category: ["engineering"],
     featured: true,
-    badge: "B2B",
+    badge: "Clinic Portal",
     accentColor: "text-blue-700",
     bgColor: "bg-blue-50",
     borderColor: "border-blue-300 hover:border-blue-500",
@@ -274,13 +274,13 @@ const FeaturesSection = () => {
         <div className="text-center max-w-2xl mx-auto mb-8">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-xs text-primary mb-4">
             <Sparkles className="h-3 w-3" />
-            What We Are Building
+            Platform Capabilities
           </div>
           <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-3">
-            NeuroWellness Platform<br />Capabilities
+            What NeuroWellness<br />Includes
           </h2>
           <p className="text-sm text-muted-foreground">
-            A full-stack healthcare product for neuromodulation therapy — from clinic management and EMRs to patient engagement and outcome analytics.
+            Each module is purpose-built for neuromodulation therapy workflows — from clinical records to patient engagement.
           </p>
         </div>
 

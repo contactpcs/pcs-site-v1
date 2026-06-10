@@ -1,67 +1,17 @@
-import { useState, useEffect, useRef } from "react";
-import { Settings, Mail, Grid, Globe, MousePointer, Bell, Clock, Target, Info, Brain, Database, Cloud, Code2, Shield, Smartphone, Heart, MapPin, Calendar, Users } from "lucide-react";
-
-
-const whoWeAreRow1 = [
-  { icon: Calendar, title: "Est. 2017", text: "India-registered product startup headquartered in Pune, Maharashtra." },
-  { icon: Brain, title: "NeuroWellness Platform", text: "B2B clinic management and B2C patient engagement for neuromodulation therapy." },
-  { icon: Heart, title: "Healthcare Focus", text: "Neurological and mental health conditions — EMRs, appointments, and long-term care workflows." },
-  { icon: Database, title: "Healthcare Data", text: "Structured clinical records, therapy tracking, and outcome analytics built for India's market." },
-  { icon: Cloud, title: "Cloud Native", text: "AWS-powered infrastructure — secure, scalable, and built for healthcare compliance." },
-  { icon: Code2, title: "Full Stack Dev", text: "React, Node.js, Python — end-to-end platform delivery from clinic dashboard to patient app." },
-];
-
-const whoWeAreRow2 = [
-  { icon: Clock, title: "Bootstrapped Startup", text: "Self-funded since 2017 — lean, focused, and building our first product for market." },
-  { icon: Shield, title: "Data Security", text: "Patient data security, healthcare-grade privacy practices, and secure cloud infrastructure." },
-  { icon: Globe, title: "India-first", text: "Designed for India's healthcare ecosystem — vernacular support and local compliance in focus." },
-  { icon: Smartphone, title: "Patient Mobile App", text: "Cross-platform mobile app for patients to manage therapy sessions and care plans on the go." },
-  { icon: MapPin, title: "Pune-based Team", text: "Core engineering and clinical domain team based in Magarpatta City, Pune." },
-  { icon: Heart, title: "Patient-centred", text: "Every feature is designed around improving patient outcomes and simplifying clinic operations." },
-];
-
-const functionsList = [
-  { icon: Settings, label: "Competent Employees" },
-  { icon: Mail, label: "Warm Customer Approach" },
-  { icon: Grid, label: "We Recommend Best Practices" },
-  { icon: Globe, label: "Global Connection" },
-  { icon: MousePointer, label: "Successful Track Record" },
-  { icon: Bell, label: "Open To Opportunities" },
-];
-
-const historyCards = [
-  {
-    title: "Our History",
-    desc: "Founded in 2017 in Pune, India, PCS IT Solutions Pvt. Ltd. is a bootstrapped product startup with a focused team working on NeuroWellness — a neuromodulation therapy management platform.",
-    icon: Clock,
-  },
-  {
-    title: "Our Goal",
-    desc: "To launch NeuroWellness as India's first dedicated neuromodulation therapy management platform — connecting clinics and patients for better care outcomes.",
-    icon: Target,
-  },
-  {
-    title: "Who We Are",
-    desc: "A team of 6 engineers and domain specialists building healthcare software that improves quality of life for patients undergoing neurological and mental health treatment.",
-    icon: Info,
-  },
-];
+import { useEffect, useRef, useState } from "react";
 
 // Inline SVG illustrations — minimal, blue-toned, matching site theme
 const ValueIllustrations = [
-  // Faster Time to Market — rocket / launch
+  // Patient-First Design — heart
   () => (
     <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-16 h-16">
       <circle cx="40" cy="40" r="38" fill="#EFF6FF" />
-      <path d="M40 16C40 16 52 24 52 36C52 44 46 50 40 54C34 50 28 44 28 36C28 24 40 16 40 16Z" fill="#3B82F6" opacity="0.2"/>
-      <path d="M40 20C40 20 50 27 50 37C50 44 45 49 40 52C35 49 30 44 30 37C30 27 40 20 40 20Z" fill="#2563EB" opacity="0.35"/>
-      <circle cx="40" cy="37" r="6" fill="#1D4ED8"/>
-      <path d="M36 58L40 54L44 58L42 65L38 65Z" fill="#60A5FA"/>
-      <path d="M25 50L28 46L23 42L19 47Z" fill="#93C5FD" opacity="0.7"/>
-      <path d="M55 50L52 46L57 42L61 47Z" fill="#93C5FD" opacity="0.7"/>
+      <path d="M40 56C40 56 22 44 22 32C22 26.477 26.477 22 32 22C35.314 22 38.238 23.607 40 26.05C41.762 23.607 44.686 22 48 22C53.523 22 58 26.477 58 32C58 44 40 56 40 56Z" fill="#3B82F6" opacity="0.2"/>
+      <path d="M40 52C40 52 24 41 24 31C24 26.582 27.582 23 32 23C35.07 23 37.746 24.697 40 27.16C42.254 24.697 44.93 23 48 23C52.418 23 56 26.582 56 31C56 41 40 52 40 52Z" fill="#2563EB" opacity="0.5"/>
+      <path d="M40 47C40 47 28 38 28 30.5C28 27.462 30.462 25 33.5 25C36.538 25 38 27 40 29C42 27 43.462 25 46.5 25C49.538 25 52 27.462 52 30.5C52 38 40 47 40 47Z" fill="#1D4ED8"/>
     </svg>
   ),
-  // Niche Technologies — chip / circuit
+  // Healthcare Technology — chip
   () => (
     <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-16 h-16">
       <circle cx="40" cy="40" r="38" fill="#F0FDF4"/>
@@ -78,7 +28,7 @@ const ValueIllustrations = [
       <line x1="44" y1="54" x2="44" y2="60" stroke="#67E8F9" strokeWidth="2" strokeLinecap="round"/>
     </svg>
   ),
-  // E2E Execution — connected nodes
+  // End-to-End Platform — connected nodes
   () => (
     <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-16 h-16">
       <circle cx="40" cy="40" r="38" fill="#F5F3FF"/>
@@ -97,38 +47,30 @@ const ValueIllustrations = [
       <circle cx="40" cy="40" r="5" fill="#6D28D9"/>
     </svg>
   ),
-  // Flexible Engagements — handshake / puzzle
+  // India-registered — globe/pin
   () => (
     <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-16 h-16">
       <circle cx="40" cy="40" r="38" fill="#FFF7ED"/>
-      <rect x="22" y="32" width="16" height="16" rx="3" fill="#F97316" opacity="0.25"/>
-      <rect x="42" y="32" width="16" height="16" rx="3" fill="#F97316" opacity="0.25"/>
-      <path d="M38 36H42V44H38Z" fill="#FB923C" opacity="0.6"/>
-      <rect x="24" y="34" width="12" height="12" rx="2" fill="#EA580C" opacity="0.5"/>
-      <rect x="44" y="34" width="12" height="12" rx="2" fill="#EA580C" opacity="0.5"/>
-      <path d="M30 34V30C30 28.9 30.9 28 32 28H36C37.1 28 38 28.9 38 30V34" fill="#FED7AA"/>
-      <path d="M50 34V30C50 28.9 49.1 28 48 28H44C42.9 28 42 28.9 42 30V34" fill="#FED7AA"/>
-      <path d="M30 46V50C30 51.1 30.9 52 32 52H36C37.1 52 38 51.1 38 50V46" fill="#FED7AA"/>
-      <path d="M50 46V50C50 51.1 49.1 52 48 52H44C42.9 52 42 51.1 42 50V46" fill="#FED7AA"/>
+      <circle cx="40" cy="38" r="16" fill="#F97316" opacity="0.15"/>
+      <circle cx="40" cy="38" r="12" fill="#EA580C" opacity="0.2"/>
+      <ellipse cx="40" cy="38" rx="6" ry="12" fill="none" stroke="#C2410C" strokeWidth="1.5" opacity="0.6"/>
+      <line x1="28" y1="38" x2="52" y2="38" stroke="#C2410C" strokeWidth="1.5" opacity="0.6"/>
+      <circle cx="40" cy="38" r="12" fill="none" stroke="#EA580C" strokeWidth="1.5"/>
+      <path d="M40 54L40 62" stroke="#EA580C" strokeWidth="2" strokeLinecap="round"/>
+      <circle cx="40" cy="64" r="3" fill="#EA580C"/>
     </svg>
   ),
-  // Right Location — globe / pin
+  // Bootstrapped — lean rocket
   () => (
     <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-16 h-16">
       <circle cx="40" cy="40" r="38" fill="#F0F9FF"/>
-      <circle cx="40" cy="38" r="16" fill="#0EA5E9" opacity="0.15"/>
-      <circle cx="40" cy="38" r="12" fill="#0284C7" opacity="0.2"/>
-      <ellipse cx="40" cy="38" rx="6" ry="12" fill="none" stroke="#0369A1" strokeWidth="1.5" opacity="0.6"/>
-      <line x1="28" y1="38" x2="52" y2="38" stroke="#0369A1" strokeWidth="1.5" opacity="0.6"/>
-      <line x1="28" y1="33" x2="52" y2="33" stroke="#BAE6FD" strokeWidth="1" opacity="0.7"/>
-      <line x1="28" y1="43" x2="52" y2="43" stroke="#BAE6FD" strokeWidth="1" opacity="0.7"/>
-      <circle cx="40" cy="38" r="12" fill="none" stroke="#0284C7" strokeWidth="1.5"/>
-      <path d="M40 54L40 62" stroke="#0284C7" strokeWidth="2" strokeLinecap="round"/>
-      <circle cx="40" cy="64" r="3" fill="#0284C7"/>
-      <path d="M34 64H46" stroke="#0284C7" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M40 16C40 16 52 24 52 36C52 44 46 50 40 54C34 50 28 44 28 36C28 24 40 16 40 16Z" fill="#3B82F6" opacity="0.2"/>
+      <path d="M40 20C40 20 50 27 50 37C50 44 45 49 40 52C35 49 30 44 30 37C30 27 40 20 40 20Z" fill="#2563EB" opacity="0.35"/>
+      <circle cx="40" cy="37" r="6" fill="#1D4ED8"/>
+      <path d="M36 58L40 54L44 58L42 65L38 65Z" fill="#60A5FA"/>
     </svg>
   ),
-  // Transparent Partnership — shield / trust
+  // Transparent — shield
   () => (
     <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-16 h-16">
       <circle cx="40" cy="40" r="38" fill="#F0FDF4"/>
@@ -154,7 +96,7 @@ const values = [
   },
   {
     title: "End-to-End Platform",
-    desc: "From clinic onboarding to patient discharge — a single platform managing the full treatment lifecycle for neurological and mental health care.",
+    desc: "From onboarding to discharge — a single platform managing the full treatment lifecycle for neurological and mental health care.",
     accent: "border-violet-200 hover:border-violet-400",
     labelColor: "text-violet-700 bg-violet-50",
   },
@@ -166,7 +108,7 @@ const values = [
   },
   {
     title: "Bootstrapped & Focused",
-    desc: "A lean, self-funded team of 6 — no bloat, no distractions. Every resource goes into building and validating NeuroWellness for the Indian market.",
+    desc: "A lean, self-funded team of 8 — no bloat, no distractions. Every resource goes into building and validating NeuroWellness for the Indian market.",
     accent: "border-sky-200 hover:border-sky-400",
     labelColor: "text-sky-700 bg-sky-50",
   },
@@ -178,7 +120,6 @@ const values = [
   },
 ];
 
-// Hook: trigger animation when element enters viewport
 function useScrollReveal() {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -187,7 +128,7 @@ function useScrollReveal() {
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.12 }
+      { threshold: 0.08 }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -196,26 +137,17 @@ function useScrollReveal() {
 }
 
 const ExpertiseSection = () => {
-  const [hoveredHistory, setHoveredHistory] = useState<number | null>(null);
-  const [activeHistory, setActiveHistory] = useState<number | null>(null);
   const valuesReveal = useScrollReveal();
-  const functionsReveal = useScrollReveal();
   const valuesScrollRef = useRef<HTMLDivElement>(null);
-  const valuesAutoRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [valuesPaused, setValuesPaused] = useState(false);
-  const historyScrollRef = useRef<HTMLDivElement>(null);
-  const historyAutoRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const [historyPaused, setHistoryPaused] = useState(false);
 
-  // Auto-scroll values on mobile every 4.5s
   useEffect(() => {
     if (valuesPaused) return;
     const el = valuesScrollRef.current;
     if (!el) return;
-    valuesAutoRef.current = setInterval(() => {
+    const id = setInterval(() => {
       const cardWidth = el.firstElementChild?.getBoundingClientRect().width ?? 220;
-      const gap = 12;
-      const step = cardWidth + gap;
+      const step = cardWidth + 12;
       const maxScroll = el.scrollWidth - el.clientWidth;
       if (el.scrollLeft >= maxScroll - 10) {
         el.scrollTo({ left: 0, behavior: "smooth" });
@@ -223,94 +155,12 @@ const ExpertiseSection = () => {
         el.scrollBy({ left: step, behavior: "smooth" });
       }
     }, 4500);
-    return () => { if (valuesAutoRef.current) clearInterval(valuesAutoRef.current); };
+    return () => clearInterval(id);
   }, [valuesPaused]);
 
-  // Auto-scroll history cards on mobile every 4s
-  useEffect(() => {
-    if (historyPaused) return;
-    const el = historyScrollRef.current;
-    if (!el) return;
-    historyAutoRef.current = setInterval(() => {
-      const cardWidth = el.firstElementChild?.getBoundingClientRect().width ?? 220;
-      const gap = 12;
-      const step = cardWidth + gap;
-      const maxScroll = el.scrollWidth - el.clientWidth;
-      if (el.scrollLeft >= maxScroll - 10) {
-        el.scrollTo({ left: 0, behavior: "smooth" });
-      } else {
-        el.scrollBy({ left: step, behavior: "smooth" });
-      }
-    }, 4000);
-    return () => { if (historyAutoRef.current) clearInterval(historyAutoRef.current); };
-  }, [historyPaused]);
-
-  // Clear active history card when tapping outside
-  useEffect(() => {
-    const handleOutsideClick = (e: TouchEvent | MouseEvent) => {
-      const el = historyScrollRef.current;
-      if (el && !el.contains(e.target as Node)) {
-        setActiveHistory(null);
-      }
-    };
-    document.addEventListener("touchstart", handleOutsideClick);
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => {
-      document.removeEventListener("touchstart", handleOutsideClick);
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, []);
-
   return (
-    <section id="expertise">
+    <section id="about">
       <style>{`
-        /* Who We Are marquee */
-        @keyframes scrollLeft {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
-        }
-        @keyframes scrollRight {
-          from { transform: translateX(-50%); }
-          to { transform: translateX(0); }
-        }
-        .who-left { animation: scrollLeft 45s linear infinite; }
-        .who-right { animation: scrollRight 38s linear infinite; }
-        .who-row:hover .who-left,
-        .who-row:hover .who-right { animation-play-state: paused; }
-        .who-card-dark, .who-card-light {
-          transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
-        }
-        .who-card-dark:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 16px 40px rgba(13,50,100,0.4);
-        }
-        .who-card-light:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 16px 40px rgba(0,0,0,0.1);
-        }
-        .fn-chip {
-          transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1);
-        }
-        .fn-chip:hover {
-          transform: translateY(-3px);
-          border-color: rgba(15,114,186,0.5);
-          background: rgba(15,114,186,0.06);
-          box-shadow: 0 4px 16px rgba(15,114,186,0.1);
-        }
-        .history-card {
-          transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
-        }
-        .history-card-dimmed {
-          opacity: 0.35;
-          transform: scale(0.97);
-        }
-        .history-card-active {
-          opacity: 1;
-          transform: translateY(-5px);
-          box-shadow: 0 12px 36px rgba(15,114,186,0.14);
-          border-color: rgba(15,114,186,0.4) !important;
-        }
-        /* Value card scroll reveal */
         .value-card-reveal {
           opacity: 0;
           transform: translateY(32px);
@@ -334,17 +184,6 @@ const ExpertiseSection = () => {
         .value-card:hover svg {
           transform: scale(1.1) rotate(-3deg);
         }
-        /* Functions reveal */
-        .fn-reveal {
-          opacity: 0;
-          transform: translateY(20px);
-          transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        .fn-reveal.in-view {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        /* Mobile values horizontal scroll */
         .values-scroll {
           scrollbar-width: none;
           -ms-overflow-style: none;
@@ -352,178 +191,41 @@ const ExpertiseSection = () => {
           scroll-snap-type: x mandatory;
         }
         .values-scroll::-webkit-scrollbar { display: none; }
-        .values-scroll-item {
-          scroll-snap-align: start;
-        }
-        /* Mobile history horizontal scroll */
-        .history-scroll {
-          scrollbar-width: none;
-          -ms-overflow-style: none;
-          -webkit-overflow-scrolling: touch;
-        }
-        .history-scroll::-webkit-scrollbar { display: none; }
+        .values-scroll-item { scroll-snap-align: start; }
       `}</style>
 
-      {/* ── Who We Are — animated horizontal marquee ─────────────── */}
-      <div className="py-20 bg-white overflow-hidden">
-        {/* Header */}
-        <div className="container mx-auto max-w-5xl px-4 text-center mb-14">
+      {/* ── About PCS + NeuroWellness intro ── */}
+      <div className="py-20 bg-white">
+        <div className="container mx-auto max-w-4xl px-4 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-xs font-medium text-blue-600 mb-5">
             <span className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-pulse" />
             About PCS IT Solutions
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-2 leading-tight tracking-tight">
-            About Us
+          <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4 leading-tight tracking-tight">
+            Who We Are
           </h2>
-          <p className="text-lg text-slate-400 font-medium mb-5">Get To Know Us</p>
-          <p className="text-base text-slate-500 max-w-2xl mx-auto leading-relaxed">
-            PCS IT Solutions Pvt. Ltd. is a Pune-registered healthcare technology startup founded in 2017, building NeuroWellness — a neuromodulation therapy management platform for clinics and patients across India.
+          <p className="text-base text-slate-500 max-w-2xl mx-auto leading-relaxed mb-10">
+            PCS IT Solutions Pvt. Ltd. is a Pune-registered healthcare technology startup founded in 2017. We are an 8-person team building NeuroWellness — India's first dedicated neuromodulation therapy management platform.
           </p>
-          <div className="mt-6 mx-auto max-w-2xl rounded-2xl border border-blue-100 bg-blue-50 px-6 py-5 text-left">
+
+          {/* NeuroWellness product card */}
+          <div className="mx-auto max-w-2xl rounded-2xl border border-blue-100 bg-blue-50 px-6 py-6 text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 border border-blue-200 text-[11px] font-semibold text-blue-700 mb-3">
               <span className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-pulse" />
-              Flagship Product
+              Flagship Product — Launching 2026
             </div>
-            <h3 className="text-base font-bold text-slate-900 mb-2">NeuroWellness Platform</h3>
+            <h3 className="text-lg font-bold text-slate-900 mb-3">NeuroWellness Platform</h3>
             <p className="text-sm text-slate-600 leading-relaxed">
-              Our core product — a B2B clinic-facing platform for managing neuromodulation therapies, EMRs, appointments, and care workflows, paired with a B2C patient app for monitoring treatment journeys. Targeting neurological and mental health clinics across India, launching 2026.
+              A B2C patient-facing and clinic-integrated platform for managing neuromodulation therapies — covering EMRs, appointments, treatment protocols, and long-term care workflows for neurological and mental health conditions across India.
             </p>
-          </div>
-        </div>
-
-        {/* Row 1 — scrolls left */}
-        <div className="who-row mb-5">
-          <div className="who-left flex gap-5" style={{ width: "max-content" }}>
-            {[...whoWeAreRow1, ...whoWeAreRow1].map((card, i) => {
-              const Icon = card.icon;
-              return (
-                <div
-                  key={i}
-                  className="who-card-dark flex-none w-[270px] rounded-3xl p-6"
-                  style={{ background: "linear-gradient(135deg, #0d3264 0%, #061320 100%)" }}
-                >
-                  <div className="mb-4 h-10 w-10 rounded-2xl bg-white/15 flex items-center justify-center">
-                    <Icon className="h-5 w-5 text-blue-200" />
-                  </div>
-                  <h4 className="text-sm font-semibold text-white mb-2 leading-snug">{card.title}</h4>
-                  <p className="text-xs text-white/60 leading-relaxed">{card.text}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Row 2 — scrolls right */}
-        <div className="who-row">
-          <div className="who-right flex gap-5" style={{ width: "max-content" }}>
-            {[...whoWeAreRow2, ...whoWeAreRow2].map((card, i) => {
-              const Icon = card.icon;
-              return (
-                <div
-                  key={i}
-                  className="who-card-light flex-none w-[270px] rounded-3xl bg-white border border-slate-100 shadow-sm p-6"
-                >
-                  <div className="mb-4 h-10 w-10 rounded-2xl bg-blue-50 flex items-center justify-center">
-                    <Icon className="h-5 w-5 text-[#0f72ba]" />
-                  </div>
-                  <h4 className="text-sm font-semibold text-slate-900 mb-2 leading-snug">{card.title}</h4>
-                  <p className="text-xs text-slate-500 leading-relaxed">{card.text}</p>
-                </div>
-              );
-            })}
           </div>
         </div>
       </div>
 
-      {/* ── Functions ─────────────────────────────────────────────── */}
-      <div ref={functionsReveal.ref} className="py-8 md:py-14 px-4 bg-[#061320]">
+      {/* ── Our Values ── */}
+      <div ref={valuesReveal.ref} className="py-12 md:py-16 px-4 bg-[#061320]">
         <div className="container mx-auto max-w-7xl">
-          <div className={`text-center mb-6 md:mb-10 fn-reveal ${functionsReveal.visible ? "in-view" : ""}`}>
-            <h3 className="text-xl md:text-3xl font-semibold mb-2 text-white">Functions</h3>
-            <p className="text-xs md:text-sm text-white/55 max-w-md mx-auto">
-              We want to be your preferred partner for your product development.
-            </p>
-          </div>
-
-          {/* Chips — compact on mobile */}
-          <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-6 md:mb-12">
-            {functionsList.map((fn, i) => (
-              <div
-                key={i}
-                className={`fn-chip fn-reveal ${functionsReveal.visible ? "in-view" : ""} flex items-center gap-1.5 md:gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 md:px-5 md:py-2.5 text-xs md:text-sm font-medium text-white/85`}
-                style={{ transitionDelay: `${i * 0.07}s` }}
-              >
-                <fn.icon className="h-3.5 w-3.5 md:h-4 md:w-4 text-blue-300" />
-                {fn.label}
-              </div>
-            ))}
-          </div>
-
-          {/* History / Goal / Who We Are — horizontal scroll on mobile, grid on desktop */}
-          <div className="hidden md:grid md:grid-cols-3 gap-5">
-            {historyCards.map((card, i) => {
-              const hovered = hoveredHistory !== null ? hoveredHistory : activeHistory;
-              const isDimmed = hovered !== null && hovered !== i;
-              const isActive = hovered === i;
-              return (
-                <div
-                  key={i}
-                  className={`history-card rounded-2xl border border-white/15 bg-white p-7 flex flex-col gap-4 cursor-default
-                    ${isDimmed ? "history-card-dimmed" : ""}
-                    ${isActive ? "history-card-active" : ""}
-                  `}
-                  style={{ transitionDelay: `${i * 0.04}s` }}
-                  onMouseEnter={() => setHoveredHistory(i)}
-                  onMouseLeave={() => setHoveredHistory(null)}
-                  onClick={() => setActiveHistory(activeHistory === i ? null : i)}
-                >
-                  <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                    <card.icon className="h-5 w-5 text-primary" />
-                  </div>
-                  <h4 className="font-semibold text-base">{card.title}</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{card.desc}</p>
-                </div>
-              );
-            })}
-          </div>
-          {/* Mobile: horizontal scroll with infinite loop + tap-to-dim */}
-          <div
-            ref={historyScrollRef}
-            className="flex md:hidden gap-3 overflow-x-auto history-scroll pb-2 -mx-4 px-4"
-            style={{ scrollSnapType: "x mandatory" }}
-            onTouchStart={() => setHistoryPaused(true)}
-            onTouchEnd={() => setHistoryPaused(false)}
-          >
-            {[...historyCards, ...historyCards, ...historyCards].map((card, i) => {
-              const realIndex = i % historyCards.length;
-              const isDimmed = activeHistory !== null && activeHistory !== realIndex;
-              const isActive = activeHistory === realIndex;
-              return (
-                <div
-                  key={i}
-                  className={`history-card rounded-xl border border-white/15 bg-white p-4 flex flex-col gap-2.5 flex-shrink-0
-                    ${isDimmed ? "history-card-dimmed" : ""}
-                    ${isActive ? "history-card-active" : ""}
-                  `}
-                  style={{ width: "72vw", maxWidth: "280px", scrollSnapAlign: "center" }}
-                  onClick={() => setActiveHistory(activeHistory === realIndex ? null : realIndex)}
-                >
-                  <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <card.icon className="h-4 w-4 text-primary" />
-                  </div>
-                  <h4 className="font-semibold text-sm">{card.title}</h4>
-                  <p className="text-xs text-muted-foreground leading-relaxed">{card.desc}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-
-      {/* ── Our Values ────────────────────────────────────────────── */}
-      <div ref={valuesReveal.ref} className="py-8 md:py-14 px-4 bg-[#061320]">
-        <div className="container mx-auto max-w-7xl">
-          <div className={`text-center mb-6 md:mb-12 fn-reveal ${valuesReveal.visible ? "in-view" : ""}`}>
+          <div className={`text-center mb-8 md:mb-12 value-card-reveal ${valuesReveal.visible ? "in-view" : ""}`}>
             <div className="inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-1.5 rounded-full border border-blue-400/30 bg-blue-400/10 text-[11px] md:text-xs text-blue-300 mb-3 md:mb-4">
               <span className="h-1.5 w-1.5 rounded-full bg-blue-300 animate-pulse" />
               What drives us
@@ -545,19 +247,16 @@ const ExpertiseSection = () => {
                   style={{ transitionDelay: `${i * 0.1}s` }}
                 >
                   <Illustration />
-                  <div className="flex items-center gap-2">
-                    <span className={`text-xs font-semibold px-3 py-1 rounded-full ${val.labelColor}`}>
-                      {val.title}
-                    </span>
-                  </div>
-                  <h4 className="font-semibold text-base leading-snug">{val.title}</h4>
+                  <span className={`text-xs font-semibold px-3 py-1 rounded-full self-start ${val.labelColor}`}>
+                    {val.title}
+                  </span>
                   <p className="text-sm text-muted-foreground leading-relaxed">{val.desc}</p>
                 </div>
               );
             })}
           </div>
 
-          {/* Mobile: horizontal scroll with snap + auto-scroll */}
+          {/* Mobile: horizontal scroll */}
           <div
             ref={valuesScrollRef}
             className="flex sm:hidden gap-3 overflow-x-auto values-scroll pb-2 -mx-4 px-4"
@@ -572,15 +271,10 @@ const ExpertiseSection = () => {
                   className={`values-scroll-item value-card value-card-reveal ${valuesReveal.visible ? "in-view" : ""} rounded-xl border bg-white p-4 flex flex-col gap-2.5 flex-shrink-0 ${val.accent}`}
                   style={{ width: "72vw", maxWidth: "280px", transitionDelay: `${i * 0.08}s` }}
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 flex-shrink-0 [&>svg]:w-8 [&>svg]:h-8"><Illustration /></div>
-                    <div>
-                      <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${val.labelColor}`}>
-                        {val.title}
-                      </span>
-                    </div>
-                  </div>
-                  <h4 className="font-semibold text-sm leading-snug">{val.title}</h4>
+                  <div className="w-8 h-8 [&>svg]:w-8 [&>svg]:h-8"><Illustration /></div>
+                  <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full self-start ${val.labelColor}`}>
+                    {val.title}
+                  </span>
                   <p className="text-xs text-muted-foreground leading-relaxed">{val.desc}</p>
                 </div>
               );

@@ -79,9 +79,9 @@ const HeroSection = () => {
         <div className="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center border-t border-white/10 py-8">
           {[
             { value: "2017", label: "Founded, Pune India" },
-            { value: "B2B", label: "Clinic-facing Platform" },
-            { value: "B2C", label: "Patient-facing App" },
-            { value: "6", label: "Core Team Members" },
+            { value: "B2C", label: "Patient-facing Platform" },
+            { value: "Healthcare", label: "Neuromodulation Therapy" },
+            { value: "8", label: "Core Team Members" },
           ].map((stat, i) => (
             <div key={stat.label} className="stat-item" style={{ animationDelay: `${0.6 + i * 0.1}s` }}>
               <p className="text-xl md:text-2xl font-semibold text-white">{stat.value}</p>

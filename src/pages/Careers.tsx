@@ -45,7 +45,7 @@ const Careers = () => {
             Join the <span className="text-primary">PCS</span> Team
           </h1>
           <p className="text-sm text-muted-foreground max-w-lg mx-auto leading-relaxed">
-            We're a lean 6-person team building NeuroWellness — a healthcare platform for neuromodulation therapy. If you're driven, curious, and want to work on meaningful healthcare technology — we'd love to hear from you.
+            We're a lean 8-person team building NeuroWellness — a healthcare platform for neuromodulation therapy. If you're driven, curious, and want to work on meaningful healthcare technology — we'd love to hear from you.
           </p>
         </div>
       </section>

@@ -49,7 +49,7 @@ const reasons = [
   {
     index: "03",
     heading: "Founder-led, Transparent Team",
-    body: "A lean 6-person team where the founders are directly involved in every product decision — fast iterations, open communication, and genuine accountability.",
+    body: "An 8-person founding team where everyone is directly involved in product decisions — fast iterations, open communication, and genuine accountability.",
   },
 ];
 

@@ -25,7 +25,7 @@ const TEAM: TeamMember[] = [
     linkedin: "https://www.linkedin.com/in/deepakchandani",
     bio: [
       "Deepak Chandani is the Founder and CEO of PCS IT Solutions Pvt. Ltd., a Pune-registered healthcare technology startup established in 2017. With over two decades of experience spanning enterprise architecture, product engineering, and business leadership, Deepak is leading the development of NeuroWellness — a neuromodulation therapy management platform for clinics and patients across India.",
-      "Under his leadership, the PCS team is building a B2B clinic management portal and B2C patient application targeting neurological and mental health clinics. His philosophy centres on patient-first product design, lean team execution, and building technology that directly improves healthcare outcomes.",
+      "Under his leadership, the PCS team is building NeuroWellness — a patient-facing platform paired with a clinic management system, targeting neurological and mental health clinics across India. His philosophy centres on patient-first product design, lean team execution, and building technology that directly improves healthcare outcomes.",
       "Deepak combines technical depth with domain expertise in healthcare workflows, guiding the NeuroWellness platform from concept through to launch — planned for 2026.",
     ],
   },

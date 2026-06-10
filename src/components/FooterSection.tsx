@@ -70,62 +70,31 @@ const FooterSection = () => {
             to { opacity: 1; transform: translateY(0); }
           }
         `}</style>
-        <div className="container mx-auto grid md:grid-cols-2 lg:grid-cols-5 gap-8">
+        <div className="container mx-auto grid md:grid-cols-2 gap-8 max-w-3xl">
           {/* Brand */}
-          <div className="footer-section lg:col-span-2">
+          <div className="footer-section">
             <h3 className="font-bold text-white text-sm mb-2">PCS IT Solutions Pvt. Ltd.</h3>
             <p className="text-xs text-white/50 mb-4 italic">Aspire. Create. Understand</p>
-            <p className="text-xs leading-relaxed mb-4">Building NeuroWellness — a neuromodulation therapy management platform for clinics and patients across India. Founded 2017, Pune.</p>
+            <p className="text-xs leading-relaxed mb-4">Building NeuroWellness — India's neuromodulation therapy management platform. Founded 2017, Pune.</p>
             <div className="flex items-center gap-2">
               <Input placeholder="Your email" className="h-8 text-xs bg-white/10 border-white/20 text-white placeholder:text-white/40 rounded-full px-3 transition-all hover:bg-white/15" />
               <Button size="sm" variant="secondary" className="rounded-full text-xs h-8 px-3 transition-all hover:scale-105 hover:shadow-lg">Subscribe</Button>
             </div>
           </div>
 
-          {/* US Office */}
+          {/* India Office — only address */}
           <div className="footer-section">
-            <h4 className="font-semibold text-white text-xs mb-4">Address USA</h4>
+            <h4 className="font-semibold text-white text-xs mb-4">Our Office</h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <p className="font-semibold text-white mb-1">Perfect and Complete Solutions Inc.</p>
-                <p>9715 Venice Blvd. Apt #4<br />Los Angeles, CA. 90034</p>
-              </li>
-              <li className="pt-2">
-                <a href="mailto:deepak@pcsitspl.com" className="footer-link">deepak@pcsitspl.com</a>
-              </li>
-              <li>
-                <a href="tel:+19499814976" className="footer-link">+1 (949) 981 4976</a>
-              </li>
-            </ul>
-          </div>
-
-          {/* India Office */}
-          <div className="footer-section">
-            <h4 className="font-semibold text-white text-xs mb-4">Address India</h4>
-            <ul className="space-y-2 text-xs">
-              <li>
-                <p className="font-semibold text-white mb-1">PCS IT Solutions Pvt Ltd</p>
-                <p>6th Floor, Pentagon P2,<br />Magarpatta City, Pune - 411013</p>
+                <p className="font-semibold text-white mb-1">PCS IT Solutions Pvt. Ltd.</p>
+                <p>6th Floor, Pentagon P2,<br />Magarpatta City, Pune - 411013<br />Maharashtra, India</p>
               </li>
               <li className="pt-2">
                 <a href="mailto:deepak@pcsitspl.com" className="footer-link">deepak@pcsitspl.com</a>
               </li>
               <li>
                 <a href="tel:+917249310743" className="footer-link">+91 724-9310743</a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Cyprus Office */}
-          <div className="footer-section">
-            <h4 className="font-semibold text-white text-xs mb-4">Address Cyprus</h4>
-            <ul className="space-y-2 text-xs">
-              <li>
-                <p className="font-semibold text-white mb-1">PCS DATA AI CY</p>
-                <p>Panepistimiou, 12-14<br />Ground Floor, Pyla, 7080<br />Larnaca, Cyprus</p>
-              </li>
-              <li className="pt-2">
-                <a href="mailto:deepak@pcsitspl.com" className="footer-link">deepak@pcsitspl.com</a>
               </li>
             </ul>
           </div>

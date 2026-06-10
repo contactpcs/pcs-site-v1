@@ -5,13 +5,11 @@ import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const scrollLinks = [
-  { label: "About", id: "about" },
-  { label: "Clients", id: "clients" },
-  { label: "Services", id: "services" },
-  { label: "BOT", id: "bot" },
-  { label: "Brilliant Minds", id: "minds" },
-  { label: "FAQs", id: "faq" },
-  { label: "Contact Us", id: "contact" },
+  { label: "About", id: "about", page: "/about" },
+  { label: "Platform", id: "services", page: "/services" },
+  { label: "Team", id: "minds", page: null },
+  { label: "FAQs", id: "faq", page: null },
+  { label: "Contact", id: "contact", page: "/contact" },
 ];
 
 const Navbar = () => {
@@ -89,7 +87,12 @@ const Navbar = () => {
         }
       `}</style>
       <div className="container mx-auto flex items-center justify-between h-20 px-4">
-        <Link to="/" aria-label="Home" className="inline-block">
+        <Link
+          to="/"
+          aria-label="Home"
+          className="inline-block"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
           <img src={logo} alt="PCS IT Solutions" className="h-14 transition-transform hover:scale-105 duration-300" />
         </Link>
 
@@ -106,9 +109,15 @@ const Navbar = () => {
             className={`${linkClass} nav-link`}
           >Home</button>
           {scrollLinks.map((link) => (
-            <button key={link.label} onClick={() => handleScrollTo(link.id)} className={`${linkClass} nav-link`}>
-              {link.label}
-            </button>
+            link.page ? (
+              <Link key={link.label} to={link.page} className={`${linkClass} nav-link`}>
+                {link.label}
+              </Link>
+            ) : (
+              <button key={link.label} onClick={() => handleScrollTo(link.id)} className={`${linkClass} nav-link`}>
+                {link.label}
+              </button>
+            )
           ))}
           <Link to="/careers" className={`${linkClass} nav-link`}>Careers</Link>
         </div>
@@ -123,7 +132,7 @@ const Navbar = () => {
                 : "bg-white text-blue-900 hover:bg-white/90"
             }`}
           >
-            Book a Consultation
+            Request a Demo
           </Button>
         </div>
 
@@ -149,16 +158,27 @@ const Navbar = () => {
             className="block w-full text-left text-sm text-foreground/70 hover:text-foreground transition-colors duration-200"
           >Home</button>
           {scrollLinks.map((link) => (
-            <button
-              key={link.label}
-              onClick={() => handleScrollTo(link.id)}
-              className="block w-full text-left text-sm text-foreground/70 hover:text-foreground transition-colors duration-200"
-            >
-              {link.label}
-            </button>
+            link.page ? (
+              <Link
+                key={link.label}
+                to={link.page}
+                onClick={() => setOpen(false)}
+                className="block text-sm text-foreground/70 hover:text-foreground transition-colors duration-200"
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <button
+                key={link.label}
+                onClick={() => handleScrollTo(link.id)}
+                className="block w-full text-left text-sm text-foreground/70 hover:text-foreground transition-colors duration-200"
+              >
+                {link.label}
+              </button>
+            )
           ))}
-          <Link to="/careers" className="block text-sm text-foreground/70 hover:text-foreground transition-colors duration-200">Careers</Link>
-          <Button size="sm" className="w-full rounded-full mt-2" onClick={() => handleScrollTo("contact")}>Book a Consultation</Button>
+          <Link to="/careers" onClick={() => setOpen(false)} className="block text-sm text-foreground/70 hover:text-foreground transition-colors duration-200">Careers</Link>
+          <Button size="sm" className="w-full rounded-full mt-2" onClick={() => handleScrollTo("contact")}>Request a Demo</Button>
         </div>
       )}
     </nav>
