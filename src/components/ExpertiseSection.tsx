@@ -205,7 +205,7 @@ const ExpertiseSection = () => {
             Who We Are
           </h2>
           <p className="text-base text-slate-500 max-w-2xl mx-auto leading-relaxed mb-10">
-            PCS IT Solutions Pvt. Ltd. is a Pune-registered healthcare technology startup founded in 2017. We are an 8-person team building NeuroWellness — India's first dedicated neuromodulation therapy management platform.
+            PCS IT Solutions Pvt. Ltd. is a Pune-registered technology startup founded in 2017. We are an 8-person team building NeuroWellness — our flagship product and India's first dedicated neuromodulation therapy management platform.
           </p>
 
           {/* NeuroWellness product card */}

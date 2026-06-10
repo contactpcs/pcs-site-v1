@@ -19,7 +19,7 @@ const About = () => (
           About <span className="text-primary">PCS IT Solutions Pvt. Ltd.</span>
         </h1>
         <p className="text-sm text-muted-foreground max-w-lg leading-relaxed">
-          A Pune-registered healthcare technology startup founded in 2017, building NeuroWellness — a neuromodulation therapy management platform for clinics and patients across India.
+          A Pune-registered technology startup founded in 2017, building NeuroWellness — our flagship product for neuromodulation therapy management across India.
         </p>
       </div>
     </section>
