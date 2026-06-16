@@ -5,6 +5,9 @@ import amitImg from "@/assets/team/amit-jape.png";
 import jaswanthImg from "@/assets/team/jaswanth-krishna.jpg";
 import mohanImg from "@/assets/team/mohan-rao.png";
 import deepakImg from "@/assets/team/deepakchandaniprofilephoto.jpeg";
+import anuImg from "@/assets/team/anu_shadeja.jpeg";
+import vaasudevImg from "@/assets/team/vaasudev_chandani.png";
+import unnatiImg from "@/assets/team/unnati_chandani.jpeg";
 
 interface TeamMember {
   name: string;
@@ -12,6 +15,7 @@ interface TeamMember {
   role: string;
   img: string | null;
   initials?: string;
+  imgPosition?: string;
   linkedin: string;
   bio: string[];
 }
@@ -33,8 +37,8 @@ const TEAM: TeamMember[] = [
     name: "Anu Shadeja",
     title: "Co-Founder",
     role: "Leadership",
-    img: null,
-    initials: "AS",
+    img: anuImg,
+    imgPosition: "70% 15%",
     linkedin: "https://www.linkedin.com/in/anu-shadeja-79128716a/",
     bio: [
       "Anu Shadeja is Co-Founder of PCS and leads strategic partnerships and operations. She brings extensive experience in building cross-border teams, establishing go-to-market strategies, and fostering client relationships that scale. Anu focuses on aligning product delivery with business outcomes and operational excellence.",
@@ -44,8 +48,7 @@ const TEAM: TeamMember[] = [
     name: "Vaasudev Chandani",
     title: "Director",
     role: "Leadership",
-    img: null,
-    initials: "VC",
+    img: vaasudevImg,
     linkedin: "https://www.linkedin.com/in/vaasudevchandani/",
     bio: [
       "Vaasudev Chandani is Director at PCS, overseeing business operations and growth initiatives. With a background in finance and program management, he drives efficiency across delivery, vendor partnerships, and long-term strategic planning. Vaasudev ensures the company scales sustainably while maintaining high delivery standards.",
@@ -55,8 +58,7 @@ const TEAM: TeamMember[] = [
     name: "Unnati Chandani",
     title: "Product Lead",
     role: "Leadership",
-    img: null,
-    initials: "UC",
+    img: unnatiImg,
     linkedin: "https://www.linkedin.com/in/unnati-c-16148a289/",
     bio: [
       "Unnati Chandani is Product Lead at PCS, responsible for product strategy, user experience, and roadmap execution. She combines user-centered design with strong technical collaboration to shape product direction and deliver meaningful user outcomes. Unnati champions continuous discovery and rapid prototyping to validate ideas early.",
@@ -478,7 +480,7 @@ const CarouselTrack = ({ trackRef, items, rawIndex, homeOffset, onCardClick, onS
               }}
             >
               {item.member.img ? (
-                <img src={item.member.img} alt={item.member.name} className="tm-card-img" draggable={false} />
+                <img src={item.member.img} alt={item.member.name} className="tm-card-img" draggable={false} style={item.member.imgPosition ? { objectPosition: item.member.imgPosition } : undefined} />
               ) : (
                 <div className="tm-placeholder">{item.member.initials ?? "?"}</div>
               )}
