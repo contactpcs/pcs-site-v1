@@ -1,0 +1,18 @@
+{
+  "hosting": {
+    "target": "pcsitspl-redirect",
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "redirects": [
+      {
+        "source": "**",
+        "destination": "https://perfect108.com",
+        "type": 301
+      }
+    ]
+  }
+}

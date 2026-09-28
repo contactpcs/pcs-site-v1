@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "pcs-website-201f9"
+  },
+  "targets": {
+    "pcs-website-201f9": {
+      "hosting": {
+        "pcsitspl-redirect": [
+          "pcsitspl-cde9d"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
